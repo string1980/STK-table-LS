@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { PnPBaseService } from './pnpBase.service';
+import { IListItem } from './../interfaces/testlist.interface';
 
 @Injectable()
 
@@ -8,14 +9,14 @@ export class TestListService {
 
     constructor(public pnpBaseService: PnPBaseService) {}
 
-    public getAllItems(): Promise<any> {
-      return this.pnpBaseService.get(this.listName).then((result: any) => {
+    public getAllItems(): Promise<IListItem> {
+      return this.pnpBaseService.get(this.listName).then((result: IListItem) => {
          return result;
       });
     }
 
-    public getById(itemId: any): Promise<any> {
-      return this.pnpBaseService.getById(this.listName, itemId).then((result: any) => {
+    public getById(item: IListItem): Promise<IListItem> {
+      return this.pnpBaseService.getById(this.listName, item.Id).then((result: IListItem) => {
         return result;
       });
     }

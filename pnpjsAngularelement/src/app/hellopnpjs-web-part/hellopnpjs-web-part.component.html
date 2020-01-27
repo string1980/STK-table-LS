@@ -1,3 +1,19 @@
-<p>
-  It works! Description: {{description}}
-</p>
+<div>
+  <h1>CRUD operation withs PnPJS</h1>
+
+  <div>
+    <h1>Get All items</h1>
+    <ul>
+      <li *ngFor="let itm of allItems">
+        <span>{{itm.Title}}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+     <h1>Get Item by Id</h1>
+     <input #itemid  type="number" />
+     <input type="button" value="Get" (click)="getItemByID(itemid)" />
+  </div>
+
+</div>

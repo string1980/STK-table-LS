@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { TestListService } from './../services/testList.service';
+import { IListItem } from './../interfaces/testlist.interface';
 
 @Component({
   selector: 'app-hellopnpjs-web-part',
@@ -8,24 +9,38 @@ import { TestListService } from './../services/testList.service';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class HellopnpjsWebPartComponent implements OnInit {
-  @Input() description: string;
-
+  @Input() itemID: number;
+  public allItems: any;
+  public item: IListItem;
   constructor(private testListService: TestListService) { }
 
   ngOnInit() {
     this.getAllListItems();
-    this.getItemByID();
   }
 
   public getAllListItems() {
-    const allItems = this.testListService.getAllItems();
-    console.log(allItems);
+    this.testListService.getAllItems().then((result: IListItem) => {
+      if (result !== null && result !== undefined) {
+        this.allItems = result;
+      } else {
+        this.allItems = [];
+      }
+    });
   }
 
-  public getItemByID() {
-    const itemId = 1;
-    const item = this.testListService.getById(itemId);
-    console.log(item[0]);
+  public getItemByID(itemid: any) {
+    const item: IListItem = {
+      Id: itemid.value
+    };
+
+    if (item !== null && item !== undefined) {
+      this.testListService.getById(item).then((res: IListItem) => {
+        this.item = {
+          Id: res.Id,
+          Title: res.Title
+        };
+      });
+    }
   }
 
 }
