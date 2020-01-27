@@ -13,7 +13,10 @@
   <div>
      <h1>Get Item by Id</h1>
      <input #itemid  type="number" />
-     <input type="button" value="Get" (click)="getItemByID(itemid)" />
+     <input type="button" value="Get" (click)="getItemByID(itemid)" /><br>
+     <!-- <span>ID:</span><span>{{item.Id}}</span><div> -->
+      <span><strong>Id: </strong> {{id}}</span><br>
+      <strong>Title: </strong><span>{{title}}</span>
   </div>
 
 </div>

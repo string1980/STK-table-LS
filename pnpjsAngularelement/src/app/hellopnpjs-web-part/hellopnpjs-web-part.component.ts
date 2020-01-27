@@ -12,6 +12,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
   @Input() itemID: number;
   public allItems: any;
   public item: IListItem;
+  public id: number;
+  public title: string;
+
   constructor(private testListService: TestListService) { }
 
   ngOnInit() {
@@ -35,10 +38,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     if (item !== null && item !== undefined) {
       this.testListService.getById(item).then((res: IListItem) => {
-        this.item = {
-          Id: res.Id,
-          Title: res.Title
-        };
+        if (res !== null && res !== undefined) {
+          this.id = res.Id;
+          this.title = res.Title;
+        }
       });
     }
   }
