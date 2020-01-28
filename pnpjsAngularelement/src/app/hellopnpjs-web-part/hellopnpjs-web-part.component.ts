@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { TestListService } from './../services/testList.service';
 import { IListItem } from './../interfaces/testlist.interface';
+import { sp } from "@pnp/sp/presets/all";
 
 @Component({
   selector: 'app-hellopnpjs-web-part',
