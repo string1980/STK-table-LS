@@ -6,10 +6,13 @@
     <ul>
       <li *ngFor="let itm of allItems">
         <span>{{itm.Title}}</span>
+        <a href="#" (click)="deleteItem(itm)">
+          <i class="ms-Icon ms-Icon--RemoveFilter" style="margin-left:15px;" aria-hidden="true"></i>
+        </a>
       </li>
     </ul>
   </div>
-
+   <hr>
   <div>
      <h1>Get Item by Id</h1>
      <input #itemid  type="number" />
@@ -18,5 +21,21 @@
       <span><strong>Id: </strong> {{id}}</span><br>
       <strong>Title: </strong><span>{{title}}</span>
   </div>
+   <hr>
+   <div>
+      <h1>Add item</h1>
+      <input id="addItem" #item  type="text" />
+      <input type="button" value="Add" (click)="addItem(item)" /><br>
 
+   </div>
+   <hr>
+   <div>
+    <h1>Update item</h1>
+    <input id="itemId" #itemID  type="number" placeholder="Item id"/><br>
+    <input id="itemTitle" #itemtoupdate  type="text" placeholder="Title" /><br>
+    <input type="button" value="Update" (click)="updateItem(itemID, itemtoupdate)" /><br>
+
+ </div>
+
+ <br>
 </div>

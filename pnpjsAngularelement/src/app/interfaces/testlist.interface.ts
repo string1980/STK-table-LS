@@ -1,4 +1,4 @@
 export interface IListItem {
-  Id: number;
+  Id?: number;
   Title?: string;
 }

@@ -19,7 +19,7 @@ export class PnPBaseService {
       });
     }
 
-    public getById(listName: string, itemId: any) {
+    public getItemById(listName: string, itemId: any) {
       return new Promise((resolve, reject) => {
         if (sp !== null && sp !== undefined) {
           const item = sp.web.lists.getByTitle(listName).items.getById(itemId).get();
@@ -30,23 +30,25 @@ export class PnPBaseService {
       });
     }
 
-    public add(listName: string, data: any) {
+    public add(listName: string, item: any) {
       return new Promise((resolve, reject) => {
         if (sp !== null && sp !== undefined) {
-          sp.web.lists.getByTitle(listName).items.add(data).then((result: any) => {
+          sp.web.lists.getByTitle(listName).items.add(item).then((result: any) => {
             resolve(result);
           });
         } else {
-          reject('Failed adding list data...');
+          reject('Failed adding list item...');
         }
       });
     }
 
-    public update(listName: string, itemId: any, data: any) {
+    public update(listName: string, itemId: any, item: any) {
       return new Promise((resolve, reject) => {
         if (sp !== null && sp !== undefined) {
           const list = sp.web.lists.getByTitle(listName);
-          list.items.getById(itemId).update(data).then((result: any) => {
+          list.items.getById(itemId).update(item).then((result: any) => {
+            console.log('updated')
+            console.log(result);
             resolve(result);
           });
 
@@ -56,12 +58,11 @@ export class PnPBaseService {
       });
     }
 
-
     public delete(listName: string, itemId: any) {
       return new Promise((resolve, reject) => {
         if (sp !== null && sp !== undefined) {
           const list = sp.web.lists.getByTitle(listName);
-          list.items.getById(1).delete().then((result: any) => {
+          list.items.getById(itemId).delete().then((result: any) => {
             resolve(result);
           });
 
@@ -70,4 +71,6 @@ export class PnPBaseService {
         }
       });
     }
+
+
 }

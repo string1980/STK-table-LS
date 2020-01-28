@@ -46,4 +46,48 @@ export class HellopnpjsWebPartComponent implements OnInit {
     }
   }
 
+  public addItem(item: any) {
+    if (item !== null && item !== undefined) {
+      const itm: IListItem = {
+        Title: item.value
+      };
+
+      this.testListService.addItem(itm).then((res: IListItem) => {
+        if (res !== null && res !== undefined) {
+          this.getAllListItems();
+        }
+      });
+    }
+  }
+
+  public updateItem(itemID: any, item: any) {
+    const updateItem: IListItem = {
+      Id: itemID.value,
+      Title: item.value
+    };
+
+    if (item !== null && item !== undefined) {
+      this.testListService.updateItem(updateItem).then((res: IListItem) => {
+        if (res !== null && res !== undefined) {
+          this.getAllListItems();
+        }
+      });
+    }
+
+  }
+
+  public deleteItem(item: any) {
+    if (item !== null && item !== undefined) {
+      const itm: IListItem = {
+        Id: item.Id
+      };
+
+      this.testListService.deleteItem(itm).then((res: IListItem) => {
+        if (res !== null && res !== undefined) {
+          this.getAllListItems();
+        }
+      });
+    }
+  }
+
 }
