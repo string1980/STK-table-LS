@@ -3,6 +3,7 @@ import {TestListService} from '../services/testList.service';
 import {IRow} from '../interfaces/table';
 import {YesNoComponent} from '../dialogs/yes-no/yes-no.component';
 import {MatDialog} from '@angular/material/dialog';
+import {CurrentUserModel} from '../interfaces/current-user.model';
 
 @Component({
   selector: 'app-hellopnpjs-web-part',
@@ -25,6 +26,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
   version: IRow;
   versionStatus: IRow;
   showYesNoDialog: boolean = false;
+  jan21USD: number;
+  currentUser: CurrentUserModel;
+  showUSDResult: boolean = false;
+   rowsFromServerByUser: IRow[] = [];
 
 
   constructor(private testListService: TestListService, private dialog: MatDialog) {
@@ -71,19 +76,37 @@ export class HellopnpjsWebPartComponent implements OnInit {
           column !== 'Submitted by' &&
           column !== 'Update date' &&
           column !== 'Comments' &&
-          column !== 'Status'
+          column !== 'Status' &&
+          column !== 'Users'
         );
         console.log('displayedColumns', this.displayedColumns);
+        this.rowsFromServer.forEach(row => {
+           row.UsersId.forEach(id => {
+            if (id === this.currentUser.Id) {
+              console.log('good');
+              this.rowsFromServerByUser.push(row);
+            }
+
+          });
+        });
+        console.log('rowsFromServer by user', this.rowsFromServer);
+
       } else {
         this.rowsFromServer = [];
       }
+
+      // this.rowsFromServer = this.rowsFromServer.filter(row => row.UsersId. === this.currentUser.Title);
     });
+
+
+    console.log('filter by user', this.rowsFromServer);
 
   }
 
   public getUser() {
     this.testListService.getUser().then(user => {
       console.log('User', user);
+      this.currentUser = user;
     })
   }
 
@@ -128,11 +151,23 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateUSD(row: IRow) {
     this.selectedRowIndex = this.rowsFromServer.indexOf(row);
+    this.showUSDResult = true;
+    this.jan21USD = this.rowsFromServer[this.selectedRowIndex].Jan_x002d_20_x0020_USD = +row.EC_x0020_Sales_x0020_Price * +row.Jan_x002d_20_x0020_Qty
+
     // if(this.rowsFromServer[this.selectedRowIndex].Jan_x002d_20_x0020_USD){
     //   this.rowsFromServer[this.selectedRowIndex].Jan_x002d_20_x0020_USD = row.EC_x0020_Sales_x0020_Price * row.Jan_x002d_20_x0020_Qty
     // }
     // console.log(index);
     // this.rowsFromServer[index].Jan_x002d_20_x0020_USD = row.Jan_x002d_20_x0020_Qty * row.EC_x0020_Sales_x0020_Price;
     // this.Jan_x002d_20_x0020_USD = row.Jan_x002d_20_x0020_Qty * row.EC_x0020_Sales_x0020_Price;
+  }
+
+  onYesButton(event: boolean) {
+    this.showYesNoDialog = event;
+    //  TODO: redirect to Home page
+  }
+
+  onNoButton(event: boolean) {
+    this.showYesNoDialog = event;
   }
 }

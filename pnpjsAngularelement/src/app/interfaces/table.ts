@@ -29,12 +29,12 @@ export interface IRow {
   Id: string;
   Item_x0020_Code_x0020_SAP: string;
   Item_x0020_Name: string;
-  Jan_x002d_20_x0020_Qty: string;
-  Jan_x002d_20_x0020_USD: string;
-  Jul_x002d_20_x0020_Qty: string;
-  Jul_x002d_20_x0020_USD: string;
-  Jun_x002d_20_x0020_Qty: string;
-  Jun_x002d_20_x0020_USD: string;
+  Jan_x002d_20_x0020_Qty: number;
+  Jan_x002d_20_x0020_USD: number;
+  Jul_x002d_20_x0020_Qty: number;
+  Jul_x002d_20_x0020_USD: number;
+  Jun_x002d_20_x0020_Qty: number;
+  Jun_x002d_20_x0020_USD: number;
   Local_x0020_Cost: string;
   Localization_x0020_Cost: string;
   Mar_x002d_20_x0020_Qty: string;
@@ -62,4 +62,5 @@ export interface IRow {
   Version: string;
   checked: boolean;
   UserTest: string;
+  UsersId: Array<number>;
 }

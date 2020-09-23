@@ -3,6 +3,7 @@ import {PnPBaseService} from './pnpBase.service';
 import {IListItem} from '../interfaces/testlist.interface';
 import {IRow} from '../interfaces/table';
 import {skip} from 'rxjs/operators';
+import {CurrentUserModel} from '../interfaces/current-user.model';
 
 @Injectable()
 
@@ -20,7 +21,7 @@ export class TestListService {
   }
 
   public getUser() {
-    return this.pnpBaseService.getCurrentUser().then((user) => {
+    return this.pnpBaseService.getCurrentUser().then((user: CurrentUserModel) => {
       console.log('User', user);
       return user;
     });

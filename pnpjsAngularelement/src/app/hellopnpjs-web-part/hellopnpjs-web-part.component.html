@@ -1,280 +1,242 @@
-<!--<div>-->
-<!--  <h1>CRUD operation withs PnPJS</h1>-->
-
-<!--  <div>-->
-<!--    <h1>Get All items</h1>-->
-<!--    <ul>-->
-<!--      <li *ngFor="let i of allItems">-->
-<!--        <span>{{i | json}}</span>-->
-<!--        &lt;!&ndash;        <a href="#" (click)="deleteItem(itm)">&ndash;&gt;-->
-<!--        &lt;!&ndash;          <i class="ms-Icon ms-Icon&#45;&#45;RemoveFilter" style="margin-left:15px;" aria-hidden="true"></i>&ndash;&gt;-->
-<!--        &lt;!&ndash;        </a>&ndash;&gt;-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </div>-->
-<!--  <hr>-->
-<!--  <div>-->
-<!--    <h1>Get Item by Id</h1>-->
-<!--    <input #itemid type="number"/>-->
-<!--    &lt;!&ndash;     <input type="button" value="Get" (click)="getItemByID(itemid)" /><br>&ndash;&gt;-->
-<!--    &lt;!&ndash; <span>ID:</span><span>{{item.Id}}</span><div> &ndash;&gt;-->
-<!--    <span><strong>Id: </strong> {{id}}</span><br>-->
-<!--    <strong>Title: </strong><span>{{title}}</span>-->
-<!--  </div>-->
-<!--  <hr>-->
-<!--  <div>-->
-<!--    <h1>Add item</h1>-->
-<!--    <input id="addItem" #item type="text"/>-->
-<!--    &lt;!&ndash;      <input type="button" value="Add" (click)="addItem(item)" /><br>&ndash;&gt;-->
-
-<!--  </div>-->
-<!--  <hr>-->
-<!--  <div>-->
-<!--    <h1>Update item</h1>-->
-<!--    <input id="itemId" #itemID type="number" placeholder="Item id"/><br>-->
-<!--    <input id="itemTitle" #itemtoupdate type="text" placeholder="Title"/><br>-->
-<!--    &lt;!&ndash;    <input type="button" value="Update" (click)="updateItem(itemID, itemtoupdate)" /><br>&ndash;&gt;-->
-
-<!--  </div>-->
-
-<!--  <br>-->
-<!--</div>-->
+<div class="form_container" *ngIf="rowsFromServer.length > 0;else showSpinner">
+  <form class="form_info">
 
 
-<!--Table -->
+    <div class="form-group version">
+      <label for="version">Version</label>
+      <input type="text" class="form-control" id="version" aria-describedby="emailHelp" disabled>
+    </div>
 
-<!--<div >-->
-<!--  <ul *ngFor="let item of rowsFromServer">-->
-<!--    <li>{{item.Country}}</li>-->
-<!--  </ul>-->
-<!--</div>-->
-
-<!--<form class="info-form" #infoForm="ngForm">-->
-<!--  <div class="form-group version_country">-->
-<!--    <mat-form-field class="example-full-width">-->
-<!--      <mat-label>Version</mat-label>-->
-<!--      <input matInput  name="Version">-->
-<!--    </mat-form-field>-->
-
-<!--    <mat-form-field class="example-full-width">-->
-<!--      <mat-label>Country</mat-label>-->
-<!--      <input matInput value="Colombia">-->
-<!--    </mat-form-field>-->
-<!--  </div>-->
-
-<!--  <div class="form-group">-->
-<!--    <mat-form-field class="example-full-width">-->
-<!--      <mat-label>SubmittedBy</mat-label>-->
-<!--      <input matInput value="Sandra Calderon">-->
-<!--    </mat-form-field>-->
-
-<!--    <mat-form-field class="example-full-width">-->
-<!--      <mat-label>Version</mat-label>-->
-<!--      <input matInput value="30.10.2020">-->
-<!--    </mat-form-field>-->
-<!--  </div>-->
+    <div class="form-group submitted">
+      <label for="submitted_by">Submitted By </label>
+      <input type="email" class="form-control" id="submitted_by" aria-describedby="emailHelp" disabled>
+    </div>
 
 
-<!--  <div class="form-group">-->
-<!--    <mat-form-field class="example-full-width">-->
-<!--      <mat-label>Versus status</mat-label>-->
-<!--      <input matInput >-->
-<!--    </mat-form-field>-->
-<!--    <mat-form-field class="example-full-width">-->
-<!--      <mat-label>Leave a comment</mat-label>-->
-<!--      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>-->
-<!--    </mat-form-field>-->
-<!--  </div>-->
-<!--</form>-->
+    <div class="form-group">
+      <label for="version_status">Version Status</label>
+      <input type="text" class="form-control" id="version_status" aria-describedby="emailHelp" disabled>
+    </div>
+
+    <div class="form-group status">
+      <label for="update_date">Update Date</label>
+      <input type="text" class="form-control" id="update_date" aria-describedby="emailHelp" disabled>
+    </div>
+
+
+    <div class="form-group update">
+      <label for="country">Country</label>
+      <input type="text" class="form-control" id="country" aria-describedby="emailHelp" disabled>
+    </div>
+
+    <div class="form-group country" style="opacity: 0">
+      <label for="sales_type">Sales type </label>
+      <input type="text" class="form-control" id="sales_type" aria-describedby="emailHelp" disabled>
+    </div>
+
+
+    <div class="form-group comments">
+      <label for="comments" style="margin-bottom: 10px">Comments </label>
+      <textarea type="email" class="form-control" id="comments" rows="2" cols="10"
+                aria-describedby="emailHelp"></textarea>
+    </div>
+  </form>
+
+  <form #tableForm="ngForm" (ngSubmit)="onSubmitTemplateBased(tableForm)"
+        *ngIf="rowsFromServerByUser.length > 0;else showSpinner">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>
+          <input type="checkbox">
+        </th>
+        <th *ngFor="let column of displayedColumns">{{column}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of rowsFromServerByUser;let i=index"
+          [ngClass]="{'selected': selectedRowIndex === i &&  rowChecked === true }">
+
+        <td>
+          <input type="checkbox" (change)="onCheck(row,$event,i)">
+        </td>
+
+        <td>
+          <input type="text" [value]="row.Title" disabled></td>
+        <td>
+          <input type="text" [value]="row.Country" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Item_x0020_Code_x0020_SAP" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Item_x0020_Name" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Sales_x005c_FOC" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Sales_x0020_Type" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Business_x0020_Segment" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Customer_x0020_Code_x0020_SAP" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Customer_x0020_Name" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.EC_x0020_Sales_x0020_Price" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.HQ_x0020_STD_x0020_Cost" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Transfer_x0020_Price" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Localization_x0020_Cost" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.Local_x0020_Cost" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.GM_x0020__x0025_" disabled>
+        </td>
+        <td>
+          <input type="text" [value]="row.SharePoint" disabled>
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"
+                 (input)="onCalculateUSD(row)">
+        </td>
+        <td>
+          <input type="number" class="Jan21USD" *ngIf="showUSDResult;" [(ngModel)]="jan21USD"
+                 name="Jan-20 USD" disabled>
+<!--          <ng-template #showWithData>-->
+<!--            <input type="number" class="Jan21USD" *ngIf="i === selectedRowIndex"-->
+<!--                   [ngClass]="{'with-data': jan21USD !== null && i !== selectedRowIndex && showUSDResult}" [(ngModel)]="jan21USD" name="Jan-20 USD" disabled>-->
+<!--          </ng-template>-->
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Feb_x002d_20_x0020_Qty" class="input__write" name="Fab-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Feb_x002d_20_x0020_USD" name="Fab-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Mar_x002d_20_x0020_Qty" class="input__write" name="Mar-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Mar_x002d_20_x0020_USD" name="Mar-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Apr_x002d_20_x0020_Qty" class="input__write" name="Apr-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Apr_x002d_20_x0020_USD" name="Apr-20 USD" disabled>
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.May_x002d_20_x0020_Qty" class="input__write" name="May-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.May_x002d_20_x0020_USD" name="May-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Jun_x002d_20_x0020_Qty" class="input__write" name="Jun-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Jun_x002d_20_x0020_USD" name="Jun-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Jul_x002d_20_x0020_Qty" class="input__write" name="Jul-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Jul_x002d_20_x0020_USD" name="Jul-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Aug_x002d_20_x0020_Qty" class="input__write" name="Aug-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Aug_x002d_20_x0020_USD" name="Aug-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Sep_x002d_20_x0020_Qty" class="input__write" name="Sep-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Sep_x002d_20_x0020_USD" name="Sep-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Oct_x002d_20_x0020_Qty" class="input__write" name="Oct-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Oct_x002d_20_x0020_USD" name="Oct-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Nov_x002d_20_x0020_Qty" class="input__write" name="Nov-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Nov_x002d_20_x0020_USD" name="Nov-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" [(ngModel)]="row.Dec_x002d_20_x0020_Qty" class="input__write" name="Dec-20 Qty">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled>
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="row.Annual_x0020_Sales" name="Annual Sales" disabled>
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="row.Annual_x0020_QTY" name="Annual Sales" disabled>
+        </td>
+
+        <!--      <td>-->
+        <!--        <input type="number" [(ngModel)]="row.Submitted_x0020_by" class="input__write"  name="Submitted by">-->
+        <!--      </td>-->
+
+        <!--      <td>-->
+        <!--        <input type="number" [(ngModel)]="row.Update_x0020_date" disabled name="Update Date">-->
+        <!--      </td>-->
+      </tr>
+
+      </tbody>
+    </table>
+
+
+    <div class="actions">
+      <button class="btn_primary" [disabled]="selectedRows.length === 0" type="submit">Save</button>
+      <button class="btn_default" (click)="openYesNoDialog()">Cancel</button>
+    </div>
+
+  </form>
+</div>
 
 
 <!--===========================================FORM======================================================-->
 
 
-
-<form #tableForm="ngForm" (ngSubmit)="onSubmitTemplateBased(tableForm)" *ngIf="rowsFromServer.length > 0">
-  <table class="table" >
-    <thead>
-    <tr>
-      <th>
-        <input type="checkbox" >
-      </th>
-      <th *ngFor="let column of displayedColumns">{{column}}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let row of rowsFromServer;let i=index"
-        [ngClass]="{'selected': selectedRowIndex === i &&  rowChecked === true }">
-
-      <td>
-        <input type="checkbox" (change)="onCheck(row,$event,i)">
-      </td>
-
-      <td>
-        <input type="text" [value]="row.Title" disabled></td>
-      <td>
-        <input type="text" [value]="row.Country" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Item_x0020_Code_x0020_SAP" disabled>
-      </td>
-      <td >
-        <input type="text" [value]="row.Item_x0020_Name" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Sales_x005c_FOC" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Sales_x0020_Type" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Business_x0020_Segment" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Customer_x0020_Code_x0020_SAP" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Customer_x0020_Name" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.EC_x0020_Sales_x0020_Price" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.HQ_x0020_STD_x0020_Cost" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Transfer_x0020_Price" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Localization_x0020_Cost" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.Local_x0020_Cost" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.GM_x0020__x0025_" disabled>
-      </td>
-      <td>
-        <input type="text" [value]="row.SharePoint" disabled>
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"  (input)="onCalculateUSD(row)">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Jan_x002d_20_x0020_USD" name="Jan-20 USD" disabled>
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Feb_x002d_20_x0020_Qty"  class="input__write" name="Fab-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Feb_x002d_20_x0020_USD" name="Fab-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Mar_x002d_20_x0020_Qty" class="input__write" name="Mar-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Mar_x002d_20_x0020_USD" name="Mar-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Apr_x002d_20_x0020_Qty" class="input__write" name="Apr-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Apr_x002d_20_x0020_USD" name="Apr-20 USD" disabled>
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.May_x002d_20_x0020_Qty" class="input__write" name="May-20 Qty" >
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.May_x002d_20_x0020_USD" name="May-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Jun_x002d_20_x0020_Qty" class="input__write"  name="Jun-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Jun_x002d_20_x0020_USD" name="Jun-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Jul_x002d_20_x0020_Qty" class="input__write" name="Jul-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Jul_x002d_20_x0020_USD" name="Jul-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Aug_x002d_20_x0020_Qty" class="input__write" name="Aug-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Aug_x002d_20_x0020_USD" name="Aug-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Sep_x002d_20_x0020_Qty" class="input__write" name="Sep-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Sep_x002d_20_x0020_USD" name="Sep-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Oct_x002d_20_x0020_Qty" class="input__write" name="Oct-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Oct_x002d_20_x0020_USD" name="Oct-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Nov_x002d_20_x0020_Qty" class="input__write" name="Nov-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Nov_x002d_20_x0020_USD" name="Nov-20 USD" disabled>
-      </td>
-
-      <td>
-        <input type="number" [(ngModel)]="row.Dec_x002d_20_x0020_Qty" class="input__write" name="Dec-20 Qty">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled>
-      </td>
-      <td>
-        <input type="text" [(ngModel)]="row.Annual_x0020_Sales" name="Annual Sales" disabled>
-      </td>
-      <td>
-        <input type="text" [(ngModel)]="row.Annual_x0020_QTY" name="Annual Sales" disabled>
-      </td>
-
-<!--      <td>-->
-<!--        <input type="number" [(ngModel)]="row.Submitted_x0020_by" class="input__write"  name="Submitted by">-->
-<!--      </td>-->
-
-<!--      <td>-->
-<!--        <input type="number" [(ngModel)]="row.Update_x0020_date" disabled name="Update Date">-->
-<!--      </td>-->
-    </tr>
-
-    </tbody>
-  </table>
+<app-yes-no *ngIf="showYesNoDialog" (onYesEmitter)="onYesButton($event)"
+            (onNoEmitter)="onNoButton($event)"></app-yes-no>
 
 
-
-  <div class="actions" >
-    <button class="btn_primary" [disabled]="selectedRows.length === 0" type="submit">Save</button>
-    <button class="btn_default" (click)="openYesNoDialog()">Cancel</button>
+<ng-template #showSpinner>
+  <div class="spinner_container">
+    <div class="spinner-1"></div>
   </div>
 
-</form>
-
-<app-yes-no *ngIf="showYesNoDialog"></app-yes-no>
-
-
-
-<!--<ng-template #showSpinner>-->
-<!--  <div class="spinner">-->
-<!--    <mat-spinner [diameter]="20"></mat-spinner>-->
-<!--  </div>-->
-<!--</ng-template>-->
+</ng-template>
 
 
 

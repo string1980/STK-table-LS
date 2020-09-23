@@ -1,29 +1,71 @@
-form.info-form {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-
-  .form-group {
+.form_container {
+  form.form_info {
+    max-width: 700px;
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     align-items: center;
+    .form-group {
+      margin-bottom: 10px;
+
+      label {
+        min-width: 160px;
+        display: inline-block;
+      }
+
+      input, textarea {
+        border: 1px solid #bdbdbd;
+        padding: 5px;
+        border-radius: 5px;
+
+        &:active {
+          border: 1px solid #f58c2b;
+          outline: 1px solid #f58c2b;
+        }
+      }
+
+      textarea {
+        width: 100%;
+        resize: none;
+
+        &:focus {
+          border: 1px solid #f58c2b;
+          outline: 1px solid #f58c2b;
+        }
+      }
+
+      input {
+        &:focus {
+          border: 1px solid #f58c2b;
+          outline: 1px solid #f58c2b;
+        }
+      }
+
+
+    }
+
+    .comments {
+      flex: 1;
+      padding: 0 15px;
+    }
   }
 }
-form{
+
+form {
   width: 70vw;
   overflow: auto;
 }
+
 table.table {
   background: #ccf3ff;
 
   tr {
     th {
-      background:#f58c2b;
+      background: #f58c2b;
       color: #fff;
       padding: 10px;
 
-      input {
-
-      }
 
     }
 
@@ -31,15 +73,18 @@ table.table {
       //padding: 10px;
       border-bottom: 1px solid rgba(0, 0, 0, .12);
       border-right: 1px solid rgba(0, 0, 0, .12);
-      &:first-child{
+
+      &:first-child {
         padding: 0 10px;
       }
-       &:nth-of-type(5){
-         input{
+
+      &:nth-of-type(5) {
+        input {
           width: 500px !important;
-         }
+        }
 
       }
+
       input {
         border: 0;
         background: transparent;
@@ -47,11 +92,32 @@ table.table {
         color: #0B1D51;
         font-weight: 600;
         height: 35px;
+
+        &.Jan21USD {
+          color: transparent;
+        }
+
+        &.Jan21USD.with-data {
+          color: #0B1D51;
+        }
+
+        &.no-data {
+          color: #0B1D51;
+        }
+
+
+        &:focus {
+          border: 1px solid #f58c2b;
+          outline: 1px solid #f58c2b;
+        }
+
         &.input__write {
           height: 35px;
           text-align: left;
           background: #ffffff;
-          &:focus{
+
+
+          &:focus {
             border: 0;
           }
         }
@@ -81,29 +147,82 @@ table.table {
   width: 100%;
   display: flex;
   //justify-content: space-between;
-  button{
+  button {
     padding: 10px 20px;
     border: 0;
     border-radius: 5px;
     min-width: 80px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
-  button.btn_primary{
+
+  button.btn_primary {
     background: #f58c2b;
-    color:#ffffff;
+    color: #ffffff;
     margin-right: 1rem;
   }
-  button.btn_default{
+
+  button.btn_default {
     background: #ccf3ff;
   }
 }
 
-.spinner {
-  min-width: 100%;
-  text-align: center;
+.spinner_container {
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .spinner-1 {
+    position: relative;
+
+    vertical-align: middle;
+    width: 64px;
+    height: 64px;
+    border-radius: 64px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      width: 64px;
+      height: 64px;
+      border-radius: 64px;
+      color: #f58c2b;
+      box-shadow: inset -5px 0 0 5px currentColor;
+      clip: rect(0, 64px, 32px, 0);
+      animation: rotator 1s infinite linear;
+    }
+  }
+
+  //.spinner-1:before{
+  //  position: absolute;
+  //  content:"";
+  //  width: 64px;
+  //  height: 64px;
+  //  border-radius:64px;
+  //  color:#f58c2b;
+  //  box-shadow:inset -5px 0 0 5px currentColor;
+  //  clip: rect(0,64px,32px,0);
+  //  animation: rotator 1s infinite linear;
+  //}
+}
+
+
+@keyframes rotator {
+  0% {
+    transform: rotate(-180deg);
+    box-shadow: inset -5px 0 0 5px currentColor;
+  }
+  50% {
+    transform: rotate(0deg);
+    box-shadow: inset -1px 0 0 1px currentColor;
+  }
+
+  100% {
+    transform: rotate(180deg);
+    box-shadow: inset -5px 0 0 5px currentColor;
+  }
 }
 
 

@@ -99,7 +99,8 @@ export class PnPBaseService {
             Dec_x002d_21Qty: row.Dec_x002d_20_x0020_Qty,
             Dec_x002d_21USD: row.Dec_x002d_20_x0020_USD,
             AnnualSales: row.Annual_x0020_Sales,
-            AnnualQTY: row.Annual_x0020_QTY
+            AnnualQTY: row.Annual_x0020_QTY,
+            // Users: row.Users
 
             // mz7b: row.Customer_x0020_Code_x0020_SAP,
             // mc4l: row.Customer_x0020_Name,

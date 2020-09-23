@@ -1,3 +1,4 @@
+@import "src/app/hellopnpjs-web-part/hellopnpjs-web-part.component";
 .mat-raised-button.mat-primary {
   background-color: #0B1D51;
 }
@@ -8,7 +9,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #e0dede;
+  background: transparent;
   z-index: 1;
   .container{
     position: absolute;
@@ -18,6 +19,7 @@
     padding: 3rem 5rem;
     transform: translate(-50%, -50%);
     z-index: 2;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     .body{
       h3{
         text-align: center;
@@ -25,23 +27,24 @@
       }
     }
 
-    .actions{
-      button{
-        padding: 10px 20px;
-        border: 0;
-        border-radius: 5px;
-        min-width: 80px;
-        box-shadow: 0 0 5px rgba(0,0,0,0.2);
-
-      }
-      button.btn_primary{
-        background: #f58c2b;
-        color:#ffffff;
-        margin-right: 1rem;
-      }
-      button.btn_default{
-        background: #ccf3ff;
-      }
-    }
+    //.actions{
+    //  button{
+    //    padding: 10px 20px;
+    //    border: 0;
+    //    border-radius: 5px;
+    //    min-width: 80px;
+    //    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    //    cursor: pointer;
+    //
+    //  }
+    //  button.btn_primary{
+    //    background: #f58c2b;
+    //    color:#ffffff;
+    //    margin-right: 1rem;
+    //  }
+    //  button.btn_default{
+    //    background: #ccf3ff;
+    //  }
+    //}
   }
 }

@@ -10,6 +10,7 @@ export interface CurrentUserModel {
   PrincipalType: number;
   Title: string;
   UserId: IUserId;
+  UserPrincipalName: string;
 }
 
 interface IUserId {
