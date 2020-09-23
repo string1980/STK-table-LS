@@ -26,10 +26,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
   version: IRow;
   versionStatus: IRow;
   showYesNoDialog: boolean = false;
-  jan21USD: number;
+  jan21USD: number = null;
   currentUser: CurrentUserModel;
   showUSDResult: boolean = false;
-   rowsFromServerByUser: IRow[] = [];
+  rowsFromServerByUser: IRow[] = [];
 
 
   constructor(private testListService: TestListService, private dialog: MatDialog) {
@@ -77,11 +77,12 @@ export class HellopnpjsWebPartComponent implements OnInit {
           column !== 'Update date' &&
           column !== 'Comments' &&
           column !== 'Status' &&
-          column !== 'Users'
+          column !== 'UsersId' &&
+          column !== 'UsersStringId'
         );
         console.log('displayedColumns', this.displayedColumns);
         this.rowsFromServer.forEach(row => {
-           row.UsersId.forEach(id => {
+          row.UsersId.forEach(id => {
             if (id === this.currentUser.Id) {
               console.log('good');
               this.rowsFromServerByUser.push(row);
@@ -150,10 +151,14 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   onCalculateUSD(row: IRow) {
-    this.selectedRowIndex = this.rowsFromServer.indexOf(row);
+    console.log('this.selectedRowIndex', this.selectedRowIndex);
     this.showUSDResult = true;
-    this.jan21USD = this.rowsFromServer[this.selectedRowIndex].Jan_x002d_20_x0020_USD = +row.EC_x0020_Sales_x0020_Price * +row.Jan_x002d_20_x0020_Qty
+    this.selectedRowIndex = this.rowsFromServer.indexOf(row);
+    this.jan21USD = +row.EC_x0020_Sales_x0020_Price * +row.Jan_x002d_20_x0020_Qty;
+    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.jan21USD;
+      // this.jan21USD.push(result);
 
+    console.log('jan21USD result ',this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD);
     // if(this.rowsFromServer[this.selectedRowIndex].Jan_x002d_20_x0020_USD){
     //   this.rowsFromServer[this.selectedRowIndex].Jan_x002d_20_x0020_USD = row.EC_x0020_Sales_x0020_Price * row.Jan_x002d_20_x0020_Qty
     // }
@@ -169,5 +174,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onNoButton(event: boolean) {
     this.showYesNoDialog = event;
+  }
+
+  onCalc(row) {
+
+
+  }
+  customTrackBy(index: number, obj: any): any {
+    return index;
   }
 }

@@ -54,7 +54,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of rowsFromServerByUser;let i=index"
+      <tr *ngFor="let row of rowsFromServerByUser;let i=index;trackBy: customTrackBy"
           [ngClass]="{'selected': selectedRowIndex === i &&  rowChecked === true }">
 
         <td>
@@ -109,17 +109,15 @@
           <input type="text" [value]="row.SharePoint" disabled>
         </td>
         <td>
-          <input type="number" [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"
+          <input type="number" #qty [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"
                  (input)="onCalculateUSD(row)">
         </td>
         <td>
-          <input type="number" class="Jan21USD" *ngIf="showUSDResult;" [(ngModel)]="jan21USD"
-                 name="Jan-20 USD" disabled>
-<!--          <ng-template #showWithData>-->
-<!--            <input type="number" class="Jan21USD" *ngIf="i === selectedRowIndex"-->
-<!--                   [ngClass]="{'with-data': jan21USD !== null && i !== selectedRowIndex && showUSDResult}" [(ngModel)]="jan21USD" name="Jan-20 USD" disabled>-->
-<!--          </ng-template>-->
+            <input type="number"
+                   name="Jan-20 USD" disabled [(ngModel)]="jan21USD" >
+
         </td>
+
         <td>
           <input type="number" [(ngModel)]="row.Feb_x002d_20_x0020_Qty" class="input__write" name="Fab-20 Qty">
         </td>
