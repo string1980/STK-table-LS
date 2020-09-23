@@ -7,7 +7,9 @@
     "node": ">=0.10.0"
   },
   "scripts": {
+    "serve": "gulp serve",
     "build": "gulp bundle",
+    "gulp": "gulp serve",
     "clean": "gulp clean",
     "test": "gulp test",
     "preversion": "node ./tools/pre-version.js",

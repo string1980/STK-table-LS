@@ -1,41 +1,59 @@
-import { Injectable } from "@angular/core";
-import { PnPBaseService } from './pnpBase.service';
-import { IListItem } from './../interfaces/testlist.interface';
+import {Injectable, Optional} from '@angular/core';
+import {PnPBaseService} from './pnpBase.service';
+import {IListItem} from '../interfaces/testlist.interface';
+import {IRow} from '../interfaces/table';
+import {skip} from 'rxjs/operators';
 
 @Injectable()
 
 export class TestListService {
-    public listName = 'TestList';
+  public listName = 'MasterDataList';
 
-    constructor(public pnpBaseService: PnPBaseService) {}
+  constructor(public pnpBaseService: PnPBaseService) {
+  }
 
-    public getAllItems() {
-      return this.pnpBaseService.get(this.listName).then((result: IListItem) => {
-         return result;
-      });
-    }
+  public getAllItems() {
+    return this.pnpBaseService.getMasterDataList(this.listName).then((result: IRow[]) => {
+      console.log('Items', result);
+      return result;
+    });
+  }
 
-    public getById(item: IListItem) {
-      return this.pnpBaseService.getItemById(this.listName, item.Id).then((result: IListItem) => {
-        return result;
-      });
-    }
+  public getUser() {
+    return this.pnpBaseService.getCurrentUser().then((user) => {
+      console.log('User', user);
+      return user;
+    });
+  }
 
-    public addItem(item: IListItem) {
-      return this.pnpBaseService.add(this.listName, item).then((result: IListItem) => {
-        return result;
-      });
-    }
+  public addColumns(row: IRow[]) {
+    return this.pnpBaseService.addColumnsToSalesDataList(row).then((result) => {
+      console.log('Result', row);
+      return result;
+    });
+  }
 
-    public updateItem(item: IListItem) {
-      return this.pnpBaseService.update(this.listName, item.Id, item).then((result: IListItem) => {
-        return result;
-      });
-    }
+  // public getById(item: IListItem) {
+  //   return this.pnpBaseService.getItemById(this.listName, item.Id).then((result: IListItem) => {
+  //     return result;
+  //   });
+  // }
 
-    public deleteItem(item: IListItem) {
-      return this.pnpBaseService.delete(this.listName, item.Id).then((result: IListItem) => {
-        return result;
-      });
-    }
+  // public addItem(item: IListItem) {
+  //   return this.pnpBaseService.add(this.listName, item).then((result: IListItem) => {
+  //     return result;
+  //   });
+  // }
+
+  // public updateItem(item: IListItem) {
+  //   return this.pnpBaseService.update(this.listName, item.Id, item).then((result: IListItem) => {
+  //     return result;
+  //   });
+  // }
+
+  // public deleteItem(item: IListItem) {
+  //   return this.pnpBaseService.delete(this.listName, item.Id).then((result: IListItem) => {
+  //     return result;
+  //   });
+  // }
 }
