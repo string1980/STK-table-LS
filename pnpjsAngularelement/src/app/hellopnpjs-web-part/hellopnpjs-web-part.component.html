@@ -4,29 +4,48 @@
 
     <div class="form-group version">
       <label for="version">Version</label>
-      <input type="text" class="form-control" id="version" aria-describedby="emailHelp" disabled>
+      <input type="text" class="form-control" [value]="rowsFromServerByUser[0].Version" id="version" aria-describedby="emailHelp" disabled>
     </div>
 
     <div class="form-group submitted">
       <label for="submitted_by">Submitted By </label>
-      <input type="email" class="form-control" id="submitted_by" aria-describedby="emailHelp" disabled>
+      <input type="email" class="form-control" [(ngModel)]="submittedBy" [ngModelOptions]="{standalone: true}" id="submitted_by" aria-describedby="emailHelp" disabled>
     </div>
 
 
     <div class="form-group">
       <label for="version_status">Version Status</label>
-      <input type="text" class="form-control" id="version_status" aria-describedby="emailHelp" disabled>
+      <input type="text" class="form-control" [value]="rowsFromServerByUser[0].Status" id="version_status" aria-describedby="emailHelp" disabled>
     </div>
 
     <div class="form-group status">
       <label for="update_date">Update Date</label>
-      <input type="text" class="form-control" id="update_date" aria-describedby="emailHelp" disabled>
+      <input type="text" class="form-control"   name="submittedBy" id="update_date" aria-describedby="emailHelp" disabled>
     </div>
 
 
-    <div class="form-group update">
+    <div class="form-group countries">
       <label for="country">Country</label>
-      <input type="text" class="form-control" id="country" aria-describedby="emailHelp" disabled>
+      <input type="text"
+             class="form-control"
+             id="country"
+             aria-describedby="emailHelp"
+             [(ngModel)]="selectedCountry"
+             (click)="this.isShowDropDown = true"
+             name="Country"
+
+            >
+      <button class="clear" (click)="onClearDropdownSelection()" *ngIf="selectedCountry !== ''">
+        <span>X</span>
+      </button>
+
+      <div class="dropdown"  #dropdown *ngIf="isShowDropDown">
+        <ul>
+          <li *ngFor="let country of countries" (click)="onSelectCountry(country)">
+            <span >{{country}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="form-group country" style="opacity: 0">
@@ -42,7 +61,7 @@
     </div>
   </form>
 
-  <form #tableForm="ngForm" (ngSubmit)="onSubmitTemplateBased(tableForm)"
+  <form #tableForm="ngForm"
         *ngIf="rowsFromServerByUser.length > 0;else showSpinner">
     <table class="table">
       <thead>
@@ -54,8 +73,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of rowsFromServerByUser;let i=index;trackBy: customTrackBy"
-          [ngClass]="{'selected': selectedRowIndex === i &&  rowChecked === true }">
+      <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry;let i=index;trackBy: customTrackBy"
+          [ngClass]="{'selected': this.rowsFromServerByUser.indexOf(this.rowsFromServerByUser[this.selectedRowIndex]) === i  }">
 
         <td>
           <input type="checkbox" (change)="onCheck(row,$event,i)">
@@ -110,11 +129,11 @@
         </td>
         <td>
           <input type="number" #qty [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"
-                 (input)="onCalculateUSD(row)">
+                 (input)="onCalculateUSD(row,qty.value,i)">
         </td>
         <td>
             <input type="number"
-                   name="Jan-20 USD" disabled [(ngModel)]="jan21USD" >
+                   name="Jan-20 USD" disabled  class="Jan21USD" [(ngModel)]="row.Jan_x002d_20_x0020_USD" >
 
         </td>
 
@@ -208,13 +227,12 @@
         <!--        <input type="number" [(ngModel)]="row.Update_x0020_date" disabled name="Update Date">-->
         <!--      </td>-->
       </tr>
-
       </tbody>
     </table>
 
 
     <div class="actions">
-      <button class="btn_primary" [disabled]="selectedRows.length === 0" type="submit">Save</button>
+      <button class="btn_primary" [disabled]="selectedRows.length === 0"  (click)="onSubmitTemplateBased(tableForm)">Save</button>
       <button class="btn_default" (click)="openYesNoDialog()">Cancel</button>
     </div>
 
@@ -223,7 +241,7 @@
 
 
 <!--===========================================FORM======================================================-->
-
+<div class="notification" *ngIf="showNotification" [ngStyle]="{'background': notification.background}">{{notification.message}}</div>
 
 <app-yes-no *ngIf="showYesNoDialog" (onYesEmitter)="onYesButton($event)"
             (onNoEmitter)="onNoButton($event)"></app-yes-no>

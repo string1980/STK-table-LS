@@ -11,12 +11,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ByCountryPipe } from './pipes/by-country.pipe';
 
 
 @NgModule({
   declarations: [
     HellopnpjsWebPartComponent,
-    YesNoComponent
+    YesNoComponent,
+    ByCountryPipe
   ],
   imports: [
     BrowserModule,

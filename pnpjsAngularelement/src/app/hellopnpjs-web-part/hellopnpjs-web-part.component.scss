@@ -9,6 +9,58 @@
     .form-group {
       margin-bottom: 10px;
 
+      &.countries{
+        position: relative;
+        button.clear{
+          position: absolute;
+          top: 4px;
+          right: 0;
+          background: transparent;
+          border: 0;
+          outline: 0;
+          cursor: pointer;
+
+          &:focus{
+            outline: 0;
+            border: 0;
+          }
+        }
+
+        .dropdown{
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          width: 50%;
+          border: 1px solid #f58c2b;
+          border-radius: 10px;
+          box-shadow: 0 0 2px rgba(0,0,0,0.6);
+          z-index: 10;
+          background: #ccf3ff;
+          overflow: hidden;
+          display: block;
+
+          ul{
+            padding: 0;
+            list-style: none;
+            margin: 0;
+            overflow: hidden;
+            li{
+              padding: 10px;
+              border-bottom: 1px solid #bdbdbd;
+              transition: background 0.3s ease-in-out;
+              cursor: pointer;
+              &:last-child{
+                border-bottom: 0;
+              }
+              &:hover{
+                background: #f58c2b;
+                color: #ffffff;
+              }
+            }
+          }
+        }
+      }
+
       label {
         min-width: 160px;
         display: inline-block;
@@ -93,11 +145,7 @@ table.table {
         font-weight: 600;
         height: 35px;
 
-        &.Jan21USD {
-          color: transparent;
-        }
-
-        &.Jan21USD.with-data {
+        &.Jan21USD.show {
           color: #0B1D51;
         }
 
@@ -160,6 +208,10 @@ table.table {
     background: #f58c2b;
     color: #ffffff;
     margin-right: 1rem;
+
+    &:disabled{
+      background: #f8c190;
+    }
   }
 
   button.btn_default {
@@ -206,6 +258,18 @@ table.table {
   //  clip: rect(0,64px,32px,0);
   //  animation: rotator 1s infinite linear;
   //}
+}
+.notification{
+  //background: 80FF72;
+  padding: 10px 20px;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  position: fixed;
+  bottom: 27px;
+  right: 52px;
+  border-radius: 13px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
 }
 
 

@@ -1,8 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TestListService} from '../services/testList.service';
 import {IRow} from '../interfaces/table';
-import {YesNoComponent} from '../dialogs/yes-no/yes-no.component';
-import {MatDialog} from '@angular/material/dialog';
 import {CurrentUserModel} from '../interfaces/current-user.model';
 
 @Component({
@@ -30,9 +28,25 @@ export class HellopnpjsWebPartComponent implements OnInit {
   currentUser: CurrentUserModel;
   showUSDResult: boolean = false;
   rowsFromServerByUser: IRow[] = [];
+  result = 0;
+  showNotification: boolean = false;
+  notification: INotification = {background: '', message: ''};
+  countries: string[] = [];
+  isShowDropDown: boolean = false;
+  selectedCountry: string = '';
+  @ViewChild('dropdown', {static: false}) dropdown: ElementRef;
+  submittedBy: string = '';
+  Jan21Qty: number;
+
+  // @HostListener('document:click', ['$event'])
+  // handleOutsideClick(event) {
+  //   if (!this.dropdown.nativeElement.contains(event.target)) {
+  //     this.isShowDropDown = false;
+  //   }
+  // }
 
 
-  constructor(private testListService: TestListService, private dialog: MatDialog) {
+  constructor(private testListService: TestListService) {
   }
 
   ngOnInit() {
@@ -45,6 +59,23 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.testListService.getAllItems().then((result: IRow[]) => {
       if (result !== null && result !== undefined) {
         this.rowsFromServer = result;
+        // this.rowsFromServer.forEach(row => {
+        //   row.UsersId.forEach(id => {
+        //     if (id === this.currentUser.Id) {
+        //       console.log('good');
+        //       this.rowsFromServerByUser.push(row);
+        //       this.rowsFromServerByUser.forEach(item => {
+        //         this.countries.push(item.Country);
+        //       });
+        //       this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
+        //       console.log('countries', this.countries);
+        //     }
+        //
+        //   });
+        //   this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = +result
+        //
+        // });
+        // this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = +result;
         this.rowsFromServer.forEach((x, index) => {
           this.displayedColumns.push(Object.keys(x)[index]);
         });
@@ -81,15 +112,22 @@ export class HellopnpjsWebPartComponent implements OnInit {
           column !== 'UsersStringId'
         );
         console.log('displayedColumns', this.displayedColumns);
-        this.rowsFromServer.forEach(row => {
-          row.UsersId.forEach(id => {
-            if (id === this.currentUser.Id) {
-              console.log('good');
-              this.rowsFromServerByUser.push(row);
-            }
-
-          });
-        });
+        this.showDataByUser(this.rowsFromServer);
+        // this.rowsFromServer.forEach(row => {
+        //   row.UsersId.forEach(id => {
+        //     if (id === this.currentUser.Id) {
+        //       console.log('good');
+        //       this.rowsFromServerByUser.push(row);
+        //
+        //       this.rowsFromServerByUser.forEach(item => {
+        //         this.countries.push(item.Country);
+        //       });
+        //       this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
+        //       console.log('countries', this.countries);
+        //     }
+        //
+        //   });
+        // });
         console.log('rowsFromServer by user', this.rowsFromServer);
 
       } else {
@@ -102,6 +140,27 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     console.log('filter by user', this.rowsFromServer);
 
+  }
+  showDataByUser(data: IRow[]){
+    data.forEach(row => {
+      row.UsersId.forEach(id => {
+        if (id === this.currentUser.Id) {
+          console.log('good');
+          this.rowsFromServerByUser.push(row);
+
+          this.rowsFromServerByUser.forEach(item => {
+            this.countries.push(item.Country);
+          });
+          this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
+          console.log('countries', this.countries);
+        }
+      });
+    });
+   this.rowsFromServerByUser =  this.rowsFromServerByUser.map(a=>{
+       a.Jan_x002d_20_x0020_USD = 1;
+       return a
+    })
+    console.log('asdasd',this.rowsFromServerByUser)
   }
 
   public getUser() {
@@ -119,6 +178,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     if (event.target.checked) {
       this.rowChecked = true;
       row.checked = event.target.checked;
+      if (row.checked) {
+        this.rowChecked = this.rowsFromServerByUser[this.selectedRowIndex].checked = row.checked;
+      }
+
       this.selectedRows.push(row);
     } else {
       this.rowChecked = false;
@@ -132,9 +195,33 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onSubmitTemplateBased(tableForm) {
 
     console.log('Table form', tableForm);
-
     this.testListService.addColumns(this.selectedRows).then(res => {
-      console.log('Columns successfully added');
+      // TODO: set all items(rows) by Id (save item by Id)
+
+      if (res) {
+        this.showNotification = true;
+        console.log('Columns successfully added');
+        this.submittedBy = this.currentUser.Title;
+        this.notification = {
+          background: '#306B34',
+          message: 'Data successfully saved!'
+        };
+
+        setTimeout(() => {
+          this.showNotification = false;
+          this.selectedRows = [];
+        }, 5000);
+      } else {
+        this.showNotification = true;
+        this.notification = {
+          background: '#772014',
+          message: 'Something went wrong!'
+        };
+        setTimeout(() => {
+          this.showNotification = false;
+          this.selectedRows = [];
+        }, 5000);
+      }
     });
   }
 
@@ -150,21 +237,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
 
-  onCalculateUSD(row: IRow) {
-    console.log('this.selectedRowIndex', this.selectedRowIndex);
-    this.showUSDResult = true;
-    this.selectedRowIndex = this.rowsFromServer.indexOf(row);
-    this.jan21USD = +row.EC_x0020_Sales_x0020_Price * +row.Jan_x002d_20_x0020_Qty;
-    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.jan21USD;
-      // this.jan21USD.push(result);
+  onCalculateUSD(row: IRow, input, index) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    this.result = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    console.log(this.result);
 
-    console.log('jan21USD result ',this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD);
-    // if(this.rowsFromServer[this.selectedRowIndex].Jan_x002d_20_x0020_USD){
-    //   this.rowsFromServer[this.selectedRowIndex].Jan_x002d_20_x0020_USD = row.EC_x0020_Sales_x0020_Price * row.Jan_x002d_20_x0020_Qty
-    // }
-    // console.log(index);
-    // this.rowsFromServer[index].Jan_x002d_20_x0020_USD = row.Jan_x002d_20_x0020_Qty * row.EC_x0020_Sales_x0020_Price;
-    // this.Jan_x002d_20_x0020_USD = row.Jan_x002d_20_x0020_Qty * row.EC_x0020_Sales_x0020_Price;
+
   }
 
   onYesButton(event: boolean) {
@@ -180,7 +259,28 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   }
+
   customTrackBy(index: number, obj: any): any {
     return index;
   }
+
+  onSelectCountry(country: string) {
+    this.selectedCountry = country;
+    this.isShowDropDown = false;
+    console.log('selected country', this.selectedCountry);
+  }
+
+  onCountryInput() {
+    this.isShowDropDown = true;
+  }
+
+  onClearDropdownSelection() {
+    this.selectedCountry = '';
+    this.isShowDropDown = true;
+  }
+}
+
+interface INotification {
+  background: string;
+  message: string;
 }
