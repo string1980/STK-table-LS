@@ -52,6 +52,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   ngOnInit() {
     this.getUser();
     this.getAllListItems();
+    this.getItemById();
   }
 
 
@@ -157,10 +158,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
         }
       });
     });
-    this.rowsFromServerByUser = this.rowsFromServerByUser.map(a => {
-      this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
-      return a;
-    });
+    // if (this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD === undefined || this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD === null) {
+    //   this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
+    // }
+
+    // console.log('JAN', this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD)
+
+
     console.log('asdasd', this.rowsFromServerByUser)
   }
 
@@ -168,7 +172,19 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.testListService.getUser().then(user => {
       console.log('User', user);
       this.currentUser = user;
-    })
+    });
+  }
+
+  getItemById() {
+    console.log('get item by id');
+    console.log(this.rowsFromServerByUser[0].Id);
+    // this.rowsFromServerByUser.forEach(a => {
+    //   console.log('----', a);
+    //   this.testListService.getById(a).then(result => {
+    //     console.log('get item by id', a);
+    //   })
+    // })
+
   }
 
 
@@ -241,6 +257,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onCalculateUSD(row: IRow, input, index) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
     console.log('Input', input);
+    this.result = 0;
     this.result = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
     console.log(this.result);
     this.rowsFromServerByUser = [];

@@ -30,15 +30,16 @@ export class TestListService {
   public addColumns(row: IRow[]) {
     return this.pnpBaseService.addColumnsToSalesDataList(row).then((result) => {
       console.log('Result', row);
+
       return result;
     });
   }
 
-  // public getById(item: IListItem) {
-  //   return this.pnpBaseService.getItemById(this.listName, item.Id).then((result: IListItem) => {
-  //     return result;
-  //   });
-  // }
+  public getById(item: IRow) {
+    return this.pnpBaseService.getItemById(this.listName, item.Id).then((result: IRow) => {
+      return result;
+    });
+  }
 
   // public addItem(item: IListItem) {
   //   return this.pnpBaseService.add(this.listName, item).then((result: IListItem) => {

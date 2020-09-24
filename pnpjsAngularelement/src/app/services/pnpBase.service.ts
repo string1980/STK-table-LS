@@ -41,16 +41,18 @@ export class PnPBaseService {
   }
 
 
-  // public getItemById(listName: string, itemId: any) {
-  //   return new Promise((resolve, reject) => {
-  //     if (sp !== null && sp !== undefined) {
-  //       const item = sp.web.lists.getByTitle(listName).items.getById(itemId).get();
-  //       resolve(item);
-  //     } else {
-  //       reject('Failed getting list data...');
-  //     }
-  //   });
-  // }
+
+
+  public getItemById(listName: string, itemId: any) {
+    return new Promise((resolve, reject) => {
+      if (sp !== null && sp !== undefined) {
+        const item = sp.web.lists.getByTitle(listName).items.getById(itemId).get();
+        resolve(item);
+      } else {
+        reject('Failed getting list data...');
+      }
+    });
+  }
 
   public addColumnsToSalesDataList(selectedRows: IRow[]) {
     return new Promise((resolve, reject) => {
