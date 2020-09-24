@@ -112,7 +112,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           column !== 'UsersStringId'
         );
         console.log('displayedColumns', this.displayedColumns);
-        this.showDataByUser(this.rowsFromServer);
+        this.showDataByUser();
         // this.rowsFromServer.forEach(row => {
         //   row.UsersId.forEach(id => {
         //     if (id === this.currentUser.Id) {
@@ -141,8 +141,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     console.log('filter by user', this.rowsFromServer);
 
   }
-  showDataByUser(data: IRow[]){
-    data.forEach(row => {
+
+  showDataByUser() {
+    this.rowsFromServer.forEach(row => {
       row.UsersId.forEach(id => {
         if (id === this.currentUser.Id) {
           console.log('good');
@@ -156,11 +157,11 @@ export class HellopnpjsWebPartComponent implements OnInit {
         }
       });
     });
-   this.rowsFromServerByUser =  this.rowsFromServerByUser.map(a=>{
-       a.Jan_x002d_20_x0020_USD = 1;
-       return a
-    })
-    console.log('asdasd',this.rowsFromServerByUser)
+    this.rowsFromServerByUser = this.rowsFromServerByUser.map(a => {
+      this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
+      return a;
+    });
+    console.log('asdasd', this.rowsFromServerByUser)
   }
 
   public getUser() {
@@ -242,7 +243,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
     console.log('Input', input);
     this.result = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
     console.log(this.result);
-
+    this.rowsFromServerByUser = [];
+    this.showDataByUser();
 
   }
 
