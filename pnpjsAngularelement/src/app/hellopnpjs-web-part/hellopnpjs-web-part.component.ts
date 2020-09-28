@@ -50,8 +50,12 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getUser();
     this.getAllListItems();
+    // if(localStorage.getItem('update') !== null){
+    //   this.rowsFromServerByUser = JSON.parse(localStorage.getItem('update'));
+    // }
     this.getItemById();
   }
 
@@ -113,7 +117,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           column !== 'UsersStringId'
         );
         console.log('displayedColumns', this.displayedColumns);
-        this.showDataByUser();
+        this.showDataByUser(this.rowsFromServer);
         // this.rowsFromServer.forEach(row => {
         //   row.UsersId.forEach(id => {
         //     if (id === this.currentUser.Id) {
@@ -143,8 +147,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   }
 
-  showDataByUser() {
-    this.rowsFromServer.forEach(row => {
+  showDataByUser(rowsFromServer) {
+    rowsFromServer.forEach(row => {
       row.UsersId.forEach(id => {
         if (id === this.currentUser.Id) {
           console.log('good');
@@ -177,7 +181,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   getItemById() {
     console.log('get item by id');
-    console.log(this.rowsFromServerByUser[0].Id);
+    // console.log(this.rowsFromServerByUser[0].Id);
     // this.rowsFromServerByUser.forEach(a => {
     //   console.log('----', a);
     //   this.testListService.getById(a).then(result => {
@@ -259,9 +263,23 @@ export class HellopnpjsWebPartComponent implements OnInit {
     console.log('Input', input);
     this.result = 0;
     this.result = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    console.log(this.result);
-    this.rowsFromServerByUser = [];
-    this.showDataByUser();
+    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
+
+    localStorage.setItem('update', JSON.stringify(this.rowsFromServerByUser));
+    // this.rowsFromServerByUser = this.rowsFromServerByUser.map((el, index) => {
+    //   if (index === this.selectedRowIndex) {
+    //     this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
+    //   }
+    //   return el;
+    // });
+    this.rowsFromServerByUser = JSON.parse(localStorage.getItem('update'));
+
+    console.log('after update', this.rowsFromServerByUser);
+
+
+    // console.log(this.result);
+    // this.rowsFromServerByUser = [];
+    // this.showDataByUser();
 
   }
 
