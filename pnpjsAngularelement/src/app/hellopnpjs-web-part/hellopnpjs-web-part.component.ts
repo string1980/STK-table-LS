@@ -258,29 +258,14 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
 
-  onCalculateUSD(row: IRow, input, index) {
-    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    this.result = 0;
-    this.result = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
-
-    localStorage.setItem('update', JSON.stringify(this.rowsFromServerByUser));
-    // this.rowsFromServerByUser = this.rowsFromServerByUser.map((el, index) => {
-    //   if (index === this.selectedRowIndex) {
-    //     this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
-    //   }
-    //   return el;
-    // });
-    this.rowsFromServerByUser = JSON.parse(localStorage.getItem('update'));
-
-    console.log('after update', this.rowsFromServerByUser);
 
 
-    // console.log(this.result);
-    // this.rowsFromServerByUser = [];
-    // this.showDataByUser();
+  setLocalStorage(rowsFromServerByUser) {
+    localStorage.setItem('update', JSON.stringify(rowsFromServerByUser));
+  }
 
+  getLocalStorage() {
+    return JSON.parse(localStorage.getItem('update'));
   }
 
   onYesButton(event: boolean) {
@@ -314,6 +299,54 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onClearDropdownSelection() {
     this.selectedCountry = '';
     this.isShowDropDown = true;
+  }
+  onCalculateJan_USD(row: IRow, input, index) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    this.result = 0;
+    this.result = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+
+
+  }
+
+  onCalculateFeb_USD(row: IRow, input: string, index: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    this.result = 0;
+    this.result = +input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Feb_x002d_20_x0020_USD = this.result;
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateMar_USD(row: IRow, input: string, index: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    this.result = 0;
+    this.result = +input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Mar_x002d_20_x0020_USD = this.result;
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+  onCalculateApril_USD(row: IRow, input: string, index: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    this.result = 0;
+    this.result = +input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Apr_x002d_20_x0020_USD = this.result;
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
   }
 }
 

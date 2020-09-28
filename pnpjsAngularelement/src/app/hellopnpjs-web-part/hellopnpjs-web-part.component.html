@@ -128,8 +128,8 @@
           <input type="text" [value]="row.SharePoint" disabled>
         </td>
         <td>
-          <input type="number" #qty [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"
-                 (input)="onCalculateUSD(row,qty.value,i)">
+          <input type="number" #janQtyRef [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"
+                 (input)="onCalculateJan_USD(row,janQtyRef.value,i)">
         </td>
         <td>
             <input type="number"
@@ -138,24 +138,24 @@
         </td>
 
         <td>
-          <input type="number" [(ngModel)]="row.Feb_x002d_20_x0020_Qty" class="input__write" name="Fab-20 Qty">
+          <input type="number" #febQtyRef [(ngModel)]="row.Feb_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateFeb_USD(row,febQtyRef.value,i)" name="Fab-20 Qty">
         </td>
         <td>
-          <input type="number" [(ngModel)]="row.Feb_x002d_20_x0020_USD" name="Fab-20 USD" disabled>
-        </td>
-
-        <td>
-          <input type="number" [(ngModel)]="row.Mar_x002d_20_x0020_Qty" class="input__write" name="Mar-20 Qty">
-        </td>
-        <td>
-          <input type="number" [(ngModel)]="row.Mar_x002d_20_x0020_USD" name="Mar-20 USD" disabled>
+          <input type="number" [value]="row.Feb_x002d_20_x0020_USD" name="Fab-20 USD" disabled>
         </td>
 
         <td>
-          <input type="number" [(ngModel)]="row.Apr_x002d_20_x0020_Qty" class="input__write" name="Apr-20 Qty">
+          <input type="number" #marQtyRef [(ngModel)]="row.Mar_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMar_USD(row,marQtyRef.value,i)"  name="Mar-20 Qty">
         </td>
         <td>
-          <input type="number" [(ngModel)]="row.Apr_x002d_20_x0020_USD" name="Apr-20 USD" disabled>
+          <input type="number" [value]="row.Mar_x002d_20_x0020_USD" name="Mar-20 USD" disabled>
+        </td>
+
+        <td>
+          <input type="number" #aprQtyRef [(ngModel)]="row.Apr_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateApril_USD(row,aprQtyRef.value,i)" name="Apr-20 Qty">
+        </td>
+        <td>
+          <input type="number" [value]="row.Apr_x002d_20_x0020_USD" name="Apr-20 USD" disabled>
         </td>
         <td>
           <input type="number" [(ngModel)]="row.May_x002d_20_x0020_Qty" class="input__write" name="May-20 Qty">

@@ -2,7 +2,7 @@ export interface IRow {
   Annual_x0020_QTY: string;
   Annual_x0020_Sales: string;
   Apr_x002d_20_x0020_Qty: string;
-  Apr_x002d_20_x0020_USD: string;
+  Apr_x002d_20_x0020_USD: number;
   Attachments: boolean;
   Aug_x002d_20_x0020_Qty: string;
   Aug_x002d_20_x0020_USD: string;
@@ -19,8 +19,8 @@ export interface IRow {
   Dec_x002d_20_x0020_USD: string;
   EC_x0020_Sales_x0020_Price: string;
   EditorId: string;
-  Feb_x002d_20_x0020_Qty: string;
-  Feb_x002d_20_x0020_USD: string;
+  Feb_x002d_20_x0020_Qty: number;
+  Feb_x002d_20_x0020_USD: number;
   FileSystemObjectType: string;
   GM_x0020__x0025_: string;
   GUID: string;
@@ -38,7 +38,7 @@ export interface IRow {
   Local_x0020_Cost: string;
   Localization_x0020_Cost: string;
   Mar_x002d_20_x0020_Qty: string;
-  Mar_x002d_20_x0020_USD: string;
+  Mar_x002d_20_x0020_USD: number;
   May_x002d_20_x0020_Qty: string;
   May_x002d_20_x0020_USD: string;
   Modified: string;
