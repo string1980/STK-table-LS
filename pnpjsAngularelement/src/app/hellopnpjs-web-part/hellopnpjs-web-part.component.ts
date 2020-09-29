@@ -44,6 +44,30 @@ export class HellopnpjsWebPartComponent implements OnInit {
   //     this.isShowDropDown = false;
   //   }
   // }
+  private JanUSD: number = 0;
+  private FebUSD: number = 0;
+  private MarUSD: number = 0;
+  private AprUSD: number = 0;
+  private MayUSD: number = 0;
+  private JunUSD: number = 0;
+  private JulUSD: number = 0;
+  private AugUSD: number = 0;
+  private SepUSD: number = 0;
+  private OctUSD: number = 0;
+  private NovUSD: number = 0;
+  private DecUSD: number = 0;
+  private JanQty: number = 0;
+  private FebQty: number = 0;
+  private MarQty: number = 0;
+  private AprQty: number = 0;
+  private MayQty: number = 0;
+  private JunQty: number = 0;
+  private JulQty: number = 0;
+  private AugQty: number = 0;
+  private SepQty: number = 0;
+  private OctQty: number = 0;
+  private NovQty: number = 0;
+  private DecQty: number = 0;
 
 
   constructor(private testListService: TestListService) {
@@ -195,7 +219,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onCheck(row: IRow, event, index: number) {
     this.selectedRowIndex = this.rowsFromServer.indexOf(row);
     this.isSelected = this.selectedRowIndex === index;
-    console.log('selected row index', this.isSelected);
     if (event.target.checked) {
       this.rowChecked = true;
       row.checked = event.target.checked;
@@ -209,19 +232,69 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
     }
     // this.cdr.detectChanges();
-    console.log('Selected rows', this.selectedRows);
+    // console.log('Selected rows', this.selectedRows);
   }
 
 
   onSubmitTemplateBased(tableForm) {
+    this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty = this.JanQty;
+    this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.JanUSD;
+    this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_Qty = this.FebQty;
+    this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_USD = this.FebUSD;
+    this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_Qty = this.MarQty;
+    this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_USD = this.MarUSD;
+    this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_Qty = this.AprQty;
+    this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_USD = this.AprUSD;
+    this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_Qty = this.MayQty;
+    this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_USD = this.MayUSD;
+    this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_Qty = this.JunQty;
+    this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_USD = this.JunUSD;
+    this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_Qty = this.JulQty;
+    this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_USD = this.JulUSD;
+    this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_Qty = this.AugQty;
+    this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_USD = this.AugUSD;
+    this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_Qty = this.SepQty;
+    this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_USD = this.SepUSD;
+    this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_Qty = this.OctQty;
+    this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_USD = this.OctUSD;
+    this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_Qty = this.NovQty;
+    this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_USD = this.NovUSD;
+    this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_Qty = this.DecQty;
+    this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_USD = this.DecUSD;
 
-    console.log('Table form', tableForm);
+
+    // this.selectedRows[this.selectedRowIndex].Annual_x0020_QTY = 0;
+    this.selectedRows[this.selectedRowIndex].Annual_x0020_QTY =
+      this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_Qty +
+      this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_Qty;
+
+    console.log('Annual_x0020_QTY', this.selectedRows[this.selectedRowIndex].Annual_x0020_QTY);
+
+
+    // tslint:disable-next-line:max-line-length
+    this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = 0;
+
+    this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
+
+    console.log('Annual_x0020_Sales', this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales);
+
+    console.log('selectedRows', this.selectedRows);
+    // console.log('Table form', tableForm);
     this.testListService.addColumns(this.selectedRows).then(res => {
       // TODO: set all items(rows) by Id (save item by Id)
 
       if (res) {
         this.showNotification = true;
-        console.log('Columns successfully added');
         this.submittedBy = this.currentUser.Title;
         this.notification = {
           background: '#306B34',
@@ -256,9 +329,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
     // });
     // this.cdr.detectChanges();
   }
-
-
-
 
   setLocalStorage(rowsFromServerByUser) {
     localStorage.setItem('update', JSON.stringify(rowsFromServerByUser));
@@ -300,53 +370,234 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.selectedCountry = '';
     this.isShowDropDown = true;
   }
-  onCalculateJan_USD(row: IRow, input, index) {
+
+  onCalculateJan_USD(row: IRow, input: number, index) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
     console.log('Input', input);
-    this.result = 0;
-    this.result = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
+    // this.JanUSD = 0;
+
+    this.JanQty = input;
+    this.JanUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.JanUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
-    console.log('after update', this.rowsFromServerByUser);
-
-
-  }
-
-  onCalculateFeb_USD(row: IRow, input: string, index: any) {
-    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    this.result = 0;
-    this.result = +input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Feb_x002d_20_x0020_USD = this.result;
-    this.setLocalStorage(this.rowsFromServerByUser);
-    this.rowsFromServerByUser = this.getLocalStorage();
-
     console.log('after update', this.rowsFromServerByUser);
   }
 
-  onCalculateMar_USD(row: IRow, input: string, index: any) {
+
+  onCalculateFeb_USD(row: IRow, input: number, index: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
     console.log('Input', input);
-    this.result = 0;
-    this.result = +input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Mar_x002d_20_x0020_USD = this.result;
+    // this.FebUSD = 0;
+
+
+    this.FebQty = input;
+    this.FebUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Feb_x002d_20_x0020_USD = this.FebUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
     console.log('after update', this.rowsFromServerByUser);
   }
-  onCalculateApril_USD(row: IRow, input: string, index: any) {
+
+  onCalculateMar_USD(row: IRow, input: number, index: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
     console.log('Input', input);
-    this.result = 0;
-    this.result = +input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Apr_x002d_20_x0020_USD = this.result;
+    // this.MarUSD = 0;
+
+
+    this.MarQty = input;
+    this.MarUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Mar_x002d_20_x0020_USD = this.MarUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
     console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateApril_USD(row: IRow, input: number, index: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.AprQty = input;
+    this.AprUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Apr_x002d_20_x0020_USD = this.AprUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateMayUSD(row: IRow, input: number, i: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.MayQty = input;
+    this.MayUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].May_x002d_20_x0020_USD = this.MayUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateJuneUSD(row: IRow, input: number, i: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.JunQty = input;
+    this.JunUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Jun_x002d_20_x0020_USD = this.JunUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateJulUSD(row: IRow, input: number, i: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.JulQty = input;
+    this.JulUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Jul_x002d_20_x0020_USD = this.JulUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateAugUSD(row: IRow, input: number, i: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.AugQty = input;
+    this.AugUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Aug_x002d_20_x0020_USD = this.AugUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateSepUSD(row: IRow, input: number, i: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.SepQty = input;
+    this.SepUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Sep_x002d_20_x0020_USD = this.SepUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateOctUSD(row: IRow, input: number, i: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.OctQty = input;
+    this.OctUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Oct_x002d_20_x0020_USD = this.OctUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateNovUSD(row: IRow, input: number, i: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.NovQty = input;
+    this.NovUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Nov_x002d_20_x0020_USD = this.NovUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+  onCalculateDecUSD(row: IRow, input: number, i: any) {
+    this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
+    console.log('Input', input);
+    // this.result = 0;
+
+    this.DecQty = input;
+    this.DecUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[this.selectedRowIndex].Dec_x002d_20_x0020_USD = this.DecUSD;
+
+    this.calculateAnnualQtyOnInput();
+    this.calculateAnnualUSDOnInput();
+
+
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+
+    console.log('after update', this.rowsFromServerByUser);
+  }
+
+
+  calculateAnnualUSDOnInput() {
+    this.rowsFromServerByUser[this.selectedRowIndex].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
+  }
+
+  calculateAnnualQtyOnInput() {
+    this.rowsFromServerByUser[this.selectedRowIndex].Annual_x0020_QTY = this.JanQty + this.FebQty + this.MarQty + this.JunQty + this.JulQty + this.AugQty + this.SepQty + this.OctQty + this.NovQty + this.DecQty;
   }
 }
 
