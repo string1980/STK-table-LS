@@ -5,6 +5,7 @@ import '@pnp/sp/webs';
 import {IRow} from '../interfaces/table';
 import {stringIsNullOrEmpty} from '@pnp/common';
 import '@pnp/sp/fields';
+import {IMoreInfo} from '../interfaces/more-info';
 
 @Injectable()
 
@@ -41,20 +42,23 @@ export class PnPBaseService {
   }
 
 
-
-
   public getItemById(listName: string, itemId: any) {
     return new Promise((resolve, reject) => {
       if (sp !== null && sp !== undefined) {
-        const item = sp.web.lists.getByTitle(listName).items.getById(itemId).get();
-        resolve(item);
+        const items = this.web.lists.getByTitle(listName).items.getById(110);
+
+        // const item = this.web.lists.getByTitle(listName).items.getById(itemId).update({
+        //   Comments: comment
+        // });
+        console.log('item', items);
+        resolve(items);
       } else {
         reject('Failed getting list data...');
       }
     });
   }
 
-  public addColumnsToSalesDataList(selectedRows: IRow[]) {
+  public addColumnsToSalesDataList(selectedRows: IRow[], moreInfo: IMoreInfo) {
     return new Promise((resolve, reject) => {
       if (sp !== null && sp !== undefined) {
         console.log('Selected rows to add', selectedRows);
@@ -103,6 +107,11 @@ export class PnPBaseService {
             Dec_x002d_21USD: row.Dec_x002d_20_x0020_USD,
             AnnualSales: row.Annual_x0020_Sales,
             AnnualQTY: row.Annual_x0020_QTY,
+            Comments: moreInfo.comment,
+            Version: moreInfo.version,
+            VersionStatus: moreInfo.status,
+            Submittedby: moreInfo.submittedBy,
+            Updatedate: moreInfo.updateDate
             // Users: row.Users
 
             // mz7b: row.Customer_x0020_Code_x0020_SAP,

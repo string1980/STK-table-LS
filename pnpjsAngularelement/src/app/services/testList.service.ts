@@ -4,6 +4,7 @@ import {IListItem} from '../interfaces/testlist.interface';
 import {IRow} from '../interfaces/table';
 import {skip} from 'rxjs/operators';
 import {CurrentUserModel} from '../interfaces/current-user.model';
+import {IMoreInfo} from '../interfaces/more-info';
 
 @Injectable()
 
@@ -27,16 +28,16 @@ export class TestListService {
     });
   }
 
-  public addColumns(row: IRow[]) {
-    return this.pnpBaseService.addColumnsToSalesDataList(row).then((result) => {
-      console.log('Result', row);
+  public addColumns(row: IRow[], moreInfo: IMoreInfo) {
+    return this.pnpBaseService.addColumnsToSalesDataList(row, moreInfo).then((result) => {
 
       return result;
     });
   }
 
-  public getById(item: IRow) {
-    return this.pnpBaseService.getItemById(this.listName, item.Id).then((result: IRow) => {
+  public getById(listName: string, id) {
+    return this.pnpBaseService.getItemById(listName, id).then((result: IRow) => {
+      console.log('result get by id', result);
       return result;
     });
   }

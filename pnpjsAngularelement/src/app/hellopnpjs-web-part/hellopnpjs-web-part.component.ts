@@ -2,6 +2,8 @@ import {Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewEncap
 import {TestListService} from '../services/testList.service';
 import {IRow} from '../interfaces/table';
 import {CurrentUserModel} from '../interfaces/current-user.model';
+import {PnPBaseService} from '../services/pnpBase.service';
+import {IMoreInfo} from '../interfaces/more-info';
 
 @Component({
   selector: 'app-hellopnpjs-web-part',
@@ -36,7 +38,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
   selectedCountry: string = '';
   @ViewChild('dropdown', {static: false}) dropdown: ElementRef;
   submittedBy: string = '';
-  Jan21Qty: number;
+  updateDate: string = '';
+
 
   // @HostListener('document:click', ['$event'])
   // handleOutsideClick(event) {
@@ -68,9 +71,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
   private OctQty: number = 0;
   private NovQty: number = 0;
   private DecQty: number = 0;
+  comment: string = '';
 
 
-  constructor(private testListService: TestListService) {
+  constructor(private testListService: TestListService, private pnpService: PnPBaseService) {
   }
 
   ngOnInit() {
@@ -80,7 +84,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     // if(localStorage.getItem('update') !== null){
     //   this.rowsFromServerByUser = JSON.parse(localStorage.getItem('update'));
     // }
-    this.getItemById();
+    // this.getItemById();
   }
 
 
@@ -88,23 +92,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.testListService.getAllItems().then((result: IRow[]) => {
       if (result !== null && result !== undefined) {
         this.rowsFromServer = result;
-        // this.rowsFromServer.forEach(row => {
-        //   row.UsersId.forEach(id => {
-        //     if (id === this.currentUser.Id) {
-        //       console.log('good');
-        //       this.rowsFromServerByUser.push(row);
-        //       this.rowsFromServerByUser.forEach(item => {
-        //         this.countries.push(item.Country);
-        //       });
-        //       this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
-        //       console.log('countries', this.countries);
-        //     }
-        //
-        //   });
-        //   this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = +result
-        //
-        // });
-        // this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = +result;
         this.rowsFromServer.forEach((x, index) => {
           this.displayedColumns.push(Object.keys(x)[index]);
         });
@@ -177,6 +164,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
         if (id === this.currentUser.Id) {
           console.log('good');
           this.rowsFromServerByUser.push(row);
+          console.log('items by user', this.rowsFromServerByUser);
 
           this.rowsFromServerByUser.forEach(item => {
             this.countries.push(item.Country);
@@ -186,6 +174,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
         }
       });
     });
+    // tslint:disable-next-line:max-line-length
     // if (this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD === undefined || this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD === null) {
     //   this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
     // }
@@ -203,28 +192,16 @@ export class HellopnpjsWebPartComponent implements OnInit {
     });
   }
 
-  getItemById() {
-    console.log('get item by id');
-    // console.log(this.rowsFromServerByUser[0].Id);
-    // this.rowsFromServerByUser.forEach(a => {
-    //   console.log('----', a);
-    //   this.testListService.getById(a).then(result => {
-    //     console.log('get item by id', a);
-    //   })
-    // })
-
-  }
-
 
   onCheck(row: IRow, event, index: number) {
     this.selectedRowIndex = this.rowsFromServer.indexOf(row);
     this.isSelected = this.selectedRowIndex === index;
-    if (event.target.checked) {
+    if (event.target.checked === true) {
       this.rowChecked = true;
       row.checked = event.target.checked;
-      if (row.checked) {
-        this.rowChecked = this.rowsFromServerByUser[this.selectedRowIndex].checked = row.checked;
-      }
+      // if (row.checked) {
+      //   // this.rowChecked = this.rowsFromServerByUser[this.selectedRowIndex].checked = row.checked;
+      // }
 
       this.selectedRows.push(row);
     } else {
@@ -232,75 +209,141 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
     }
     // this.cdr.detectChanges();
+    console.log('Selected rows', this.selectedRows);
+    // this.cdr.detectChanges();
     // console.log('Selected rows', this.selectedRows);
   }
 
 
-  onSubmitTemplateBased(tableForm) {
-    this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty = this.JanQty;
-    this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.JanUSD;
-    this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_Qty = this.FebQty;
-    this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_USD = this.FebUSD;
-    this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_Qty = this.MarQty;
-    this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_USD = this.MarUSD;
-    this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_Qty = this.AprQty;
-    this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_USD = this.AprUSD;
-    this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_Qty = this.MayQty;
-    this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_USD = this.MayUSD;
-    this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_Qty = this.JunQty;
-    this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_USD = this.JunUSD;
-    this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_Qty = this.JulQty;
-    this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_USD = this.JulUSD;
-    this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_Qty = this.AugQty;
-    this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_USD = this.AugUSD;
-    this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_Qty = this.SepQty;
-    this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_USD = this.SepUSD;
-    this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_Qty = this.OctQty;
-    this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_USD = this.OctUSD;
-    this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_Qty = this.NovQty;
-    this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_USD = this.NovUSD;
-    this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_Qty = this.DecQty;
-    this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_USD = this.DecUSD;
+  onSubmitTemplateBased(tableForm, version, status, submittedBy, comment) {
+    console.log('version', version);
+    console.log('status', status);
+    this.submittedBy = this.currentUser.Title;
+    const day = String(new Date().getDate());
+    const month = String(new Date().getMonth() + 1);
+    const year = String(new Date().getFullYear());
+
+    const updateDate = (day + '/' + month + '/' + year);
+    this.updateDate = updateDate;
 
 
-    // this.selectedRows[this.selectedRowIndex].Annual_x0020_QTY = 0;
-    this.selectedRows[this.selectedRowIndex].Annual_x0020_QTY =
-      this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_Qty +
-      this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_Qty;
+    // this.updateDate = Date.now().toLocaleString();
+    console.log('submittedBy', this.submittedBy);
+    console.log('updateDate', typeof this.updateDate);
+    console.log('comment', comment);
 
-    console.log('Annual_x0020_QTY', this.selectedRows[this.selectedRowIndex].Annual_x0020_QTY);
+    const moreInfo: IMoreInfo = {
+      version,
+      status,
+      updateDate,
+      submittedBy: this.submittedBy,
+      comment
+
+    };
+    this.selectedRows.forEach((row, index) => {
+      if (this.selectedRowIndex === index) {
+        this.selectedRows[index].Jan_x002d_20_x0020_Qty = this.JanQty;
+        this.selectedRows[index].Jan_x002d_20_x0020_USD = this.JanUSD;
+        this.selectedRows[index].Feb_x002d_20_x0020_Qty = this.FebQty;
+        this.selectedRows[index].Feb_x002d_20_x0020_USD = this.FebUSD;
+        this.selectedRows[index].Mar_x002d_20_x0020_Qty = this.MarQty;
+        this.selectedRows[index].Mar_x002d_20_x0020_USD = this.MarUSD;
+        this.selectedRows[index].Apr_x002d_20_x0020_Qty = this.AprQty;
+        this.selectedRows[index].Apr_x002d_20_x0020_USD = this.AprUSD;
+        this.selectedRows[index].May_x002d_20_x0020_Qty = this.MayQty;
+        this.selectedRows[index].May_x002d_20_x0020_USD = this.MayUSD;
+        this.selectedRows[index].Jun_x002d_20_x0020_Qty = this.JunQty;
+        this.selectedRows[index].Jun_x002d_20_x0020_USD = this.JunUSD;
+        this.selectedRows[index].Jul_x002d_20_x0020_Qty = this.JulQty;
+        this.selectedRows[index].Jul_x002d_20_x0020_USD = this.JulUSD;
+        this.selectedRows[index].Aug_x002d_20_x0020_Qty = this.AugQty;
+        this.selectedRows[index].Aug_x002d_20_x0020_USD = this.AugUSD;
+        this.selectedRows[index].Sep_x002d_20_x0020_Qty = this.SepQty;
+        this.selectedRows[index].Sep_x002d_20_x0020_USD = this.SepUSD;
+        this.selectedRows[index].Oct_x002d_20_x0020_Qty = this.OctQty;
+        this.selectedRows[index].Oct_x002d_20_x0020_USD = this.OctUSD;
+        this.selectedRows[index].Nov_x002d_20_x0020_Qty = this.NovQty;
+        this.selectedRows[index].Nov_x002d_20_x0020_USD = this.NovUSD;
+        this.selectedRows[index].Dec_x002d_20_x0020_Qty = this.DecQty;
+        this.selectedRows[index].Dec_x002d_20_x0020_USD = this.DecUSD;
+
+        this.selectedRows[index].Annual_x0020_QTY =
+          this.selectedRows[index].Jan_x002d_20_x0020_Qty +
+          this.selectedRows[index].Feb_x002d_20_x0020_Qty +
+          this.selectedRows[index].Mar_x002d_20_x0020_Qty +
+          this.selectedRows[index].Apr_x002d_20_x0020_Qty +
+          this.selectedRows[index].May_x002d_20_x0020_Qty +
+          this.selectedRows[index].Jun_x002d_20_x0020_Qty +
+          this.selectedRows[index].Jul_x002d_20_x0020_Qty +
+          this.selectedRows[index].Aug_x002d_20_x0020_Qty +
+          this.selectedRows[index].Sep_x002d_20_x0020_Qty +
+          this.selectedRows[index].Oct_x002d_20_x0020_Qty +
+          this.selectedRows[index].Nov_x002d_20_x0020_Qty +
+          this.selectedRows[index].Dec_x002d_20_x0020_Qty;
+
+        // tslint:disable-next-line:max-line-length
+        this.selectedRows[index].Annual_x0020_Sales = 0;
+
+        this.selectedRows[index].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
+      }
+    })
 
 
-    // tslint:disable-next-line:max-line-length
-    this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = 0;
+    // this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty = this.JanQty;
+    // this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.JanUSD;
+    // this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_Qty = this.FebQty;
+    // this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_USD = this.FebUSD;
+    // this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_Qty = this.MarQty;
+    // this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_USD = this.MarUSD;
+    // this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_Qty = this.AprQty;
+    // this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_USD = this.AprUSD;
+    // this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_Qty = this.MayQty;
+    // this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_USD = this.MayUSD;
+    // this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_Qty = this.JunQty;
+    // this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_USD = this.JunUSD;
+    // this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_Qty = this.JulQty;
+    // this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_USD = this.JulUSD;
+    // this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_Qty = this.AugQty;
+    // this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_USD = this.AugUSD;
+    // this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_Qty = this.SepQty;
+    // this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_USD = this.SepUSD;
+    // this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_Qty = this.OctQty;
+    // this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_USD = this.OctUSD;
+    // this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_Qty = this.NovQty;
+    // this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_USD = this.NovUSD;
+    // this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_Qty = this.DecQty;
+    // this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_USD = this.DecUSD;
+    //
+    // this.selectedRows[this.selectedRowIndex].Annual_x0020_QTY =
+    //   this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_Qty +
+    //   this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_Qty;
+    //
+    // // tslint:disable-next-line:max-line-length
+    // this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = 0;
+    //
+    // this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
 
-    this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
 
-    console.log('Annual_x0020_Sales', this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales);
-
-    console.log('selectedRows', this.selectedRows);
-    // console.log('Table form', tableForm);
-    this.testListService.addColumns(this.selectedRows).then(res => {
-      // TODO: set all items(rows) by Id (save item by Id)
-
+    this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
+      // TODO: add comments and other stuff;
       if (res) {
         this.showNotification = true;
-        this.submittedBy = this.currentUser.Title;
+        // this.submittedBy = this.currentUser.Title;
+        // this.updateDate = Date.now().toLocaleString();
         this.notification = {
           background: '#306B34',
           message: 'Data successfully saved!'
         };
-
         setTimeout(() => {
           this.showNotification = false;
           this.selectedRows = [];
@@ -316,7 +359,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
           this.selectedRows = [];
         }, 5000);
       }
+
     });
+
   }
 
   openYesNoDialog() {
@@ -373,8 +418,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateJan_USD(row: IRow, input: number, index) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.JanUSD = 0;
 
     this.JanQty = input;
     this.JanUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -385,15 +428,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-    console.log('after update', this.rowsFromServerByUser);
   }
-
 
   onCalculateFeb_USD(row: IRow, input: number, index: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.FebUSD = 0;
-
 
     this.FebQty = input;
     this.FebUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -405,14 +443,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateMar_USD(row: IRow, input: number, index: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.MarUSD = 0;
-
 
     this.MarQty = input;
     this.MarUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -424,13 +458,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateApril_USD(row: IRow, input: number, index: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.AprQty = input;
     this.AprUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -442,13 +473,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateMayUSD(row: IRow, input: number, i: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.MayQty = input;
     this.MayUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -460,13 +488,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateJuneUSD(row: IRow, input: number, i: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.JunQty = input;
     this.JunUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -478,13 +503,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateJulUSD(row: IRow, input: number, i: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.JulQty = input;
     this.JulUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -496,13 +518,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateAugUSD(row: IRow, input: number, i: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.AugQty = input;
     this.AugUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -514,13 +533,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateSepUSD(row: IRow, input: number, i: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.SepQty = input;
     this.SepUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -532,14 +548,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateOctUSD(row: IRow, input: number, i: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.OctQty = input;
     this.OctUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -550,14 +562,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateNovUSD(row: IRow, input: number, i: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.NovQty = input;
     this.NovUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -574,8 +582,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateDecUSD(row: IRow, input: number, i: any) {
     this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log('Input', input);
-    // this.result = 0;
 
     this.DecQty = input;
     this.DecUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
@@ -588,7 +594,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
-    console.log('after update', this.rowsFromServerByUser);
   }
 
 
