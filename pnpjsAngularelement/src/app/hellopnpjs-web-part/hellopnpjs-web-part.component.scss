@@ -99,7 +99,8 @@
 
     .comments {
       flex: 1;
-      padding: 0 15px;
+      padding: 0 23px;
+      margin-top: 1rem;
     }
   }
 }
@@ -107,6 +108,10 @@
 form {
   width: 70vw;
   overflow: auto;
+
+  &.form_table{
+    margin-left: 1.4rem;
+  }
 }
 
 table.table {
@@ -133,6 +138,18 @@ table.table {
       &:nth-of-type(5) {
         input {
           width: 500px !important;
+        }
+
+      }
+      &:nth-of-type(10), &:nth-of-type(17) {
+        input {
+          width: 250px !important;
+        }
+
+      }
+      &:nth-of-type(11),&:nth-of-type(12),&:nth-of-type(13),&:nth-of-type(14),  &:nth-of-type(15) {
+        input {
+          width: 100px !important;
         }
 
       }

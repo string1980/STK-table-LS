@@ -39,6 +39,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   @ViewChild('dropdown', {static: false}) dropdown: ElementRef;
   submittedBy: string = '';
   updateDate: string = '';
+  disableInputTable: boolean;
 
 
   // @HostListener('document:click', ['$event'])
@@ -162,27 +163,16 @@ export class HellopnpjsWebPartComponent implements OnInit {
     rowsFromServer.forEach(row => {
       row.UsersId.forEach(id => {
         if (id === this.currentUser.Id) {
-          console.log('good');
           this.rowsFromServerByUser.push(row);
-          console.log('items by user', this.rowsFromServerByUser);
 
           this.rowsFromServerByUser.forEach(item => {
             this.countries.push(item.Country);
           });
           this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
-          console.log('countries', this.countries);
         }
       });
     });
-    // tslint:disable-next-line:max-line-length
-    // if (this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD === undefined || this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD === null) {
-    //   this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.result;
-    // }
 
-    // console.log('JAN', this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD)
-
-
-    console.log('asdasd', this.rowsFromServerByUser)
   }
 
   public getUser() {
@@ -216,8 +206,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   onSubmitTemplateBased(tableForm, version, status, submittedBy, comment) {
-    console.log('version', version);
-    console.log('status', status);
     this.submittedBy = this.currentUser.Title;
     const day = String(new Date().getDate());
     const month = String(new Date().getMonth() + 1);
@@ -225,12 +213,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     const updateDate = (day + '/' + month + '/' + year);
     this.updateDate = updateDate;
-
-
-    // this.updateDate = Date.now().toLocaleString();
-    console.log('submittedBy', this.submittedBy);
-    console.log('updateDate', typeof this.updateDate);
-    console.log('comment', comment);
 
     const moreInfo: IMoreInfo = {
       version,
@@ -284,9 +266,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         this.selectedRows[index].Annual_x0020_Sales = 0;
 
+        // tslint:disable-next-line:max-line-length
         this.selectedRows[index].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
       }
-    })
+    });
 
 
     // this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty = this.JanQty;
@@ -331,15 +314,12 @@ export class HellopnpjsWebPartComponent implements OnInit {
     // // tslint:disable-next-line:max-line-length
     // this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = 0;
     //
+    // tslint:disable-next-line:max-line-length
     // this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
-
-
     this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
       // TODO: add comments and other stuff;
       if (res) {
         this.showNotification = true;
-        // this.submittedBy = this.currentUser.Title;
-        // this.updateDate = Date.now().toLocaleString();
         this.notification = {
           background: '#306B34',
           message: 'Data successfully saved!'
@@ -421,7 +401,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.JanQty = input;
     this.JanUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.JanUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Jan_x002d_20_x0020_USD = Number(this.JanUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -435,7 +416,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.FebQty = input;
     this.FebUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Feb_x002d_20_x0020_USD = this.FebUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Feb_x002d_20_x0020_USD = Number(this.FebUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -450,7 +432,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.MarQty = input;
     this.MarUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Mar_x002d_20_x0020_USD = this.MarUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Mar_x002d_20_x0020_USD = Number(this.MarUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -465,7 +448,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.AprQty = input;
     this.AprUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Apr_x002d_20_x0020_USD = this.AprUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Apr_x002d_20_x0020_USD = Number(this.AprUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -480,7 +464,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.MayQty = input;
     this.MayUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].May_x002d_20_x0020_USD = this.MayUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].May_x002d_20_x0020_USD = Number(this.MayUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -495,7 +480,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.JunQty = input;
     this.JunUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Jun_x002d_20_x0020_USD = this.JunUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Jun_x002d_20_x0020_USD = Number(this.JunUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -510,7 +496,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.JulQty = input;
     this.JulUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Jul_x002d_20_x0020_USD = this.JulUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Jul_x002d_20_x0020_USD = Number(this.JulUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -525,7 +512,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.AugQty = input;
     this.AugUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Aug_x002d_20_x0020_USD = this.AugUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Aug_x002d_20_x0020_USD = Number(this.AugUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -540,7 +528,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.SepQty = input;
     this.SepUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Sep_x002d_20_x0020_USD = this.SepUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Sep_x002d_20_x0020_USD = Number(this.SepUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -555,7 +544,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.OctQty = input;
     this.OctUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[this.selectedRowIndex].Oct_x002d_20_x0020_USD = this.OctUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Oct_x002d_20_x0020_USD = Number(this.OctUSD.toFixed(3));
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -570,6 +559,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.NovQty = input;
     this.NovUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[this.selectedRowIndex].Nov_x002d_20_x0020_USD = this.NovUSD;
+
+    this.rowsFromServerByUser[this.selectedRowIndex].Nov_x002d_20_x0020_USD.toFixed(3);
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -586,6 +577,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.DecQty = input;
     this.DecUSD = input * +this.rowsFromServerByUser[this.selectedRowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[this.selectedRowIndex].Dec_x002d_20_x0020_USD = this.DecUSD;
+    this.rowsFromServerByUser[this.selectedRowIndex].Dec_x002d_20_x0020_USD.toFixed(3);
 
     this.calculateAnnualQtyOnInput();
     this.calculateAnnualUSDOnInput();
@@ -598,11 +590,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   calculateAnnualUSDOnInput() {
+    // tslint:disable-next-line:max-line-length
     this.rowsFromServerByUser[this.selectedRowIndex].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
+    // tslint:disable-next-line:max-line-length
+    this.rowsFromServerByUser[this.selectedRowIndex].Annual_x0020_Sales = Number(this.rowsFromServerByUser[this.selectedRowIndex].Annual_x0020_Sales.toFixed(3));
   }
 
   calculateAnnualQtyOnInput() {
-    this.rowsFromServerByUser[this.selectedRowIndex].Annual_x0020_QTY = this.JanQty + this.FebQty + this.MarQty + this.JunQty + this.JulQty + this.AugQty + this.SepQty + this.OctQty + this.NovQty + this.DecQty;
+    // tslint:disable-next-line:max-line-length
+    this.rowsFromServerByUser[this.selectedRowIndex].Annual_x0020_QTY = this.JanQty + this.FebQty + this.MarQty + this.AprQty + this.MayQty + this.JunQty + this.JulQty + this.AugQty + this.SepQty + this.OctQty + this.NovQty + this.DecQty;
   }
 }
 

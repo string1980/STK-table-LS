@@ -62,12 +62,12 @@
   </form>
 
   <form #tableForm="ngForm"
-        *ngIf="rowsFromServerByUser.length > 0;else showSpinner">
+        *ngIf="rowsFromServerByUser.length > 0;else showSpinner" class="form_table">
     <table class="table">
       <thead>
       <tr>
         <th>
-          <input type="checkbox">
+<!--          <input type="checkbox">-->
         </th>
         <th *ngFor="let column of displayedColumns">{{column}}</th>
       </tr>
@@ -211,13 +211,13 @@
         </td>
 
         <td>
-          <input type="number" [value]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled>
+          <input type="text" [value]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled>
         </td>
         <td>
           <input type="text" [value]="row.Annual_x0020_Sales" name="Annual Sales" disabled>
         </td>
         <td>
-          <input type="text" [value]="row.Annual_x0020_QTY" name="Annual Qty" disabled>
+          <input type="number" [value]="row.Annual_x0020_QTY" name="Annual Qty" disabled>
         </td>
 
         <!--      <td>-->
