@@ -29,10 +29,10 @@
         .dropdown{
           position: absolute;
           top: 100%;
-          left: 50%;
-          width: 50%;
+          left: 50.4%;
+          width: 154px;
           border: 1px solid #f58c2b;
-          border-radius: 10px;
+          //border-radius: 10px;
           box-shadow: 0 0 2px rgba(0,0,0,0.6);
           z-index: 10;
           background: #ccf3ff;
@@ -45,7 +45,7 @@
             margin: 0;
             overflow: hidden;
             li{
-              padding: 10px;
+              padding: 5px;
               border-bottom: 1px solid #bdbdbd;
               transition: background 0.3s ease-in-out;
               cursor: pointer;
@@ -92,6 +92,9 @@
           border: 1px solid #f58c2b;
           outline: 1px solid #f58c2b;
         }
+        &:disabled{
+          background: #c4cfda;
+        }
       }
 
 
@@ -123,6 +126,15 @@ table.table {
       color: #fff;
       padding: 10px;
 
+      button{
+        background: transparent;
+        border: 0;
+        display: block;
+        width: 100%;
+        outline: 0;
+        cursor: pointer;
+      }
+
 
     }
 
@@ -141,17 +153,9 @@ table.table {
         }
 
       }
-      &:nth-of-type(10), &:nth-of-type(17) {
-        input {
-          width: 250px !important;
-        }
 
-      }
-      &:nth-of-type(11),&:nth-of-type(12),&:nth-of-type(13),&:nth-of-type(14),  &:nth-of-type(15) {
-        input {
-          width: 100px !important;
-        }
-
+      input[type="checkbox"]{
+        outline: none;
       }
 
       input {
@@ -175,8 +179,54 @@ table.table {
           border: 1px solid #f58c2b;
           outline: 1px solid #f58c2b;
         }
+        &.title{
+          width: 75px;
+        }
+        &.item__code {
+          width: 100px;
+        }
+        &.gm {
+          width: 60px;
+        }
+        &.sales__foc {
+          width: 105px;
+        }
+        &.sales__type {
+          width: 88px;
+        }
+        &.business__segment {
+          width: 80px;
+        }
+        &.customer__code {
+          width: 85px;
+        }
+        &.customer__name {
+          width: 245px;
+        }
+        &.ec__price {
+          width: 75px;
+        }
+        &.hq__cost {
+          width: 75px;
+        }
+        &.transfer__price {
+          width: 65px;
+        }
+        &.localization__cost {
+          width: 90px;
+        }
+        &.local__cost {
+          width: 60px;
+        }
+        &.input__read{
+          width: 70px;
+        }
+        &.sharepoint__input{
+          width: 155px;
+        }
 
         &.input__write {
+          width: 70px;
           height: 35px;
           text-align: left;
           background: #ffffff;

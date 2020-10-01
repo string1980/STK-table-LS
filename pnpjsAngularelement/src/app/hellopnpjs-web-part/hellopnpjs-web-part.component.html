@@ -9,7 +9,7 @@
 
     <div class="form-group submitted">
       <label for="submitted_by">Submitted By </label>
-      <input type="email" class="form-control" [(ngModel)]="submittedBy"  name="submittedBy" id="submitted_by" aria-describedby="emailHelp" disabled>
+      <input type="text" class="form-control" [(ngModel)]="submittedBy"  name="submittedBy" id="submitted_by" aria-describedby="emailHelp" disabled>
     </div>
 
 
@@ -30,18 +30,23 @@
              class="form-control"
              id="country"
              aria-describedby="emailHelp"
+              *ngIf="countries.length>1;else showOneCountry"
              [(ngModel)]="selectedCountry"
              (click)="this.isShowDropDown = true"
              name="Country"
 
             >
+      <ng-template #showOneCountry>
+        <input  type="text"  [value]="rowsFromServerByUser[0].Country"  [(ngModel)]="selectedCountry" name="Country">
+      </ng-template>
       <button class="clear" (click)="onClearDropdownSelection()" *ngIf="selectedCountry !== ''">
-        <span>X</span>
+<!--        <span>X</span>-->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       </button>
 
-      <div class="dropdown"  #dropdown *ngIf="isShowDropDown">
+      <div class="dropdown"  #dropdown *ngIf="isShowDropDown && countries.length> 1">
         <ul>
-          <li *ngFor="let country of countries" (click)="onSelectCountry(country)">
+          <li *ngFor="let country of countries;let i=index" (click)="onSelectCountry(country)">
             <span >{{country}}</span>
           </li>
         </ul>
@@ -61,6 +66,8 @@
     </div>
   </form>
 
+<!--  Table-->
+
   <form #tableForm="ngForm"
         *ngIf="rowsFromServerByUser.length > 0;else showSpinner" class="form_table">
     <table class="table">
@@ -69,63 +76,69 @@
         <th>
 <!--          <input type="checkbox">-->
         </th>
-        <th *ngFor="let column of displayedColumns">{{column}}</th>
+        <th *ngFor="let column of displayedColumns;let i=index">{{column}}
+          <button (click)="onSortBy(column,i)" *ngIf="i === 0 ||i === 1 || i === 2 || i === 3 ">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
+          </button>
+
+
+        </th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry;let i=index;trackBy: customTrackBy"
-          [ngClass]="{'selected': this.rowsFromServerByUser.indexOf(this.rowsFromServerByUser[this.selectedRowIndex]) === i  }">
+          [ngClass]="{'selected': rowsFromServerByUser.indexOf(row) === i && checkboxRef.checked}">
 
         <td>
-          <input type="checkbox" (change)="onCheck(row,$event,i)">
+          <input type="checkbox" #checkboxRef (change)="onCheck(row,$event,i)">
         </td>
 
         <td>
-          <input type="text" [value]="row.Title" disabled></td>
+          <input type="text" [value]="row.Title" disabled class="title"></td>
         <td>
-          <input type="text" [value]="row.Country" disabled>
+          <input type="text" [value]="row.Country" disabled class="country">
         </td>
         <td>
-          <input type="text" [value]="row.Item_x0020_Code_x0020_SAP" disabled>
+          <input type="text" [value]="row.Item_x0020_Code_x0020_SAP" disabled class="item__code">
         </td>
         <td>
-          <input type="text" [value]="row.Item_x0020_Name" disabled>
+          <input type="text" [value]="row.Item_x0020_Name" disabled class="item__name">
         </td>
         <td>
-          <input type="text" [value]="row.Sales_x005c_FOC" disabled>
+          <input type="text" [value]="row.Sales_x005c_FOC" disabled class="sales__foc">
         </td>
         <td>
-          <input type="text" [value]="row.Sales_x0020_Type" disabled>
+          <input type="text" [value]="row.Sales_x0020_Type" disabled class="sales__type">
         </td>
         <td>
-          <input type="text" [value]="row.Business_x0020_Segment" disabled>
+          <input type="text" [value]="row.Business_x0020_Segment" disabled class="business__segment">
         </td>
         <td>
-          <input type="text" [value]="row.Customer_x0020_Code_x0020_SAP" disabled>
+          <input type="text" [value]="row.Customer_x0020_Code_x0020_SAP" disabled class="customer__code">
         </td>
         <td>
-          <input type="text" [value]="row.Customer_x0020_Name" disabled>
+          <input type="text" [value]="row.Customer_x0020_Name" disabled class="customer__name">
         </td>
         <td>
-          <input type="text" [value]="row.EC_x0020_Sales_x0020_Price" disabled>
+          <input type="text" [value]="row.EC_x0020_Sales_x0020_Price" disabled class="ec__price">
         </td>
         <td>
-          <input type="text" [value]="row.HQ_x0020_STD_x0020_Cost" disabled>
+          <input type="text" [value]="row.HQ_x0020_STD_x0020_Cost" disabled class="hq__cost">
         </td>
         <td>
-          <input type="text" [value]="row.Transfer_x0020_Price" disabled>
+          <input type="text" [value]="row.Transfer_x0020_Price" disabled class="transfer__price">
         </td>
         <td>
-          <input type="text" [value]="row.Localization_x0020_Cost" disabled>
+          <input type="text" [value]="row.Localization_x0020_Cost" disabled class="localization__cost">
         </td>
         <td>
-          <input type="text" [value]="row.Local_x0020_Cost" disabled>
+          <input type="text" [value]="row.Local_x0020_Cost" disabled class="local__cost">
         </td>
         <td>
-          <input type="text" [value]="row.GM_x0020__x0025_" disabled>
+          <input type="text" [value]="row.GM_x0020__x0025_" disabled class="gm">
         </td>
         <td>
-          <input type="text" [value]="row.SharePoint" disabled>
+          <input type="text" [value]="row.SharePoint" disabled class="sharepoint__input">
         </td>
         <td>
           <input type="number" #janQtyRef [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"
@@ -133,7 +146,7 @@
         </td>
         <td>
             <input type="number"
-                   name="Jan-20 USD" disabled  class="Jan21USD" [value]="row.Jan_x002d_20_x0020_USD" >
+                   name="Jan-20 USD" disabled  class="input__read" [value]="row.Jan_x002d_20_x0020_USD" >
 
         </td>
 
@@ -141,69 +154,69 @@
           <input type="number" #febQtyRef [(ngModel)]="row.Feb_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateFeb_USD(row,+febQtyRef.value,i)" name="Fab-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Feb_x002d_20_x0020_USD" name="Fab-20 USD" disabled>
+          <input type="number" [value]="row.Feb_x002d_20_x0020_USD" name="Fab-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #marQtyRef [(ngModel)]="row.Mar_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMar_USD(row,+marQtyRef.value,i)"  name="Mar-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Mar_x002d_20_x0020_USD" name="Mar-20 USD" disabled>
+          <input type="number" [value]="row.Mar_x002d_20_x0020_USD" name="Mar-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #aprQtyRef [(ngModel)]="row.Apr_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateApril_USD(row,+aprQtyRef.value,i)" name="Apr-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Apr_x002d_20_x0020_USD" name="Apr-20 USD" disabled>
+          <input type="number" [value]="row.Apr_x002d_20_x0020_USD" name="Apr-20 USD" disabled class="input__read">
         </td>
         <td>
           <input type="number" #mayQtyRef [(ngModel)]="row.May_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMayUSD(row,+mayQtyRef.value,i)" name="May-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.May_x002d_20_x0020_USD" name="May-20 USD" disabled>
+          <input type="number" [value]="row.May_x002d_20_x0020_USD" name="May-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #juneQtyRef [(ngModel)]="row.Jun_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateJuneUSD(row,+juneQtyRef.value,i)" name="Jun-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Jun_x002d_20_x0020_USD" name="Jun-20 USD" disabled>
+          <input type="number" [value]="row.Jun_x002d_20_x0020_USD" name="Jun-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #julQtyRef [(ngModel)]="row.Jul_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateJulUSD(row,+julQtyRef.value,i)" name="Jul-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Jul_x002d_20_x0020_USD" name="Jul-20 USD" disabled>
+          <input type="number" [value]="row.Jul_x002d_20_x0020_USD" name="Jul-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #augQtyRef [(ngModel)]="row.Aug_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateAugUSD(row,+augQtyRef.value,i)" name="Aug-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Aug_x002d_20_x0020_USD" name="Aug-20 USD" disabled>
+          <input type="number" [value]="row.Aug_x002d_20_x0020_USD" name="Aug-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #sepQtyRef [(ngModel)]="row.Sep_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateSepUSD(row,+sepQtyRef.value,i)" name="Sep-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Sep_x002d_20_x0020_USD" name="Sep-20 USD" disabled>
+          <input type="number" [value]="row.Sep_x002d_20_x0020_USD" name="Sep-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #octQtyRef [(ngModel)]="row.Oct_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateOctUSD(row,+octQtyRef.value,i)" name="Oct-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Oct_x002d_20_x0020_USD" name="Oct-20 USD" disabled>
+          <input type="number" [value]="row.Oct_x002d_20_x0020_USD" name="Oct-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #novQtyRef [(ngModel)]="row.Nov_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateNovUSD(row,+novQtyRef.value,i)" name="Nov-20 Qty">
         </td>
         <td>
-          <input type="number" [value]="row.Nov_x002d_20_x0020_USD" name="Nov-20 USD" disabled>
+          <input type="number" [value]="row.Nov_x002d_20_x0020_USD" name="Nov-20 USD" disabled class="input__read">
         </td>
 
         <td>
@@ -211,13 +224,13 @@
         </td>
 
         <td>
-          <input type="text" [value]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled>
+          <input type="text" [value]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled class="input__read">
         </td>
         <td>
-          <input type="text" [value]="row.Annual_x0020_Sales" name="Annual Sales" disabled>
+          <input type="text" [value]="row.Annual_x0020_Sales" name="Annual Sales" disabled class="input__read">
         </td>
         <td>
-          <input type="number" [value]="row.Annual_x0020_QTY" name="Annual Qty" disabled>
+          <input type="number" [value]="row.Annual_x0020_QTY" name="Annual Qty" disabled class="input__read">
         </td>
 
         <!--      <td>-->
@@ -233,7 +246,10 @@
 
 
     <div class="actions">
-      <button class="btn_primary" [disabled]="selectedRows.length === 0 ||  selectedRows.length > 1" (click)="onSubmitTemplateBased(tableForm,rowsFromServer[0].Version,rowsFromServer[0].Status,submittedBy,comment)">Save</button>
+      <button class="btn_primary"
+              [disabled]="selectedRows.length === 0 || isDisableSaveBtn
+              "
+              (click)="onSubmitTemplateBased(tableForm,rowsFromServer[0].Version,rowsFromServer[0].Status,submittedBy,comment)">Save</button>
       <button class="btn_default" (click)="openYesNoDialog()">Cancel</button>
     </div>
 
