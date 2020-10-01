@@ -210,144 +210,100 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   onSubmitTemplateBased(tableForm, version, status, submittedBy, comment) {
-    this.submittedBy = this.currentUser.Title;
-    const day = String(new Date().getDate());
-    const month = String(new Date().getMonth() + 1);
-    const year = String(new Date().getFullYear());
+    console.log(tableForm);
 
-    const updateDate = (day + '/' + month + '/' + year);
-    this.updateDate = updateDate;
-
-    const moreInfo: IMoreInfo = {
-      version,
-      status,
-      updateDate,
-      submittedBy: this.submittedBy,
-      comment
-
-    };
-    this.selectedRows.forEach((row, index) => {
-
-      if (this.selectedRowIndex === index) {
-        this.selectedRows[index].Jan_x002d_20_x0020_Qty = this.JanQty;
-        this.selectedRows[index].Jan_x002d_20_x0020_USD = this.JanUSD;
-        this.selectedRows[index].Feb_x002d_20_x0020_Qty = this.FebQty;
-        this.selectedRows[index].Feb_x002d_20_x0020_USD = this.FebUSD;
-        this.selectedRows[index].Mar_x002d_20_x0020_Qty = this.MarQty;
-        this.selectedRows[index].Mar_x002d_20_x0020_USD = this.MarUSD;
-        this.selectedRows[index].Apr_x002d_20_x0020_Qty = this.AprQty;
-        this.selectedRows[index].Apr_x002d_20_x0020_USD = this.AprUSD;
-        this.selectedRows[index].May_x002d_20_x0020_Qty = this.MayQty;
-        this.selectedRows[index].May_x002d_20_x0020_USD = this.MayUSD;
-        this.selectedRows[index].Jun_x002d_20_x0020_Qty = this.JunQty;
-        this.selectedRows[index].Jun_x002d_20_x0020_USD = this.JunUSD;
-        this.selectedRows[index].Jul_x002d_20_x0020_Qty = this.JulQty;
-        this.selectedRows[index].Jul_x002d_20_x0020_USD = this.JulUSD;
-        this.selectedRows[index].Aug_x002d_20_x0020_Qty = this.AugQty;
-        this.selectedRows[index].Aug_x002d_20_x0020_USD = this.AugUSD;
-        this.selectedRows[index].Sep_x002d_20_x0020_Qty = this.SepQty;
-        this.selectedRows[index].Sep_x002d_20_x0020_USD = this.SepUSD;
-        this.selectedRows[index].Oct_x002d_20_x0020_Qty = this.OctQty;
-        this.selectedRows[index].Oct_x002d_20_x0020_USD = this.OctUSD;
-        this.selectedRows[index].Nov_x002d_20_x0020_Qty = this.NovQty;
-        this.selectedRows[index].Nov_x002d_20_x0020_USD = this.NovUSD;
-        this.selectedRows[index].Dec_x002d_20_x0020_Qty = this.DecQty;
-        this.selectedRows[index].Dec_x002d_20_x0020_USD = this.DecUSD;
-
-        this.selectedRows[index].Annual_x0020_QTY =
-          this.selectedRows[index].Jan_x002d_20_x0020_Qty +
-          this.selectedRows[index].Feb_x002d_20_x0020_Qty +
-          this.selectedRows[index].Mar_x002d_20_x0020_Qty +
-          this.selectedRows[index].Apr_x002d_20_x0020_Qty +
-          this.selectedRows[index].May_x002d_20_x0020_Qty +
-          this.selectedRows[index].Jun_x002d_20_x0020_Qty +
-          this.selectedRows[index].Jul_x002d_20_x0020_Qty +
-          this.selectedRows[index].Aug_x002d_20_x0020_Qty +
-          this.selectedRows[index].Sep_x002d_20_x0020_Qty +
-          this.selectedRows[index].Oct_x002d_20_x0020_Qty +
-          this.selectedRows[index].Nov_x002d_20_x0020_Qty +
-          this.selectedRows[index].Dec_x002d_20_x0020_Qty;
-
-        // tslint:disable-next-line:max-line-length
-        this.selectedRows[index].Annual_x0020_Sales = 0;
-
-        // tslint:disable-next-line:max-line-length
-        this.selectedRows[index].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
-
-
-      }
-    });
-
-
-    // this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty = this.JanQty;
-    // this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_USD = this.JanUSD;
-    // this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_Qty = this.FebQty;
-    // this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_USD = this.FebUSD;
-    // this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_Qty = this.MarQty;
-    // this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_USD = this.MarUSD;
-    // this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_Qty = this.AprQty;
-    // this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_USD = this.AprUSD;
-    // this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_Qty = this.MayQty;
-    // this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_USD = this.MayUSD;
-    // this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_Qty = this.JunQty;
-    // this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_USD = this.JunUSD;
-    // this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_Qty = this.JulQty;
-    // this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_USD = this.JulUSD;
-    // this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_Qty = this.AugQty;
-    // this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_USD = this.AugUSD;
-    // this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_Qty = this.SepQty;
-    // this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_USD = this.SepUSD;
-    // this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_Qty = this.OctQty;
-    // this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_USD = this.OctUSD;
-    // this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_Qty = this.NovQty;
-    // this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_USD = this.NovUSD;
-    // this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_Qty = this.DecQty;
-    // this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_USD = this.DecUSD;
+    // this.submittedBy = this.currentUser.Title;
+    // const day = String(new Date().getDate());
+    // const month = String(new Date().getMonth() + 1);
+    // const year = String(new Date().getFullYear());
     //
-    // this.selectedRows[this.selectedRowIndex].Annual_x0020_QTY =
-    //   this.selectedRows[this.selectedRowIndex].Jan_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Feb_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Mar_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Apr_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].May_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Jun_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Jul_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Aug_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Sep_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Oct_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Nov_x002d_20_x0020_Qty +
-    //   this.selectedRows[this.selectedRowIndex].Dec_x002d_20_x0020_Qty;
+    // const updateDate = (day + '/' + month + '/' + year);
+    // this.updateDate = updateDate;
     //
-    // // tslint:disable-next-line:max-line-length
-    // this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = 0;
+    // const moreInfo: IMoreInfo = {
+    //   version,
+    //   status,
+    //   updateDate,
+    //   submittedBy: this.submittedBy,
+    //   comment
     //
-    // tslint:disable-next-line:max-line-length
-    // this.selectedRows[this.selectedRowIndex].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
-    this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
-      // TODO: add comments and other stuff;
-      if (res) {
-        this.showNotification = true;
-        this.notification = {
-          background: '#306B34',
-          message: 'Data successfully saved!'
-        };
-        setTimeout(() => {
-          this.showNotification = false;
-          this.selectedRows = [];
-        }, 5000);
-      } else {
-        this.showNotification = true;
-        this.notification = {
-          background: '#772014',
-          message: 'Something went wrong!'
-        };
-        setTimeout(() => {
-          this.showNotification = false;
-          this.selectedRows = [];
-        }, 5000);
-      }
+    // };
+    // this.selectedRows.forEach((row, index) => {
+    //
+    //   if (this.selectedRowIndex === index) {
+    //     this.selectedRows[index].Jan_x002d_20_x0020_Qty = this.JanQty;
+    //     this.selectedRows[index].Jan_x002d_20_x0020_USD = this.JanUSD;
+    //     this.selectedRows[index].Feb_x002d_20_x0020_Qty = this.FebQty;
+    //     this.selectedRows[index].Feb_x002d_20_x0020_USD = this.FebUSD;
+    //     this.selectedRows[index].Mar_x002d_20_x0020_Qty = this.MarQty;
+    //     this.selectedRows[index].Mar_x002d_20_x0020_USD = this.MarUSD;
+    //     this.selectedRows[index].Apr_x002d_20_x0020_Qty = this.AprQty;
+    //     this.selectedRows[index].Apr_x002d_20_x0020_USD = this.AprUSD;
+    //     this.selectedRows[index].May_x002d_20_x0020_Qty = this.MayQty;
+    //     this.selectedRows[index].May_x002d_20_x0020_USD = this.MayUSD;
+    //     this.selectedRows[index].Jun_x002d_20_x0020_Qty = this.JunQty;
+    //     this.selectedRows[index].Jun_x002d_20_x0020_USD = this.JunUSD;
+    //     this.selectedRows[index].Jul_x002d_20_x0020_Qty = this.JulQty;
+    //     this.selectedRows[index].Jul_x002d_20_x0020_USD = this.JulUSD;
+    //     this.selectedRows[index].Aug_x002d_20_x0020_Qty = this.AugQty;
+    //     this.selectedRows[index].Aug_x002d_20_x0020_USD = this.AugUSD;
+    //     this.selectedRows[index].Sep_x002d_20_x0020_Qty = this.SepQty;
+    //     this.selectedRows[index].Sep_x002d_20_x0020_USD = this.SepUSD;
+    //     this.selectedRows[index].Oct_x002d_20_x0020_Qty = this.OctQty;
+    //     this.selectedRows[index].Oct_x002d_20_x0020_USD = this.OctUSD;
+    //     this.selectedRows[index].Nov_x002d_20_x0020_Qty = this.NovQty;
+    //     this.selectedRows[index].Nov_x002d_20_x0020_USD = this.NovUSD;
+    //     this.selectedRows[index].Dec_x002d_20_x0020_Qty = this.DecQty;
+    //     this.selectedRows[index].Dec_x002d_20_x0020_USD = this.DecUSD;
+    //
+    //     this.selectedRows[index].Annual_x0020_QTY =
+    //       this.selectedRows[index].Jan_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Feb_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Mar_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Apr_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].May_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Jun_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Jul_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Aug_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Sep_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Oct_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Nov_x002d_20_x0020_Qty +
+    //       this.selectedRows[index].Dec_x002d_20_x0020_Qty;
+    //
+    //     // tslint:disable-next-line:max-line-length
+    //     this.selectedRows[index].Annual_x0020_Sales = 0;
+    //
+    //     // tslint:disable-next-line:max-line-length
+    //     this.selectedRows[index].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
+    //
+    //
+    //   }
+    // });
 
-    });
+    // this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
+    //   if (res) {
+    //     this.showNotification = true;
+    //     this.notification = {
+    //       background: '#306B34',
+    //       message: 'Data successfully saved!'
+    //     };
+    //     setTimeout(() => {
+    //       this.showNotification = false;
+    //       this.selectedRows = [];
+    //     }, 5000);
+    //   } else {
+    //     this.showNotification = true;
+    //     this.notification = {
+    //       background: '#772014',
+    //       message: 'Something went wrong!'
+    //     };
+    //     setTimeout(() => {
+    //       this.showNotification = false;
+    //       this.selectedRows = [];
+    //     }, 5000);
+    //   }
+    //
+    // });
 
   }
 
@@ -646,6 +602,71 @@ export class HellopnpjsWebPartComponent implements OnInit {
         });
         break;
       case 3:
+        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
+          if (a.Item_x0020_Name > b.Item_x0020_Name) {
+            console.log('Sorted by country asc', this.rowsFromServerByUser);
+            return 1;
+          } else if (a.Item_x0020_Name < b.Item_x0020_Name) {
+            console.log('Sorted by country desc', this.rowsFromServerByUser);
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      case 4:
+        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
+          if (a.Sales_x005c_FOC > b.Sales_x005c_FOC) {
+            console.log('Sorted by country asc', this.rowsFromServerByUser);
+            return 1;
+          } else if (a.Sales_x005c_FOC < b.Sales_x005c_FOC) {
+            console.log('Sorted by country desc', this.rowsFromServerByUser);
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      case 5:
+        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
+          if (a.Sales_x0020_Type > b.Sales_x0020_Type) {
+            console.log('Sorted by country asc', this.rowsFromServerByUser);
+            return 1;
+          } else if (a.Sales_x0020_Type < b.Sales_x0020_Type) {
+            console.log('Sorted by country desc', this.rowsFromServerByUser);
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      case 6:
+        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
+          if (a.Business_x0020_Segment > b.Business_x0020_Segment) {
+            console.log('Sorted by country asc', this.rowsFromServerByUser);
+            return 1;
+          } else if (a.Business_x0020_Segment < b.Business_x0020_Segment) {
+            console.log('Sorted by country desc', this.rowsFromServerByUser);
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      case 7:
+        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
+          if (a.Customer_x0020_Code_x0020_SAP > b.Customer_x0020_Code_x0020_SAP) {
+            console.log('Sorted by country asc', this.rowsFromServerByUser);
+            return 1;
+          } else if (a.Customer_x0020_Code_x0020_SAP < b.Customer_x0020_Code_x0020_SAP) {
+            console.log('Sorted by country desc', this.rowsFromServerByUser);
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      case 8:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
           if (a.Customer_x0020_Name > b.Customer_x0020_Name) {
             console.log('Sorted by country asc', this.rowsFromServerByUser);

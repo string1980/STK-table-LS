@@ -125,14 +125,38 @@ table.table {
       background: #f58c2b;
       color: #fff;
       padding: 10px;
+      position: relative;
+
+      &.Country{
+        button{
+          right: 20px;
+        }
+      }
+      &.ItemCodeSAP{
+        button{
+          top: 19px;
+        }
+      }
+      &.CustomerSAP{
+        button{
+          top: 19px;
+        }
+      }
+      &.BusinessSegment{
+        button{
+          top: 19px;
+        }
+      }
 
       button{
         background: transparent;
         border: 0;
-        display: block;
-        width: 100%;
+        //display: block;
+        //width: 100%;
         outline: 0;
         cursor: pointer;
+        position: absolute;
+        right: 0;
       }
 
 
@@ -180,25 +204,25 @@ table.table {
           outline: 1px solid #f58c2b;
         }
         &.title{
-          width: 75px;
+          width: 115px;
         }
         &.item__code {
-          width: 100px;
+          width: 112px;
         }
         &.gm {
           width: 60px;
         }
         &.sales__foc {
-          width: 105px;
+          width: 120px;
         }
         &.sales__type {
-          width: 88px;
+          width: 120px;
         }
         &.business__segment {
-          width: 80px;
+          width: 120px;
         }
         &.customer__code {
-          width: 85px;
+          width: 120px;
         }
         &.customer__name {
           width: 245px;

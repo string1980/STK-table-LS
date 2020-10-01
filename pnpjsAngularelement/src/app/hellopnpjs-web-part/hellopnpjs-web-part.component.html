@@ -37,7 +37,7 @@
 
             >
       <ng-template #showOneCountry>
-        <input  type="text"  [value]="rowsFromServerByUser[0].Country"  [(ngModel)]="selectedCountry" name="Country">
+        <input  type="text"  [value]="countries[0]"  [(ngModel)]="countries[0]" name="Country">
       </ng-template>
       <button class="clear" (click)="onClearDropdownSelection()" *ngIf="selectedCountry !== ''">
 <!--        <span>X</span>-->
@@ -76,8 +76,8 @@
         <th>
 <!--          <input type="checkbox">-->
         </th>
-        <th *ngFor="let column of displayedColumns;let i=index">{{column}}
-          <button (click)="onSortBy(column,i)" *ngIf="i === 0 ||i === 1 || i === 2 || i === 3 ">
+        <th *ngFor="let column of displayedColumns;let i=index" [ngClass]="{'Company': i===0,'Country': i===1,'ItemCodeSAP': i===2,'ItemName': i===3 , 'SalesFOC': i === 4,'SalesType': i === 5,'BusinessSegment': i=== 6,'CustomerSAP': i=== 7,'CustomerName': i === 8}">{{column}}
+          <button (click)="onSortBy(column,i)" *ngIf="i === 0 ||i === 1 || i === 2 || i === 3 || i === 4|| i === 5 || i ===6 || i === 7 || i === 8 " >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
           </button>
 
@@ -247,7 +247,7 @@
 
     <div class="actions">
       <button class="btn_primary"
-              [disabled]="selectedRows.length === 0 || isDisableSaveBtn
+              [disabled]="selectedRows.length === 0 || !tableForm.dirty
               "
               (click)="onSubmitTemplateBased(tableForm,rowsFromServer[0].Version,rowsFromServer[0].Status,submittedBy,comment)">Save</button>
       <button class="btn_default" (click)="openYesNoDialog()">Cancel</button>
