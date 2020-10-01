@@ -126,6 +126,7 @@ table.table {
       color: #fff;
       padding: 10px;
       position: relative;
+      font-weight: bolder;
 
       &.Country{
         button{
@@ -180,6 +181,10 @@ table.table {
 
       input[type="checkbox"]{
         outline: none;
+      }
+      input[type="checkbox"]:focus{
+        outline: none;
+        border: none;
       }
 
       input {
@@ -268,7 +273,7 @@ table.table {
     }
 
     &.selected {
-      background: #f58c2b;
+      background: #80e1fe;
 
       td {
         input {
