@@ -454,6 +454,38 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onSubmitTemplateBased(tableForm, version, status, submittedBy, comment) {
     // console.log(tableForm);
 
+    const allTable: IRow[] = this.getLocalStorage();
+    this.selectedRows = allTable.filter(a => a.checked);
+
+    this.selectedRows.forEach(item => {
+      item.Jan_x002d_20_x0020_Qty = +item.Jan_x002d_20_x0020_Qty;
+      item.Feb_x002d_20_x0020_Qty = +item.Feb_x002d_20_x0020_Qty;
+      item.Mar_x002d_20_x0020_Qty = +item.Mar_x002d_20_x0020_Qty;
+      item.Apr_x002d_20_x0020_Qty = +item.Apr_x002d_20_x0020_Qty;
+      item.May_x002d_20_x0020_Qty = +item.May_x002d_20_x0020_Qty;
+      item.Jun_x002d_20_x0020_Qty = +item.Jun_x002d_20_x0020_Qty;
+      item.Jul_x002d_20_x0020_Qty = +item.Jul_x002d_20_x0020_Qty;
+      item.Aug_x002d_20_x0020_Qty = +item.Aug_x002d_20_x0020_Qty;
+      item.Sep_x002d_20_x0020_Qty = +item.Sep_x002d_20_x0020_Qty;
+      item.Oct_x002d_20_x0020_Qty = +item.Oct_x002d_20_x0020_Qty;
+      item.Nov_x002d_20_x0020_Qty = +item.Nov_x002d_20_x0020_Qty;
+      item.Dec_x002d_20_x0020_Qty = +item.Dec_x002d_20_x0020_Qty;
+
+      // item.Jan_x002d_20_x0020_Qty = null ? item.Jan_x002d_20_x0020_USD = 0 : item.Jan_x002d_20_x0020_USD = 0;
+      // item.Feb_x002d_20_x0020_Qty = null ? item.Feb_x002d_20_x0020_USD = 0 : item.Feb_x002d_20_x0020_USD = 0;
+      // item.Mar_x002d_20_x0020_Qty = null ? item.Mar_x002d_20_x0020_USD = 0 : item.Mar_x002d_20_x0020_USD = 0;
+      // item.Apr_x002d_20_x0020_Qty = null ? item.Apr_x002d_20_x0020_USD = 0 : item.Apr_x002d_20_x0020_USD = 0;
+      // item.May_x002d_20_x0020_Qty = null ? item.May_x002d_20_x0020_USD = 0 : item.May_x002d_20_x0020_USD = 0;
+      // item.Jun_x002d_20_x0020_Qty = null ? item.Jun_x002d_20_x0020_USD = 0 : item.Jun_x002d_20_x0020_USD = 0;
+      // item.Jul_x002d_20_x0020_Qty = null ? item.Jul_x002d_20_x0020_USD = 0 : item.Jul_x002d_20_x0020_USD = 0;
+      // item.Aug_x002d_20_x0020_Qty = null ? item.Aug_x002d_20_x0020_USD = 0 : item.Aug_x002d_20_x0020_USD = 0;
+      // item.Sep_x002d_20_x0020_Qty = null ? item.Sep_x002d_20_x0020_USD = 0 : item.Sep_x002d_20_x0020_USD = 0;
+      // item.Oct_x002d_20_x0020_Qty = null ? item.Oct_x002d_20_x0020_USD = 0 : item.Oct_x002d_20_x0020_USD = 0;
+      // item.Nov_x002d_20_x0020_Qty = null ? item.Nov_x002d_20_x0020_USD = 0 : item.Nov_x002d_20_x0020_USD = 0;
+      // item.Dec_x002d_20_x0020_Qty = null ? item.Dec_x002d_20_x0020_USD = 0 : item.Dec_x002d_20_x0020_USD = 0;
+
+    });
+
     this.submittedBy = this.currentUser.Title;
     const day = String(new Date().getDate());
     const month = String(new Date().getMonth() + 1);
@@ -472,7 +504,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
     };
     // this.selectedRows = this.rowsFromServerByUser;
     // this.selectedRows = this.selectedRows.filter(a => a.checked);
-    console.log('sr', this.selectedRows);
+    console.log('selected rows', this.selectedRows);
+
 
     this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
       if (res) {
@@ -605,7 +638,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateApril_USD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-
+    console.log('April qty', input);
     this.AprQty = input;
     this.AprUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_USD = Number(this.AprUSD.toFixed(3));
