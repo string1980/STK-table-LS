@@ -146,8 +146,8 @@
                  (input)="onCalculateJan_USD(row,+janQtyRef.value,i)" disabled>
         </td>
         <td>
-            <input type="number"
-                   name="Jan-20 USD" disabled  class="input__read" [value]="row.Jan_x002d_20_x0020_USD" >
+            <input type="text"
+                   name="Jan-20 USD" disabled  class="input__read" [value]="row.Jan_x002d_20_x0020_USD?.toLocaleString()" >
 
         </td>
 
@@ -155,69 +155,69 @@
           <input type="number" #febQtyRef [(ngModel)]="row.Feb_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateFeb_USD(row,+febQtyRef.value,i)" name="Fab-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Feb_x002d_20_x0020_USD" name="Fab-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Feb_x002d_20_x0020_USD?.toLocaleString()" name="Fab-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #marQtyRef [(ngModel)]="row.Mar_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMar_USD(row,+marQtyRef.value,i)"  name="Mar-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Mar_x002d_20_x0020_USD" name="Mar-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Mar_x002d_20_x0020_USD?.toLocaleString()" name="Mar-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #aprQtyRef [(ngModel)]="row.Apr_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateApril_USD(row,+aprQtyRef.value,i)" name="Apr-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Apr_x002d_20_x0020_USD" name="Apr-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Apr_x002d_20_x0020_USD?.toLocaleString()" name="Apr-20 USD" disabled class="input__read">
         </td>
         <td>
           <input type="number" #mayQtyRef [(ngModel)]="row.May_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMayUSD(row,+mayQtyRef.value,i)" name="May-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.May_x002d_20_x0020_USD" name="May-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.May_x002d_20_x0020_USD?.toLocaleString()" name="May-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #juneQtyRef [(ngModel)]="row.Jun_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateJuneUSD(row,+juneQtyRef.value,i)" name="Jun-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Jun_x002d_20_x0020_USD" name="Jun-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Jun_x002d_20_x0020_USD?.toLocaleString()" name="Jun-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #julQtyRef [(ngModel)]="row.Jul_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateJulUSD(row,+julQtyRef.value,i)" name="Jul-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Jul_x002d_20_x0020_USD" name="Jul-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Jul_x002d_20_x0020_USD?.toLocaleString()" name="Jul-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #augQtyRef [(ngModel)]="row.Aug_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateAugUSD(row,+augQtyRef.value,i)" name="Aug-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Aug_x002d_20_x0020_USD" name="Aug-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Aug_x002d_20_x0020_USD?.toLocaleString()" name="Aug-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #sepQtyRef [(ngModel)]="row.Sep_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateSepUSD(row,+sepQtyRef.value,i)" name="Sep-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Sep_x002d_20_x0020_USD" name="Sep-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Sep_x002d_20_x0020_USD?.toLocaleString()" name="Sep-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #octQtyRef [(ngModel)]="row.Oct_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateOctUSD(row,+octQtyRef.value,i)" name="Oct-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Oct_x002d_20_x0020_USD" name="Oct-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Oct_x002d_20_x0020_USD?.toLocaleString()" name="Oct-20 USD" disabled class="input__read">
         </td>
 
         <td>
           <input type="number" #novQtyRef [(ngModel)]="row.Nov_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateNovUSD(row,+novQtyRef.value,i)" name="Nov-20 Qty" disabled min="0">
         </td>
         <td>
-          <input type="number" [value]="row.Nov_x002d_20_x0020_USD" name="Nov-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Nov_x002d_20_x0020_USD?.toLocaleString()" name="Nov-20 USD" disabled class="input__read">
         </td>
 
         <td>
@@ -225,13 +225,13 @@
         </td>
 
         <td>
-          <input type="number" [value]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled class="input__read">
+          <input type="text" [value]="row.Dec_x002d_20_x0020_USD?.toLocaleString()" name="Dec-20 USD" disabled class="input__read">
         </td>
         <td>
-          <input type="text" [value]="row.Annual_x0020_Sales" name="Annual Sales" disabled class="input__read annual_sales">
+          <input type="text" [value]="row.Annual_x0020_Sales?.toLocaleString()" name="Annual Sales" disabled class="input__read annual_sales">
         </td>
         <td>
-          <input type="number" [value]="row.Annual_x0020_QTY" name="Annual Qty" disabled class="input__read annual_qty">
+          <input type="text" [value]="row.Annual_x0020_QTY?.toLocaleString()" name="Annual Qty" disabled class="input__read annual_qty">
         </td>
 
         <!--      <td>-->
