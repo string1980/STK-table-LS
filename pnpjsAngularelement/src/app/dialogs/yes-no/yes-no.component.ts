@@ -18,6 +18,6 @@ export class YesNoComponent implements OnInit {
   }
 
   onNoHandler() {
-    this.onYesEmitter.emit(false);
+    this.onNoEmitter.emit(false);
   }
 }

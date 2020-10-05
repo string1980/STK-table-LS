@@ -561,9 +561,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onNoButton(event: boolean) {
     this.showYesNoDialog = event;
-    window.location.href = 'https://stocktonag.sharepoint.com/sites/Budget/SitePages/Sales.aspx';
-    return;
-    // window.location.href = 'https://stocktonag.sharepoint.com/sites/Budget/SitePages/Sales.aspx';
+
   }
 
   customTrackBy(index: number, obj: any): any {
@@ -808,6 +806,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onSortBy(column: string, i: number) {
     console.log('Selected column', column, column);
     console.log('Selected column index', i);
+    // this.rowsFromServerByUser = this.getLocalStorage();
+    console.log('---',this.rowsFromServerByUser);
     switch (i) {
       case 0:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -820,7 +820,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
       case 1:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -833,7 +833,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
       case 2:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -846,7 +846,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
       case 3:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -859,7 +859,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
       case 4:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -872,7 +872,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
       case 5:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -885,7 +885,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
       case 6:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -898,7 +898,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
       case 7:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -911,7 +911,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
       case 8:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -924,7 +924,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        }).filter(a => a.Country === this.selectedCountry);
+        })
         break;
 
     }

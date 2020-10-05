@@ -69,7 +69,7 @@
 <!--  Table-->
 
   <form #tableForm="ngForm"
-        *ngIf="rowsFromServerByUser.length > 0;else showSpinner" class="form_table">
+       class="form_table" style="height: 300px"  *ngIf="rowsFromServer.length > 0;else showSpinner">
     <table class="table">
       <thead>
       <tr>
@@ -244,7 +244,6 @@
       </tr>
       </tbody>
     </table>
-
 
     <div class="actions">
       <button class="btn_primary"
