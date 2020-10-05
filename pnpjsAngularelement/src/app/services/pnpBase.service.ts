@@ -11,6 +11,7 @@ import {IMoreInfo} from '../interfaces/more-info';
 
 export class PnPBaseService {
   private web: IWeb;
+  private title: string = 'Sales Data';
 
   constructor() {
     sp.configure({
@@ -64,7 +65,7 @@ export class PnPBaseService {
         console.log('Selected rows to add', selectedRows);
         selectedRows.forEach((row) => {
           console.log('Country', row.Country);
-          this.web.lists.getByTitle('Sales Data Test').items.add({
+          this.web.lists.getByTitle(this.title).items.add({
             Title: row.Title,
             Country: row.Country,
             ItemCodeSAP: row.Item_x0020_Code_x0020_SAP,

@@ -13,7 +13,8 @@ export class ByCountryPipe implements PipeTransform {
       return rows;
     }
     return rows.filter((row) => {
-      return row.Country.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return row.Country.toLowerCase().startsWith(searchTerm.toLowerCase());
     });
   }
 

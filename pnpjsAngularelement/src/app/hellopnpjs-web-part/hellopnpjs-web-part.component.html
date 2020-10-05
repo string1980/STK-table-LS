@@ -87,19 +87,20 @@
       </thead>
       <tbody>
       <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry;let i=index;trackBy: customTrackBy"
-          [ngClass]="{'selected': rowsFromServerByUser.indexOf(row) === i && checkboxRef.checked}">
+          [ngClass]="{'selected': checkboxRef.checked === true} " class="row-1">
 
         <td>
           <input type="checkbox" #checkboxRef (change)="onCheck(row,$event,i)">
         </td>
 
-        <td>
-          <input type="text" [value]="row.Title" disabled class="title"></td>
+        <td style="display: none">
+          <input type="text" [value]="row.Title" disabled class="title">
+        </td>
         <td>
           <input type="text" [value]="row.Country" disabled class="country">
         </td>
-        <td>
-          <input type="text" [value]="row.Item_x0020_Code_x0020_SAP" disabled class="item__code">
+        <td style="display: none">
+          <input type="text" [value]="row.Item_x0020_Code_x0020_SAP" disabled class="item__code" >
         </td>
         <td>
           <input type="text" [value]="row.Item_x0020_Name" disabled class="item__name">
@@ -113,7 +114,7 @@
         <td>
           <input type="text" [value]="row.Business_x0020_Segment" disabled class="business__segment">
         </td>
-        <td>
+        <td style="display: none">
           <input type="text" [value]="row.Customer_x0020_Code_x0020_SAP" disabled class="customer__code">
         </td>
         <td>
@@ -141,8 +142,8 @@
           <input type="text" [value]="row.SharePoint" disabled class="sharepoint__input">
         </td>
         <td>
-          <input type="number" #janQtyRef [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty"
-                 (input)="onCalculateJan_USD(row,+janQtyRef.value,i)">
+          <input type="number" #janQtyRef [(ngModel)]="row.Jan_x002d_20_x0020_Qty" class="input__write" name="Jan-20 Qty" min="0"
+                 (input)="onCalculateJan_USD(row,+janQtyRef.value,i)" disabled>
         </td>
         <td>
             <input type="number"
@@ -151,86 +152,86 @@
         </td>
 
         <td>
-          <input type="number" #febQtyRef [(ngModel)]="row.Feb_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateFeb_USD(row,+febQtyRef.value,i)" name="Fab-20 Qty">
+          <input type="number" #febQtyRef [(ngModel)]="row.Feb_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateFeb_USD(row,+febQtyRef.value,i)" name="Fab-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Feb_x002d_20_x0020_USD" name="Fab-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #marQtyRef [(ngModel)]="row.Mar_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMar_USD(row,+marQtyRef.value,i)"  name="Mar-20 Qty">
+          <input type="number" #marQtyRef [(ngModel)]="row.Mar_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMar_USD(row,+marQtyRef.value,i)"  name="Mar-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Mar_x002d_20_x0020_USD" name="Mar-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #aprQtyRef [(ngModel)]="row.Apr_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateApril_USD(row,+aprQtyRef.value,i)" name="Apr-20 Qty">
+          <input type="number" #aprQtyRef [(ngModel)]="row.Apr_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateApril_USD(row,+aprQtyRef.value,i)" name="Apr-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Apr_x002d_20_x0020_USD" name="Apr-20 USD" disabled class="input__read">
         </td>
         <td>
-          <input type="number" #mayQtyRef [(ngModel)]="row.May_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMayUSD(row,+mayQtyRef.value,i)" name="May-20 Qty">
+          <input type="number" #mayQtyRef [(ngModel)]="row.May_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateMayUSD(row,+mayQtyRef.value,i)" name="May-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.May_x002d_20_x0020_USD" name="May-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #juneQtyRef [(ngModel)]="row.Jun_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateJuneUSD(row,+juneQtyRef.value,i)" name="Jun-20 Qty">
+          <input type="number" #juneQtyRef [(ngModel)]="row.Jun_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateJuneUSD(row,+juneQtyRef.value,i)" name="Jun-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Jun_x002d_20_x0020_USD" name="Jun-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #julQtyRef [(ngModel)]="row.Jul_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateJulUSD(row,+julQtyRef.value,i)" name="Jul-20 Qty">
+          <input type="number" #julQtyRef [(ngModel)]="row.Jul_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateJulUSD(row,+julQtyRef.value,i)" name="Jul-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Jul_x002d_20_x0020_USD" name="Jul-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #augQtyRef [(ngModel)]="row.Aug_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateAugUSD(row,+augQtyRef.value,i)" name="Aug-20 Qty">
+          <input type="number" #augQtyRef [(ngModel)]="row.Aug_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateAugUSD(row,+augQtyRef.value,i)" name="Aug-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Aug_x002d_20_x0020_USD" name="Aug-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #sepQtyRef [(ngModel)]="row.Sep_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateSepUSD(row,+sepQtyRef.value,i)" name="Sep-20 Qty">
+          <input type="number" #sepQtyRef [(ngModel)]="row.Sep_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateSepUSD(row,+sepQtyRef.value,i)" name="Sep-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Sep_x002d_20_x0020_USD" name="Sep-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #octQtyRef [(ngModel)]="row.Oct_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateOctUSD(row,+octQtyRef.value,i)" name="Oct-20 Qty">
+          <input type="number" #octQtyRef [(ngModel)]="row.Oct_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateOctUSD(row,+octQtyRef.value,i)" name="Oct-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Oct_x002d_20_x0020_USD" name="Oct-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #novQtyRef [(ngModel)]="row.Nov_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateNovUSD(row,+novQtyRef.value,i)" name="Nov-20 Qty">
+          <input type="number" #novQtyRef [(ngModel)]="row.Nov_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateNovUSD(row,+novQtyRef.value,i)" name="Nov-20 Qty" disabled min="0">
         </td>
         <td>
           <input type="number" [value]="row.Nov_x002d_20_x0020_USD" name="Nov-20 USD" disabled class="input__read">
         </td>
 
         <td>
-          <input type="number" #decQtyRef [(ngModel)]="row.Dec_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateDecUSD(row,+decQtyRef.value,i)" name="Dec-20 Qty">
+          <input type="number" #decQtyRef [(ngModel)]="row.Dec_x002d_20_x0020_Qty" class="input__write" (input)="onCalculateDecUSD(row,+decQtyRef.value,i)" name="Dec-20 Qty" disabled min="0">
         </td>
 
         <td>
-          <input type="text" [value]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled class="input__read">
+          <input type="number" [value]="row.Dec_x002d_20_x0020_USD" name="Dec-20 USD" disabled class="input__read">
         </td>
         <td>
-          <input type="text" [value]="row.Annual_x0020_Sales" name="Annual Sales" disabled class="input__read">
+          <input type="text" [value]="row.Annual_x0020_Sales" name="Annual Sales" disabled class="input__read annual_sales">
         </td>
         <td>
-          <input type="number" [value]="row.Annual_x0020_QTY" name="Annual Qty" disabled class="input__read">
+          <input type="number" [value]="row.Annual_x0020_QTY" name="Annual Qty" disabled class="input__read annual_qty">
         </td>
 
         <!--      <td>-->

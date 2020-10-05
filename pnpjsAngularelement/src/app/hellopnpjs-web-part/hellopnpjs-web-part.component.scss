@@ -119,33 +119,42 @@ form {
 
 table.table {
   background: #ccf3ff;
-
+  //border: 0;
+  //padding: 0;
+  //margin: 0;
+  //border-collapse: collapse;
   tr {
     th {
       background: #f58c2b;
       color: #fff;
-      padding: 10px;
+      padding: 5px 10px;
       position: relative;
       font-weight: bolder;
 
+      &.Company{
+        display: none;
+      }
+
       &.Country{
         button{
-          right: 20px;
+          right: 8px;
         }
       }
       &.ItemCodeSAP{
+        display: none;
         button{
           top: 19px;
         }
       }
       &.CustomerSAP{
+        display: none;
         button{
           top: 19px;
         }
       }
       &.BusinessSegment{
         button{
-          top: 19px;
+          top: 13px;
         }
       }
 
@@ -164,24 +173,27 @@ table.table {
     }
 
     td {
-      //padding: 10px;
+
+      padding: 0;
       border-bottom: 1px solid rgba(0, 0, 0, .12);
       border-right: 1px solid rgba(0, 0, 0, .12);
 
       &:first-child {
-        padding: 0 10px;
-      }
-
-      &:nth-of-type(5) {
-        input {
-          width: 500px !important;
+        padding: 0 ;
+        input[type="checkbox"]{
+          outline: none;
+          height: 20px;
         }
-
       }
 
-      input[type="checkbox"]{
-        outline: none;
-      }
+      //&:nth-of-type(5) {
+      //  input {
+      //    width: 500px !important;
+      //  }
+      //
+      //}
+
+
       input[type="checkbox"]:focus{
         outline: none;
         border: none;
@@ -212,7 +224,10 @@ table.table {
           width: 115px;
         }
         &.item__code {
-          width: 112px;
+          width: 153px;
+        }
+        &.item__name{
+          width: 500px;
         }
         &.gm {
           width: 60px;
@@ -252,6 +267,9 @@ table.table {
         }
         &.sharepoint__input{
           width: 155px;
+        }
+        &.annual_sales,&.annual_qty{
+          width: 150px;
         }
 
         &.input__write {

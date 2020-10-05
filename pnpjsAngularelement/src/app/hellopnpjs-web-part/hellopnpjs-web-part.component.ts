@@ -46,6 +46,18 @@ export class HellopnpjsWebPartComponent implements OnInit {
   isShowDropDown: boolean = false;
   selectedCountry: string = '';
   @ViewChild('dropdown', {static: false}) dropdown: ElementRef;
+  @ViewChildren('janQtyRef') janQtyRef: QueryList<ElementRef>;
+  @ViewChildren('febQtyRef') febQtyRef: QueryList<ElementRef>;
+  @ViewChildren('marQtyRef') marQtyRef: QueryList<ElementRef>;
+  @ViewChildren('aprQtyRef') aprQtyRef: QueryList<ElementRef>;
+  @ViewChildren('mayQtyRef') mayQtyRef: QueryList<ElementRef>;
+  @ViewChildren('juneQtyRef') juneQtyRef: QueryList<ElementRef>;
+  @ViewChildren('julQtyRef') julQtyRef: QueryList<ElementRef>;
+  @ViewChildren('augQtyRef') augQtyRef: QueryList<ElementRef>;
+  @ViewChildren('sepQtyRef') sepQtyRef: QueryList<ElementRef>;
+  @ViewChildren('octQtyRef') octQtyRef: QueryList<ElementRef>;
+  @ViewChildren('novQtyRef') novQtyRef: QueryList<ElementRef>;
+  @ViewChildren('decQtyRef') decQtyRef: QueryList<ElementRef>;
   // @ViewChild('janQtyRef', {static: false}) janQtyRef: QueryList<ElementRef>;
   submittedBy: string = '';
   updateDate: string = '';
@@ -94,7 +106,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
   public getAllListItems() {
     this.rowsFromServer = [];
     this.testListService.getAllItems().then((result: IRow[]) => {
-      console.log('aaa', result);
       if (result !== null && result !== undefined && result.length > 0) {
         this.rowsFromServer = result;
         this.rowsFromServer.forEach((x, index) => {
@@ -167,14 +178,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   showDataByUser(rowsFromServer) {
-    console.log('bbb', rowsFromServer)
     rowsFromServer.forEach(row => {
-      console.log('asd', row);
-
       row.UsersId.forEach(id => {
         if (id === this.currentUser.Id) {
           this.rowsFromServerByUser.push(row);
-
 
           this.rowsFromServerByUser.forEach(item => {
             this.countries.push(item.Country);
@@ -183,17 +190,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
         }
       });
 
-      // row.UsersId.forEach(id => {
-      //   if (id === this.currentUser.Id) {
-      //     this.rowsFromServerByUser.push(row);
-      //
-      //
-      //     this.rowsFromServerByUser.forEach(item => {
-      //       this.countries.push(item.Country);
-      //     });
-      //     this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
-      //   }
-      // });
     });
 
   }
@@ -217,14 +213,241 @@ export class HellopnpjsWebPartComponent implements OnInit {
       // }
 
       this.selectedRows.push(row);
+      if (this.selectedRows[index] || this.rowsFromServerByUser[index]) {
+        console.log('yes');
+        this.removeDisabledForJan(index);
+        this.removeDisabledForFeb(index);
+        this.removeDisabledForMarch(index);
+        this.removeDisabledForApril(index);
+        this.removeDisabledForMay(index);
+        this.removeDisabledForJune(index);
+        this.removeDisabledForJuly(index);
+        this.removeDisabledForAugust(index);
+        this.removeDisabledForAugust(index);
+        this.removeDisabledForSeptember(index);
+        this.removeDisabledForOctober(index);
+        this.removeDisabledForNovember(index);
+        this.removeDisabledForDecember(index);
+
+        // this.render.removeAttribute(this.janQtyRef.nativeElement, 'disabled');
+      } else {
+        console.log('no no')
+      }
     } else {
       this.rowChecked = false;
       this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
+      this.addDisabledForJan(index);
+      this.addDisabledForFeb(index);
+      this.addDisabledForMat(index);
+      this.addDisabledForApr(index);
+      this.addDisabledForMay(index);
+      this.addDisabledForJune(index);
+      this.addDisabledForJuly(index);
+      this.addDisabledForAugust(index);
+      this.addDisabledForSeptember(index);
+      this.addDisabledForOctober(index);
+      this.addDisabledForDecember(index);
+
     }
     // this.cdr.detectChanges();
     console.log('Selected rows', this.selectedRows);
+
+
     // this.cdr.detectChanges();
     // console.log('Selected rows', this.selectedRows);
+  }
+
+  addDisabledForJan(index) {
+    this.janQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForFeb(index) {
+    this.febQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForMat(index) {
+    this.marQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForApr(index) {
+    this.aprQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForMay(index) {
+    this.mayQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForJune(index) {
+    this.juneQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForJuly(index) {
+    this.julQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForAugust(index) {
+    this.augQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForSeptember(index) {
+    this.sepQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForOctober(index) {
+    this.octQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForNovember(index) {
+    this.novQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+  addDisabledForDecember(index) {
+    this.decQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.setAttribute(el.nativeElement, 'disabled', 'disabled');
+      }
+    });
+  }
+
+
+  removeDisabledForJan(index) {
+    this.janQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForFeb(index) {
+    this.febQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForMarch(index) {
+    this.marQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForApril(index) {
+    this.aprQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForMay(index) {
+    this.mayQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForJune(index) {
+    this.juneQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForJuly(index) {
+    this.julQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForAugust(index) {
+    this.augQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForSeptember(index) {
+    this.sepQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForOctober(index) {
+    this.octQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForNovember(index) {
+    this.novQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
+  }
+
+  removeDisabledForDecember(index) {
+    this.decQtyRef.forEach((el, i) => {
+      if (index === i) {
+        this.render.removeAttribute(el.nativeElement, 'disabled');
+      }
+    });
   }
 
 
@@ -247,57 +470,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
       comment
 
     };
-    this.selectedRows.forEach((row, index) => {
-
-      if (this.selectedRowIndex === index) {
-        this.selectedRows[index].Jan_x002d_20_x0020_Qty = this.JanQty;
-        this.selectedRows[index].Jan_x002d_20_x0020_USD = this.JanUSD;
-        this.selectedRows[index].Feb_x002d_20_x0020_Qty = this.FebQty;
-        this.selectedRows[index].Feb_x002d_20_x0020_USD = this.FebUSD;
-        this.selectedRows[index].Mar_x002d_20_x0020_Qty = this.MarQty;
-        this.selectedRows[index].Mar_x002d_20_x0020_USD = this.MarUSD;
-        this.selectedRows[index].Apr_x002d_20_x0020_Qty = this.AprQty;
-        this.selectedRows[index].Apr_x002d_20_x0020_USD = this.AprUSD;
-        this.selectedRows[index].May_x002d_20_x0020_Qty = this.MayQty;
-        this.selectedRows[index].May_x002d_20_x0020_USD = this.MayUSD;
-        this.selectedRows[index].Jun_x002d_20_x0020_Qty = this.JunQty;
-        this.selectedRows[index].Jun_x002d_20_x0020_USD = this.JunUSD;
-        this.selectedRows[index].Jul_x002d_20_x0020_Qty = this.JulQty;
-        this.selectedRows[index].Jul_x002d_20_x0020_USD = this.JulUSD;
-        this.selectedRows[index].Aug_x002d_20_x0020_Qty = this.AugQty;
-        this.selectedRows[index].Aug_x002d_20_x0020_USD = this.AugUSD;
-        this.selectedRows[index].Sep_x002d_20_x0020_Qty = this.SepQty;
-        this.selectedRows[index].Sep_x002d_20_x0020_USD = this.SepUSD;
-        this.selectedRows[index].Oct_x002d_20_x0020_Qty = this.OctQty;
-        this.selectedRows[index].Oct_x002d_20_x0020_USD = this.OctUSD;
-        this.selectedRows[index].Nov_x002d_20_x0020_Qty = this.NovQty;
-        this.selectedRows[index].Nov_x002d_20_x0020_USD = this.NovUSD;
-        this.selectedRows[index].Dec_x002d_20_x0020_Qty = this.DecQty;
-        this.selectedRows[index].Dec_x002d_20_x0020_USD = this.DecUSD;
-
-        this.selectedRows[index].Annual_x0020_QTY =
-          this.selectedRows[index].Jan_x002d_20_x0020_Qty +
-          this.selectedRows[index].Feb_x002d_20_x0020_Qty +
-          this.selectedRows[index].Mar_x002d_20_x0020_Qty +
-          this.selectedRows[index].Apr_x002d_20_x0020_Qty +
-          this.selectedRows[index].May_x002d_20_x0020_Qty +
-          this.selectedRows[index].Jun_x002d_20_x0020_Qty +
-          this.selectedRows[index].Jul_x002d_20_x0020_Qty +
-          this.selectedRows[index].Aug_x002d_20_x0020_Qty +
-          this.selectedRows[index].Sep_x002d_20_x0020_Qty +
-          this.selectedRows[index].Oct_x002d_20_x0020_Qty +
-          this.selectedRows[index].Nov_x002d_20_x0020_Qty +
-          this.selectedRows[index].Dec_x002d_20_x0020_Qty;
-
-        // tslint:disable-next-line:max-line-length
-        this.selectedRows[index].Annual_x0020_Sales = 0;
-
-        // tslint:disable-next-line:max-line-length
-        this.selectedRows[index].Annual_x0020_Sales = this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
-
-
-      }
-    });
+    // this.selectedRows = this.rowsFromServerByUser;
+    // this.selectedRows = this.selectedRows.filter(a => a.checked);
+    console.log('sr', this.selectedRows);
 
     this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
       if (res) {
@@ -353,6 +528,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onNoButton(event: boolean) {
     this.showYesNoDialog = event;
+    window.location.href = 'https://stocktonag.sharepoint.com/sites/Budget/SitePages/Sales.aspx';
+    return;
+    // window.location.href = 'https://stocktonag.sharepoint.com/sites/Budget/SitePages/Sales.aspx';
   }
 
   customTrackBy(index: number, obj: any): any {
@@ -375,28 +553,29 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateJan_USD(row: IRow, input: number, index) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
-    console.log(input);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
     this.JanQty = input;
-    this.JanUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.JanUSD = input * this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = Number(this.JanUSD.toFixed(3));
+
 
     this.calculateAnnualQtyOnInput(rowIndex);
     this.calculateAnnualUSDOnInput(rowIndex);
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
 
+    // this.selectedRows[rowIndex].Jan_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD;
 
 
   }
 
   onCalculateFeb_USD(row: IRow, input: number, index: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.FebQty = input;
     this.FebUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD = Number(this.FebUSD.toFixed(3));
-
+    // this.selectedRows[rowIndex].Feb_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD;
 
     this.calculateAnnualQtyOnInput(rowIndex);
     this.calculateAnnualUSDOnInput(rowIndex);
@@ -407,11 +586,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateMar_USD(row: IRow, input: number, index: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.MarQty = input;
     this.MarUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_USD = Number(this.MarUSD.toFixed(3));
+
+    // this.selectedRows[rowIndex].Feb_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD;
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -423,7 +604,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateApril_USD(row: IRow, input: number, index: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.AprQty = input;
     this.AprUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -439,7 +620,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateMayUSD(row: IRow, input: number, i: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.MayQty = input;
     this.MayUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -455,7 +636,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateJuneUSD(row: IRow, input: number, i: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.JunQty = input;
     this.JunUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -471,7 +652,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateJulUSD(row: IRow, input: number, i: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.JulQty = input;
     this.JulUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -487,7 +668,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateAugUSD(row: IRow, input: number, i: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.AugQty = input;
     this.AugUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -503,7 +684,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateSepUSD(row: IRow, input: number, i: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.SepQty = input;
     this.SepUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -519,7 +700,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateOctUSD(row: IRow, input: number, i: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.OctQty = input;
     this.OctUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -533,7 +714,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateNovUSD(row: IRow, input: number, i: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.NovQty = input;
     this.NovUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -549,7 +730,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onCalculateDecUSD(row: IRow, input: number, i: any) {
-    const rowIndex = this.rowsFromServerByUser.indexOf(row);
+    const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
     this.DecQty = input;
     this.DecUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
@@ -577,7 +758,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     // // tslint:disable-next-line:max-line-length
     this.rowsFromServerByUser[rowIndex].Annual_x0020_Sales = Number(this.rowsFromServerByUser[rowIndex].Annual_x0020_Sales.toFixed(3));
-    console.log(this.rowsFromServerByUser[rowIndex].Annual_x0020_Sales)
+    console.log(this.rowsFromServerByUser[rowIndex].Annual_x0020_Sales);
+
+
   }
 
   calculateAnnualQtyOnInput(rowIndex) {
@@ -604,7 +787,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
       case 1:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -617,7 +800,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
       case 2:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -630,7 +813,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
       case 3:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -643,7 +826,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
       case 4:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -656,7 +839,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
       case 5:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -669,7 +852,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
       case 6:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -682,7 +865,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
       case 7:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -695,7 +878,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
       case 8:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -708,7 +891,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        });
+        }).filter(a => a.Country === this.selectedCountry);
         break;
 
     }
