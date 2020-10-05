@@ -807,7 +807,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     console.log('Selected column', column, column);
     console.log('Selected column index', i);
     // this.rowsFromServerByUser = this.getLocalStorage();
-    console.log('---',this.rowsFromServerByUser);
+    console.log('---', this.rowsFromServerByUser);
     switch (i) {
       case 0:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -820,7 +820,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser =  this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
       case 1:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -833,7 +836,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
       case 2:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -846,7 +852,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
       case 3:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -859,7 +868,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
       case 4:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -872,7 +884,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser =  this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
       case 5:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -885,7 +900,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser =  this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
       case 6:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -898,7 +916,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
       case 7:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -911,7 +932,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
       case 8:
         this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
@@ -924,7 +948,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
           } else {
             return 0;
           }
-        })
+        });
+        if (this.selectedCountry) {
+          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+        }
         break;
 
     }

@@ -36,8 +36,10 @@
           box-shadow: 0 0 2px rgba(0,0,0,0.6);
           z-index: 10;
           background: #ccf3ff;
-          overflow: hidden;
+          //overflow: hidden;
           display: block;
+          height: auto;
+          overflow: auto;
 
           ul{
             padding: 0;
