@@ -207,7 +207,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.isSelected = this.selectedRowIndex === index;
     if (event.target.checked === true) {
       this.rowChecked = true;
-      row.checked = event.target.checked;
       // if (row.checked) {
       //   this.rowChecked = this.rowsFromServerByUser[this.selectedRowIndex].checked = row.checked;
       // }
@@ -232,6 +231,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
         // this.render.removeAttribute(this.janQtyRef.nativeElement, 'disabled');
       } else {
         console.log('no no')
+        row.checked = false
       }
     } else {
       this.rowChecked = false;
@@ -507,30 +507,30 @@ export class HellopnpjsWebPartComponent implements OnInit {
     console.log('selected rows', this.selectedRows);
 
 
-    this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
-      if (res) {
-        this.showNotification = true;
-        this.notification = {
-          background: '#306B34',
-          message: 'Data successfully saved!'
-        };
-        setTimeout(() => {
-          this.showNotification = false;
-          this.selectedRows = [];
-        }, 5000);
-      } else {
-        this.showNotification = true;
-        this.notification = {
-          background: '#772014',
-          message: 'Something went wrong!'
-        };
-        setTimeout(() => {
-          this.showNotification = false;
-          this.selectedRows = [];
-        }, 5000);
-      }
-
-    });
+    // this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
+    //   if (res) {
+    //     this.showNotification = true;
+    //     this.notification = {
+    //       background: '#306B34',
+    //       message: 'Data successfully saved!'
+    //     };
+    //     setTimeout(() => {
+    //       this.showNotification = false;
+    //       this.selectedRows = [];
+    //     }, 5000);
+    //   } else {
+    //     this.showNotification = true;
+    //     this.notification = {
+    //       background: '#772014',
+    //       message: 'Something went wrong!'
+    //     };
+    //     setTimeout(() => {
+    //       this.showNotification = false;
+    //       this.selectedRows = [];
+    //     }, 5000);
+    //   }
+    //
+    // });
 
   }
 
@@ -822,7 +822,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           }
         });
         if (this.selectedCountry) {
-          this.rowsFromServerByUser =  this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
         }
         break;
       case 1:
@@ -886,7 +886,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           }
         });
         if (this.selectedCountry) {
-          this.rowsFromServerByUser =  this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
         }
         break;
       case 5:
@@ -902,7 +902,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           }
         });
         if (this.selectedCountry) {
-          this.rowsFromServerByUser =  this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
+          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
         }
         break;
       case 6:
