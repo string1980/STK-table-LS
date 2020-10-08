@@ -184,6 +184,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
           this.rowsFromServerByUser.push(row);
 
           this.rowsFromServerByUser.forEach(item => {
+            item.checked = false;
+            this.setLocalStorage(this.rowsFromServerByUser);
             this.countries.push(item.Country);
           });
           this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
@@ -203,10 +205,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   onCheck(row: IRow, event, index: number) {
+
     this.selectedRowIndex = this.rowsFromServer.indexOf(row);
     this.isSelected = this.selectedRowIndex === index;
     if (event.target.checked === true) {
       this.rowChecked = true;
+
+      row.checked = event.target.checked;
       // if (row.checked) {
       //   this.rowChecked = this.rowsFromServerByUser[this.selectedRowIndex].checked = row.checked;
       // }
@@ -236,6 +241,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     } else {
       this.rowChecked = false;
       this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
+      row.checked = false
       this.addDisabledForJan(index);
       this.addDisabledForFeb(index);
       this.addDisabledForMat(index);
@@ -251,7 +257,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     }
     // this.cdr.detectChanges();
     console.log('Selected rows', this.selectedRows);
-
+    this.setLocalStorage(this.rowsFromServerByUser);
 
     // this.cdr.detectChanges();
     // console.log('Selected rows', this.selectedRows);
@@ -546,7 +552,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   setLocalStorage(rowsFromServerByUser) {
-    localStorage.setItem('update', JSON.stringify(rowsFromServerByUser));
+    if (localStorage.getItem('update') !== null) {
+      localStorage.clear();
+      localStorage.setItem('update', JSON.stringify(rowsFromServerByUser));
+    }
   }
 
   getLocalStorage() {
@@ -588,6 +597,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.JanQty = input;
     this.JanUSD = input * this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = Number(this.JanUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = Number(this.JanQty.toFixed(3));
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -602,10 +612,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateFeb_USD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-
     this.FebQty = input;
     this.FebUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD = Number(this.FebUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_Qty = Number(this.FebQty.toFixed(3));
     // this.selectedRows[rowIndex].Feb_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD;
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -613,7 +623,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
   }
 
   onCalculateMar_USD(row: IRow, input: number, index: any) {
@@ -622,6 +631,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.MarQty = input;
     this.MarUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_USD = Number(this.MarUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_Qty = Number(this.MarQty.toFixed(3));
+
 
     // this.selectedRows[rowIndex].Feb_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD;
 
@@ -631,7 +642,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
   }
 
   onCalculateApril_USD(row: IRow, input: number, index: any) {
@@ -640,6 +650,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.AprQty = input;
     this.AprUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_USD = Number(this.AprUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_Qty = Number(this.AprQty.toFixed(3));
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -647,7 +658,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
   }
 
   onCalculateMayUSD(row: IRow, input: number, i: any) {
@@ -656,6 +666,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.MayQty = input;
     this.MayUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_USD = Number(this.MayUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_Qty = Number(this.MayQty.toFixed(3));
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -663,7 +674,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
   }
 
   onCalculateJuneUSD(row: IRow, input: number, i: any) {
@@ -672,6 +682,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.JunQty = input;
     this.JunUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_USD = Number(this.JunUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_Qty = Number(this.JunQty.toFixed(3));
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -679,7 +690,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
   }
 
   onCalculateJulUSD(row: IRow, input: number, i: any) {
@@ -688,6 +698,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.JulQty = input;
     this.JulUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_USD = Number(this.JulUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_Qty = Number(this.JulQty.toFixed(3));
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -695,7 +706,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
   }
 
   onCalculateAugUSD(row: IRow, input: number, i: any) {
@@ -704,6 +714,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.AugQty = input;
     this.AugUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_USD = Number(this.AugUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_Qty = Number(this.AugQty.toFixed(3));
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -711,7 +722,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
   }
 
   onCalculateSepUSD(row: IRow, input: number, i: any) {
@@ -720,6 +730,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.SepQty = input;
     this.SepUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_USD = Number(this.SepUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_Qty = Number(this.SepQty.toFixed(3));
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -736,6 +747,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.OctQty = input;
     this.OctUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_USD = Number(this.OctUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_Qty = Number(this.OctQty.toFixed(3));
 
     this.calculateAnnualQtyOnInput(rowIndex);
     this.calculateAnnualUSDOnInput(rowIndex);
@@ -750,13 +762,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.NovQty = input;
     this.NovUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_USD = Number(this.NovUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_Qty = Number(this.NovQty.toFixed(3));
 
     this.calculateAnnualQtyOnInput(rowIndex);
     this.calculateAnnualUSDOnInput(rowIndex);
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
     console.log('after update', this.rowsFromServerByUser);
   }
 
@@ -766,6 +778,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.DecQty = input;
     this.DecUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_USD = Number(this.DecUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_Qty = Number(this.DecQty.toFixed(3));
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -774,7 +787,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
+    this.DecUSD = 0;
   }
 
 
@@ -784,10 +797,22 @@ export class HellopnpjsWebPartComponent implements OnInit {
     // this.rowsFromServerByUser[this.selectedRowIndex].Annual_x0020_Sales = 0;
 
     this.rowsFromServerByUser[rowIndex].Annual_x0020_Sales =
-      this.JanUSD + this.FebUSD + this.MarUSD + this.AprUSD + this.MayUSD + this.JunUSD + this.JulUSD + this.AugUSD + this.SepUSD + this.OctUSD + this.NovUSD + this.DecUSD;
+      this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_USD +
+      this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_USD ;
 
-
-    // // tslint:disable-next-line:max-line-length
+    //
+    //
+    // // // tslint:disable-next-line:max-line-length
     this.rowsFromServerByUser[rowIndex].Annual_x0020_Sales = Number(this.rowsFromServerByUser[rowIndex].Annual_x0020_Sales.toFixed(3));
     console.log(this.rowsFromServerByUser[rowIndex].Annual_x0020_Sales);
 
@@ -796,11 +821,24 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   calculateAnnualQtyOnInput(rowIndex) {
     // tslint:disable-next-line:max-line-length
-    this.rowsFromServerByUser[rowIndex].Annual_x0020_QTY = this.JanQty + this.FebQty + this.MarQty + this.AprQty + this.MayQty + this.JunQty + this.JulQty + this.AugQty + this.SepQty + this.OctQty + this.NovQty + this.DecQty;
-
-
+    // this.rowsFromServerByUser[rowIndex].Annual_x0020_QTY = 0;
+    this.rowsFromServerByUser[rowIndex].Annual_x0020_QTY =
+      this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_Qty +
+      this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_Qty  ;
+    //
     this.rowsFromServerByUser[rowIndex].Annual_x0020_QTY = Number(this.rowsFromServerByUser[rowIndex].Annual_x0020_QTY.toFixed(3));
 
+    this.setLocalStorage(this.rowsFromServerByUser);
   }
 
   onSortBy(column: string, i: number) {
