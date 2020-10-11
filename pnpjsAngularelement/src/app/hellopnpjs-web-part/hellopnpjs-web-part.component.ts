@@ -458,7 +458,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   onSubmitTemplateBased(tableForm, version, status, submittedBy, comment) {
-    // console.log(tableForm);
 
     const allTable: IRow[] = this.getLocalStorage();
     this.selectedRows = allTable.filter(a => a.checked);
@@ -552,10 +551,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   setLocalStorage(rowsFromServerByUser) {
-    if (localStorage.getItem('update') !== null) {
-      localStorage.clear();
-      localStorage.setItem('update', JSON.stringify(rowsFromServerByUser));
-    }
+    localStorage.setItem('update', JSON.stringify(rowsFromServerByUser));
   }
 
   getLocalStorage() {
@@ -592,24 +588,26 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.isShowDropDown = true;
   }
 
-  onCalculateJan_USD(row: IRow, input: number, index) {
+  onCalculateJan_USD(row: IRow, input: number, index, event) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.JanQty = input;
-      this.JanUSD = input * this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = Number(this.JanUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = Number(this.JanQty.toFixed(3));
+    console.log('input', row.Jan_x002d_20_x0020_Qty);
+    this.JanQty = input;
+    this.JanUSD = input * this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[index].Jan_x002d_20_x0020_USD = Number(this.JanUSD.toFixed(3));
+    this.rowsFromServerByUser[index].Jan_x002d_20_x0020_Qty = Number(this.JanQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = null;
+    // }
 
-    } else {
-      this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = null;
-    }
+
+    // this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = null;
+    // this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = null;
+
     this.calculateAnnualQtyOnInput(rowIndex);
     this.calculateAnnualUSDOnInput(rowIndex);
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-
-
 
 
     // this.selectedRows[rowIndex].Jan_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD;
@@ -619,15 +617,17 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateFeb_USD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.FebQty = input;
-      this.FebUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD = Number(this.FebUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_Qty = Number(this.FebQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_Qty = null;
-    }
+
+    this.FebQty = input;
+    this.FebUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD = Number(this.FebUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_Qty = Number(this.FebQty.toFixed(3));
+
+    // if (this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD = null;
+    //   this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_Qty = null;
+    // }
+
 
     // this.selectedRows[rowIndex].Feb_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD;
 
@@ -640,15 +640,16 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateMar_USD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.MarQty = input;
-      this.MarUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_USD = Number(this.MarUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_Qty = Number(this.MarQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_Qty = null;
-    }
+
+    this.MarQty = input;
+    this.MarUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_USD = Number(this.MarUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_Qty = Number(this.MarQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_Qty === 0) {
+    //   console.log('jqty', this.JanQty);
+    //   this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Mar_x002d_20_x0020_USD = null;
+    // }
 
 
     // this.selectedRows[rowIndex].Feb_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Feb_x002d_20_x0020_USD;
@@ -664,17 +665,14 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onCalculateApril_USD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
 
-    console.log('April qty', input);
-
-    if (rowIndex === index && input > 0) {
-      this.AprQty = input;
-      this.AprUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_USD = Number(this.AprUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_Qty = Number(this.AprQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_Qty = null;
-    }
+    this.AprQty = input;
+    this.AprUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_USD = Number(this.AprUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_Qty = Number(this.AprQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Apr_x002d_20_x0020_USD = null;
+    // }
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -686,15 +684,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateMayUSD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.MayQty = input;
-      this.MayUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_USD = Number(this.MayUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_Qty = Number(this.MayQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_Qty = null;
-    }
+
+    this.MayQty = input;
+    this.MayUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_USD = Number(this.MayUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_Qty = Number(this.MayQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].May_x002d_20_x0020_USD = null;
+    // }
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -706,15 +704,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateJuneUSD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.JunQty = input;
-      this.JunUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_USD = Number(this.JunUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_Qty = Number(this.JunQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_Qty = null;
-    }
+
+    this.JunQty = input;
+    this.JunUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_USD = Number(this.JunUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_Qty = Number(this.JunQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_USD = null;
+    // }
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -726,15 +724,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateJulUSD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.JulQty = input;
-      this.JulUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_USD = Number(this.JulUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_Qty = Number(this.JulQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_Qty = null;
-    }
+
+    this.JulQty = input;
+    this.JulUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_USD = Number(this.JulUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_Qty = Number(this.JulQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Jul_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Jun_x002d_20_x0020_USD = null;
+    // }
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -746,15 +744,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateAugUSD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.AugQty = input;
-      this.AugUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_USD = Number(this.AugUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_Qty = Number(this.AugQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_Qty = null;
-    }
+
+    this.AugQty = input;
+    this.AugUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_USD = Number(this.AugUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_Qty = Number(this.AugQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Aug_x002d_20_x0020_USD = null;
+    // }
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -766,15 +764,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateSepUSD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.SepQty = input;
-      this.SepUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_USD = Number(this.SepUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_Qty = Number(this.SepQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_Qty = null;
-    }
+
+    this.SepQty = input;
+    this.SepUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_USD = Number(this.SepUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_Qty = Number(this.SepQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Sep_x002d_20_x0020_USD = null;
+    // }
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -787,15 +785,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateOctUSD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.OctQty = input;
-      this.OctUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_USD = Number(this.OctUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_Qty = Number(this.OctQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_Qty = null;
-    }
+
+    this.OctQty = input;
+    this.OctUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_USD = Number(this.OctUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_Qty = Number(this.OctQty.toFixed(3));
+    // if (this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Oct_x002d_20_x0020_USD = null;
+    // }
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -807,15 +805,16 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   onCalculateNovUSD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.NovQty = input;
-      this.NovUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_USD = Number(this.NovUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_Qty = Number(this.NovQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_Qty = null;
-    }
+
+    this.NovQty = input;
+    this.NovUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_USD = Number(this.NovUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_Qty = Number(this.NovQty.toFixed(3));
+
+    // if (this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_USD === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_USD = null;
+    //   this.rowsFromServerByUser[rowIndex].Nov_x002d_20_x0020_USD = null;
+    // }
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -823,20 +822,22 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
-    console.log('after update', this.rowsFromServerByUser);
   }
 
   onCalculateDecUSD(row: IRow, input: number, index: any) {
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
-    if (rowIndex === index && input > 0) {
-      this.DecQty = input;
-      this.DecUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
-      this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_USD = Number(this.DecUSD.toFixed(3));
-      this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_Qty = Number(this.DecQty.toFixed(3));
-    } else {
-      this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_USD = null;
-      this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_Qty = null;
-    }
+
+    this.DecQty = input;
+    this.DecUSD = input * +this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_USD = Number(this.DecUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_Qty = Number(this.DecQty.toFixed(3));
+
+    // if (this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_Qty === 0) {
+    //   this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_Qty = null;
+    //   this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_USD = null;
+    // }
+    // this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_USD = null;
+    // this.rowsFromServerByUser[rowIndex].Dec_x002d_20_x0020_Qty = null;
 
 
     this.calculateAnnualQtyOnInput(rowIndex);
@@ -900,157 +901,18 @@ export class HellopnpjsWebPartComponent implements OnInit {
   }
 
   onSortBy(column: string, i: number) {
-    console.log('Selected column', column, column);
-    console.log('Selected column index', i);
-    // this.rowsFromServerByUser = this.getLocalStorage();
-    console.log('---', this.rowsFromServerByUser);
-    switch (i) {
-      case 0:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Title > b.Title) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Title < b.Title) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
-      case 1:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Country > b.Country) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Country < b.Country) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
-      case 2:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Item_x0020_Code_x0020_SAP > b.Item_x0020_Code_x0020_SAP) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Item_x0020_Code_x0020_SAP < b.Item_x0020_Code_x0020_SAP) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
-      case 3:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Item_x0020_Name > b.Item_x0020_Name) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Item_x0020_Name < b.Item_x0020_Name) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
-      case 4:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Sales_x005c_FOC > b.Sales_x005c_FOC) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Sales_x005c_FOC < b.Sales_x005c_FOC) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
-      case 5:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Sales_x0020_Type > b.Sales_x0020_Type) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Sales_x0020_Type < b.Sales_x0020_Type) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
-      case 6:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Business_x0020_Segment > b.Business_x0020_Segment) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Business_x0020_Segment < b.Business_x0020_Segment) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
-      case 7:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Customer_x0020_Code_x0020_SAP > b.Customer_x0020_Code_x0020_SAP) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Customer_x0020_Code_x0020_SAP < b.Customer_x0020_Code_x0020_SAP) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
-      case 8:
-        this.rowsFromServerByUser = this.rowsFromServerByUser.sort((a, b) => {
-          if (a.Customer_x0020_Name > b.Customer_x0020_Name) {
-            console.log('Sorted by country asc', this.rowsFromServerByUser);
-            return 1;
-          } else if (a.Customer_x0020_Name < b.Customer_x0020_Name) {
-            console.log('Sorted by country desc', this.rowsFromServerByUser);
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (this.selectedCountry) {
-          this.rowsFromServerByUser = this.rowsFromServerByUser.filter(a => a.Country === this.selectedCountry)
-        }
-        break;
 
-    }
+  }
+
+  onDisableInputZero(event: KeyboardEvent) {
+    // console.log(event);
+    // let numbers: number[] = [];
+    // numbers.push(event.keyCode);
+    // console.log(numbers)
+    // if (numbers.length === 1 && event.keyCode === 48) {
+    //   return false;
+    // }
+
   }
 }
 
