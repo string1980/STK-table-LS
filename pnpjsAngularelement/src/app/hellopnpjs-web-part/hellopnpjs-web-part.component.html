@@ -46,7 +46,7 @@
 
       <div class="dropdown"  #dropdown *ngIf="isShowDropDown && countries.length> 1">
         <ul>
-          <li *ngFor="let country of countries;let i=index" (click)="onSelectCountry(country)">
+          <li *ngFor="let country of countries;let i=index" (click)="onSelectCountry(country,rowsFromServerByUser)">
             <span >{{country}}</span>
           </li>
         </ul>

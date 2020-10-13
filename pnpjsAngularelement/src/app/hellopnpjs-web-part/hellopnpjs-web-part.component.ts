@@ -573,10 +573,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
     return index;
   }
 
-  onSelectCountry(country: string) {
+  onSelectCountry(country: string, rows: IRow[]) {
     this.selectedCountry = country;
     this.isShowDropDown = false;
     console.log('selected country', this.selectedCountry);
+
+    this.rowsFromServerByUser = this.rowsFromServerByUser.filter(row => row.Country.startsWith(country.toLocaleLowerCase()));
+    console.log('rowsFromServerByUser-1',  this.rowsFromServerByUser);
+
+
   }
 
   onCountryInput() {
