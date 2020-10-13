@@ -87,6 +87,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   private DecQty: number = 0;
   comment: string = '';
   isDisableSaveBtn: boolean = true;
+  rowsByCountry: IRow[] = [];
 
 
   constructor(private testListService: TestListService, private pnpService: PnPBaseService, private render: Renderer2) {
@@ -205,20 +206,20 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   onCheck(row: IRow, event, index: number) {
-
+    this.rowsFromServerByUser = this.getLocalStorage();
     this.selectedRowIndex = this.rowsFromServer.indexOf(row);
     this.isSelected = this.selectedRowIndex === index;
     if (event.target.checked === true) {
       this.rowChecked = true;
 
-      row.checked = event.target.checked;
+      row.checked = this.rowsFromServerByUser[index].checked = event.target.checked;
       // if (row.checked) {
       //   this.rowChecked = this.rowsFromServerByUser[this.selectedRowIndex].checked = row.checked;
       // }
+      this.setLocalStorage(this.rowsFromServerByUser);
 
       this.selectedRows.push(row);
       if (this.selectedRows[index] || this.rowsFromServerByUser[index]) {
-        console.log('yes');
         this.removeDisabledForJan(index);
         this.removeDisabledForFeb(index);
         this.removeDisabledForMarch(index);
@@ -233,15 +234,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
         this.removeDisabledForNovember(index);
         this.removeDisabledForDecember(index);
 
-        // this.render.removeAttribute(this.janQtyRef.nativeElement, 'disabled');
       } else {
-        console.log('no no')
-        row.checked = false
+        row.checked = false;
       }
     } else {
       this.rowChecked = false;
       this.selectedRows.splice(this.selectedRows.indexOf(row), 1);
-      row.checked = false
+      row.checked = false;
       this.addDisabledForJan(index);
       this.addDisabledForFeb(index);
       this.addDisabledForMat(index);
@@ -255,12 +254,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.addDisabledForDecember(index);
 
     }
-    // this.cdr.detectChanges();
     console.log('Selected rows', this.selectedRows);
-    this.setLocalStorage(this.rowsFromServerByUser);
 
-    // this.cdr.detectChanges();
-    // console.log('Selected rows', this.selectedRows);
   }
 
   addDisabledForJan(index) {
@@ -475,20 +470,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
       item.Oct_x002d_20_x0020_Qty = +item.Oct_x002d_20_x0020_Qty;
       item.Nov_x002d_20_x0020_Qty = +item.Nov_x002d_20_x0020_Qty;
       item.Dec_x002d_20_x0020_Qty = +item.Dec_x002d_20_x0020_Qty;
-
-      // item.Jan_x002d_20_x0020_Qty = null ? item.Jan_x002d_20_x0020_USD = 0 : item.Jan_x002d_20_x0020_USD = 0;
-      // item.Feb_x002d_20_x0020_Qty = null ? item.Feb_x002d_20_x0020_USD = 0 : item.Feb_x002d_20_x0020_USD = 0;
-      // item.Mar_x002d_20_x0020_Qty = null ? item.Mar_x002d_20_x0020_USD = 0 : item.Mar_x002d_20_x0020_USD = 0;
-      // item.Apr_x002d_20_x0020_Qty = null ? item.Apr_x002d_20_x0020_USD = 0 : item.Apr_x002d_20_x0020_USD = 0;
-      // item.May_x002d_20_x0020_Qty = null ? item.May_x002d_20_x0020_USD = 0 : item.May_x002d_20_x0020_USD = 0;
-      // item.Jun_x002d_20_x0020_Qty = null ? item.Jun_x002d_20_x0020_USD = 0 : item.Jun_x002d_20_x0020_USD = 0;
-      // item.Jul_x002d_20_x0020_Qty = null ? item.Jul_x002d_20_x0020_USD = 0 : item.Jul_x002d_20_x0020_USD = 0;
-      // item.Aug_x002d_20_x0020_Qty = null ? item.Aug_x002d_20_x0020_USD = 0 : item.Aug_x002d_20_x0020_USD = 0;
-      // item.Sep_x002d_20_x0020_Qty = null ? item.Sep_x002d_20_x0020_USD = 0 : item.Sep_x002d_20_x0020_USD = 0;
-      // item.Oct_x002d_20_x0020_Qty = null ? item.Oct_x002d_20_x0020_USD = 0 : item.Oct_x002d_20_x0020_USD = 0;
-      // item.Nov_x002d_20_x0020_Qty = null ? item.Nov_x002d_20_x0020_USD = 0 : item.Nov_x002d_20_x0020_USD = 0;
-      // item.Dec_x002d_20_x0020_Qty = null ? item.Dec_x002d_20_x0020_USD = 0 : item.Dec_x002d_20_x0020_USD = 0;
-
     });
 
     this.submittedBy = this.currentUser.Title;
@@ -507,11 +488,11 @@ export class HellopnpjsWebPartComponent implements OnInit {
       comment
 
     };
-    // this.selectedRows = this.rowsFromServerByUser;
-    // this.selectedRows = this.selectedRows.filter(a => a.checked);
+
     console.log('selected rows', this.selectedRows);
 
 
+// ----------------Todo: uncomment this------------
     this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
       if (res) {
         this.showNotification = true;
@@ -536,6 +517,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
       }
 
     });
+    // ----------------Todo: uncomment this------------
 
   }
 
@@ -578,8 +560,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.isShowDropDown = false;
     console.log('selected country', this.selectedCountry);
 
-    this.rowsFromServerByUser = this.rowsFromServerByUser.filter(row => row.Country.startsWith(country.toLocaleLowerCase()));
-    console.log('rowsFromServerByUser-1',  this.rowsFromServerByUser);
+    this.rowsByCountry = this.rowsFromServerByUser.filter(row => row.Country === country);
+    console.log('rowsByCountry', this.rowsByCountry);
+    this.setLocalStorage(this.rowsByCountry);
 
 
   }
@@ -591,13 +574,19 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onClearDropdownSelection() {
     this.selectedCountry = '';
     this.isShowDropDown = true;
+    console.log('rowsFromServerByUser-2', this.rowsFromServerByUser);
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
   }
 
   onCalculateJan_USD(row: IRow, input: number, index, event) {
+    this.rowsFromServerByUser = this.getLocalStorage();
+    console.log('from LS', this.rowsFromServerByUser);
+
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
     console.log('input', row.Jan_x002d_20_x0020_Qty);
     this.JanQty = input;
-    this.JanUSD = input * this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.JanUSD = input * this.rowsFromServerByUser[index].EC_x0020_Sales_x0020_Price;
     this.rowsFromServerByUser[index].Jan_x002d_20_x0020_USD = Number(this.JanUSD.toFixed(3));
     this.rowsFromServerByUser[index].Jan_x002d_20_x0020_Qty = Number(this.JanQty.toFixed(3));
     // if (this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty === 0) {
@@ -609,10 +598,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     // this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = null;
     // this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = null;
 
-    this.calculateAnnualQtyOnInput(rowIndex);
-    this.calculateAnnualUSDOnInput(rowIndex);
+    this.calculateAnnualQtyOnInput(index);
+    this.calculateAnnualUSDOnInput(index);
     this.setLocalStorage(this.rowsFromServerByUser);
-    this.rowsFromServerByUser = this.getLocalStorage();
 
 
     // this.selectedRows[rowIndex].Jan_x002d_20_x0020_USD = this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD;
