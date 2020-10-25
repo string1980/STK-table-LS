@@ -32,11 +32,9 @@
           left: 50.4%;
           width: 154px;
           border: 1px solid #f58c2b;
-          //border-radius: 10px;
           box-shadow: 0 0 2px rgba(0,0,0,0.6);
           z-index: 10;
           background: #ccf3ff;
-          //overflow: hidden;
           display: block;
           height: auto;
           overflow: auto;
@@ -121,20 +119,15 @@ form {
 
 table.table {
   background: #ccf3ff;
-  //border: 0;
-  //padding: 0;
-  //margin: 0;
-  //border-collapse: collapse;
+
   tr {
     th {
       background: #f58c2b;
       color: #fff;
-      padding: 5px 10px;
-      //position: relative;
+      padding: 5px 0;
       position: sticky;
       top: 0;
       font-weight: bolder;
-      //
       &.Company{
         display: none;
       }
@@ -165,8 +158,6 @@ table.table {
       button{
         background: transparent;
         border: 0;
-        //display: block;
-        //width: 100%;
         outline: 0;
         cursor: pointer;
         position: absolute;
@@ -190,12 +181,6 @@ table.table {
         }
       }
 
-      //&:nth-of-type(5) {
-      //  input {
-      //    width: 500px !important;
-      //  }
-      //
-      //}
 
 
       input[type="checkbox"]:focus{
@@ -365,26 +350,14 @@ table.table {
     }
   }
 
-  //.spinner-1:before{
-  //  position: absolute;
-  //  content:"";
-  //  width: 64px;
-  //  height: 64px;
-  //  border-radius:64px;
-  //  color:#f58c2b;
-  //  box-shadow:inset -5px 0 0 5px currentColor;
-  //  clip: rect(0,64px,32px,0);
-  //  animation: rotator 1s infinite linear;
-  //}
 }
 .notification{
-  //background: 80FF72;
   padding: 10px 20px;
   text-align: center;
   color: #fff;
   font-size: 20px;
   position: fixed;
-  bottom: 27px;
+  top: 90px;
   right: 52px;
   border-radius: 13px;
   box-shadow: 0 0 3px rgba(0,0,0,0.5);

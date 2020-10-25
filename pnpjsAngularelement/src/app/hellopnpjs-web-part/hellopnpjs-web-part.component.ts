@@ -13,6 +13,8 @@ import {IRow} from '../interfaces/table';
 import {CurrentUserModel} from '../interfaces/current-user.model';
 import {PnPBaseService} from '../services/pnpBase.service';
 import {IMoreInfo} from '../interfaces/more-info';
+import {UUID} from 'angular2-uuid';
+import {yearsPerPage} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-hellopnpjs-web-part',
@@ -88,13 +90,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
   comment: string = '';
   isDisableSaveBtn: boolean = true;
   rowsByCountry: IRow[] = [];
-
+  uuidValue: string = '';
 
   constructor(private testListService: TestListService, private pnpService: PnPBaseService, private render: Renderer2) {
   }
 
   ngOnInit() {
-
+    this.uuidValue = UUID.UUID();
     this.getUser();
     this.getAllListItems();
     // if(localStorage.getItem('update') !== null){
@@ -146,6 +148,11 @@ export class HellopnpjsWebPartComponent implements OnInit {
           column !== 'UsersId' &&
           column !== 'UsersStringId'
         );
+
+        this.displayedColumns = this.displayedColumns.map(column => {
+          column = column.replace(/[^a-zA-Z ]/g, "");
+          return column;
+        });
         console.log('displayedColumns', this.displayedColumns);
         this.displayedColumns[0] = 'Company';
         this.showDataByUser(this.rowsFromServer);
@@ -184,7 +191,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
         if (id === this.currentUser.Id) {
           this.rowsFromServerByUser.push(row);
 
-          this.rowsFromServerByUser.forEach(item => {
+          this.rowsFromServerByUser.forEach((item) => {
             item.checked = false;
             this.setLocalStorage(this.rowsFromServerByUser);
             this.countries.push(item.Country);
@@ -206,6 +213,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 
   onCheck(row: IRow, event, index: number) {
+    this.isDisableSaveBtn = false;
     this.rowsFromServerByUser = this.getLocalStorage();
     this.selectedRowIndex = this.rowsFromServer.indexOf(row);
     this.isSelected = this.selectedRowIndex === index;
@@ -213,6 +221,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.rowChecked = true;
 
       row.checked = this.rowsFromServerByUser[index].checked = event.target.checked;
+
       // if (row.checked) {
       //   this.rowChecked = this.rowsFromServerByUser[this.selectedRowIndex].checked = row.checked;
       // }
@@ -488,8 +497,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
       comment
 
     };
-
-    console.log('selected rows', this.selectedRows);
+    this.selectedRows.forEach(row => {
+      row.RowUuID = this.uuidValue;
+      row.SubmittedbyUserId = this.currentUser.Id;
+    });
 
 
 // ----------------Todo: uncomment this------------
@@ -500,12 +511,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
           background: '#306B34',
           message: 'Data successfully saved!'
         };
+        this.isDisableSaveBtn = true;
+
         setTimeout(() => {
           this.showNotification = false;
           this.selectedRows = [];
         }, 5000);
       } else {
         this.showNotification = true;
+        this.isDisableSaveBtn = true;
         this.notification = {
           background: '#772014',
           message: 'Something went wrong!'

@@ -112,7 +112,9 @@ export class PnPBaseService {
             Version: moreInfo.version,
             VersionStatus: moreInfo.status,
             Submittedby: moreInfo.submittedBy,
-            Updatedate: moreInfo.updateDate
+            Updatedate: moreInfo.updateDate,
+            RowUuID: row.RowUuID,
+            SubmittedbyUserId: row.SubmittedbyUserId
             // Users: row.Users
 
             // mz7b: row.Customer_x0020_Code_x0020_SAP,

@@ -63,5 +63,7 @@ export interface IRow {
   checked: boolean;
   UserTest: string;
   UsersId: Array<number>;
+  RowUuID: string;
+  SubmittedbyUserId: any;
 
 }
