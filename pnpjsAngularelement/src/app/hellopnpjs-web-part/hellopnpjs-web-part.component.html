@@ -90,7 +90,7 @@
           [ngClass]="{'selected': checkboxRef.checked === true} " class="row-1">
 
         <td>
-          <input type="checkbox" #checkboxRef (change)="onCheck(row,$event,i)">
+          <input type="checkbox" #checkboxRef (change)="onCheck(row,$event,i)" [checked]="row.checked">
         </td>
 
         <td style="display: none">

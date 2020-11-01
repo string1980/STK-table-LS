@@ -19,14 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="fixing bug on select country (LocalStorage)">
+    <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/interfaces/table.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/interfaces/table.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/pnpBase.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/pnpBase.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +39,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fixes_13.10" />
+        <entry key="$PROJECT_DIR$" value="row_uuid" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -114,8 +110,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.bundle" />
         <item itemvalue="npm.serve" />
+        <item itemvalue="npm.bundle" />
         <item itemvalue="npm.gulp" />
       </list>
     </recent_temporary>
@@ -143,7 +139,7 @@
       <workItem from="1601758741701" duration="20607000" />
       <workItem from="1602405569184" duration="13508000" />
       <workItem from="1602655036774" duration="679000" />
-      <workItem from="1602660503955" duration="7670000" />
+      <workItem from="1602660503955" duration="10030000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -285,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602600025745</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="add new property in table">
+      <created>1603638230331</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1603638230331</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,18 +326,19 @@
     <MESSAGE value="fixed bugs (click on 0 and localStorage)" />
     <MESSAGE value="fixing bugs" />
     <MESSAGE value="fixing bug on select country (LocalStorage)" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing bug on select country (LocalStorage)" />
+    <MESSAGE value="add new property in table" />
+    <option name="LAST_COMMIT_MESSAGE" value="add new property in table" />
   </component>
   <component name="WindowStateProjectService">
     <state x="408" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1602660443974">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="408" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.823@0.23.1440.823" timestamp="1602660443974" />
-    <state x="423" y="23" key="CommitChangelistDialog2" timestamp="1602655136753">
+    <state x="423" y="23" key="CommitChangelistDialog2" timestamp="1603638230073">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="585" y="85" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600956895869" />
-    <state x="423" y="23" key="CommitChangelistDialog2/0.23.1440.823@0.23.1440.823" timestamp="1602655136753" />
+    <state x="423" y="23" key="CommitChangelistDialog2/0.23.1440.823@0.23.1440.823" timestamp="1603638230073" />
     <state x="439" y="23" key="CommitChangelistDialog2/0.23.1440.824@0.23.1440.824" timestamp="1601557500294" />
     <state x="423" y="23" key="CommitChangelistDialog2/0.23.1440.825@0.23.1440.825" timestamp="1602412941114" />
     <state x="100" y="123" width="1240" height="623" key="DiffContextDialog" timestamp="1601908885136">
@@ -346,35 +350,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="748" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600697719005" />
-    <state width="1398" height="213" key="GridCell.Tab.0.bottom" timestamp="1603637996888">
+    <state width="1398" height="213" key="GridCell.Tab.0.bottom" timestamp="1603913053819">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1899" height="269" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600959235462" />
-    <state width="1398" height="213" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1603637996888" />
+    <state width="1398" height="213" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1603913053819" />
     <state width="1398" height="213" key="GridCell.Tab.0.bottom/0.23.1440.824@0.23.1440.824" timestamp="1601558488472" />
     <state width="1398" height="213" key="GridCell.Tab.0.bottom/0.23.1440.825@0.23.1440.825" timestamp="1602598060949" />
     <state width="1398" height="213" key="GridCell.Tab.0.bottom/0.23.1440.826@0.23.1440.826" timestamp="1602345525502" />
-    <state width="1398" height="213" key="GridCell.Tab.0.center" timestamp="1603637996888">
+    <state width="1398" height="213" key="GridCell.Tab.0.center" timestamp="1603913053817">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1899" height="269" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600959235462" />
-    <state width="1398" height="213" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1603637996888" />
+    <state width="1398" height="213" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1603913053817" />
     <state width="1398" height="213" key="GridCell.Tab.0.center/0.23.1440.824@0.23.1440.824" timestamp="1601558488472" />
     <state width="1398" height="213" key="GridCell.Tab.0.center/0.23.1440.825@0.23.1440.825" timestamp="1602598060946" />
     <state width="1398" height="213" key="GridCell.Tab.0.center/0.23.1440.826@0.23.1440.826" timestamp="1602345525502" />
-    <state width="1398" height="213" key="GridCell.Tab.0.left" timestamp="1603637996887">
+    <state width="1398" height="213" key="GridCell.Tab.0.left" timestamp="1603913053817">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1899" height="269" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600959235462" />
-    <state width="1398" height="213" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1603637996887" />
+    <state width="1398" height="213" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1603913053817" />
     <state width="1398" height="213" key="GridCell.Tab.0.left/0.23.1440.824@0.23.1440.824" timestamp="1601558488471" />
     <state width="1398" height="213" key="GridCell.Tab.0.left/0.23.1440.825@0.23.1440.825" timestamp="1602598060946" />
     <state width="1398" height="213" key="GridCell.Tab.0.left/0.23.1440.826@0.23.1440.826" timestamp="1602345525502" />
-    <state width="1398" height="213" key="GridCell.Tab.0.right" timestamp="1603637996888">
+    <state width="1398" height="213" key="GridCell.Tab.0.right" timestamp="1603913053818">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1899" height="269" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600959235462" />
-    <state width="1398" height="213" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1603637996888" />
+    <state width="1398" height="213" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1603913053818" />
     <state width="1398" height="213" key="GridCell.Tab.0.right/0.23.1440.824@0.23.1440.824" timestamp="1601558488472" />
     <state width="1398" height="213" key="GridCell.Tab.0.right/0.23.1440.825@0.23.1440.825" timestamp="1602598060946" />
     <state width="1398" height="213" key="GridCell.Tab.0.right/0.23.1440.826@0.23.1440.826" timestamp="1602345525502" />
@@ -396,11 +400,11 @@
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="504" height="445" key="SwitcherDM/0.23.1440.823@0.23.1440.823" timestamp="1603635021155" />
-    <state x="414" y="223" key="Vcs.Push.Dialog.v2" timestamp="1602661976299">
+    <state x="414" y="223" key="Vcs.Push.Dialog.v2" timestamp="1603638236171">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600959897131" />
-    <state x="414" y="223" key="Vcs.Push.Dialog.v2/0.23.1440.823@0.23.1440.823" timestamp="1602661976299" />
+    <state x="414" y="223" key="Vcs.Push.Dialog.v2/0.23.1440.823@0.23.1440.823" timestamp="1603638236171" />
     <state x="414" y="223" key="Vcs.Push.Dialog.v2/0.23.1440.824@0.23.1440.824" timestamp="1601557504183" />
     <state x="414" y="223" key="Vcs.Push.Dialog.v2/0.23.1440.825@0.23.1440.825" timestamp="1602412946008" />
     <state x="551" y="356" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1601324645782">

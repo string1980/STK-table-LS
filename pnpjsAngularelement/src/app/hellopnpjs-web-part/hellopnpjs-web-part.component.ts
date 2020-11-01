@@ -505,18 +505,52 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
 // ----------------Todo: uncomment this------------
     this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
+      this.isDisableSaveBtn = true;
+      this.selectedRows = [];
+      this.rowsFromServerByUser = this.getLocalStorage();
+      this.rowsFromServerByUser.forEach((item => {
+        item.Jan_x002d_20_x0020_Qty = null;
+        item.Jan_x002d_20_x0020_USD = null;
+        item.Feb_x002d_20_x0020_Qty = null;
+        item.Feb_x002d_20_x0020_USD = null;
+        item.Mar_x002d_20_x0020_Qty = null;
+        item.Mar_x002d_20_x0020_USD = null;
+        item.Apr_x002d_20_x0020_Qty = null;
+        item.Apr_x002d_20_x0020_USD = null;
+        item.May_x002d_20_x0020_Qty = null;
+        item.May_x002d_20_x0020_USD = null;
+        item.Jun_x002d_20_x0020_Qty = null;
+        item.Jun_x002d_20_x0020_Qty = null;
+        item.Jul_x002d_20_x0020_Qty = null;
+        item.Jul_x002d_20_x0020_USD = null;
+        item.Aug_x002d_20_x0020_Qty = null;
+        item.Aug_x002d_20_x0020_USD = null;
+        item.Sep_x002d_20_x0020_Qty = null;
+        item.Sep_x002d_20_x0020_USD = null;
+        item.Oct_x002d_20_x0020_Qty = null;
+        item.Oct_x002d_20_x0020_USD = null;
+        item.Nov_x002d_20_x0020_Qty = null;
+        item.Nov_x002d_20_x0020_USD = null;
+        item.Dec_x002d_20_x0020_Qty = null;
+        item.Dec_x002d_20_x0020_USD = null;
+        item.Annual_x0020_QTY = null;
+        item.Annual_x0020_Sales = null;
+        item.checked = false;
+      }));
+      this.selectedRows.forEach((row) => {
+        row.checked = false;
+      })
       if (res) {
         this.showNotification = true;
         this.notification = {
           background: '#306B34',
           message: 'Data successfully saved!'
         };
-        this.isDisableSaveBtn = true;
-
         setTimeout(() => {
           this.showNotification = false;
           this.selectedRows = [];
         }, 5000);
+
       } else {
         this.showNotification = true;
         this.isDisableSaveBtn = true;
