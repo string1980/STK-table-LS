@@ -22,6 +22,7 @@
     "@microsoft/sp-webpart-base": "1.9.1",
     "@types/es6-promise": "0.0.33",
     "@types/webpack-env": "1.13.1",
+    "node-sass": "^5.0.0",
     "pnpjs-angularelement": "file:../pnpjsAngularelement"
   },
   "devDependencies": {
@@ -33,7 +34,7 @@
     "@types/chai": "3.4.34",
     "@types/mocha": "2.2.38",
     "ajv": "~5.2.2",
-    "gulp": "~3.9.1",
+    "gulp": "^3.9.1",
     "gulp-sequence": "1.0.0",
     "typescript": "~3.5.x"
   }

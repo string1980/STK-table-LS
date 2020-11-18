@@ -15,6 +15,7 @@ import {PnPBaseService} from '../services/pnpBase.service';
 import {IMoreInfo} from '../interfaces/more-info';
 import {UUID} from 'angular2-uuid';
 import {yearsPerPage} from '@angular/material/datepicker';
+import {IVersionManagement} from '../interfaces/version-management';
 
 @Component({
   selector: 'app-hellopnpjs-web-part',
@@ -91,6 +92,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   isDisableSaveBtn: boolean = true;
   rowsByCountry: IRow[] = [];
   uuidValue: string = '';
+  salesVersionRow: IVersionManagement;
 
   constructor(private testListService: TestListService, private pnpService: PnPBaseService, private render: Renderer2) {
   }
@@ -99,10 +101,19 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.uuidValue = UUID.UUID();
     this.getUser();
     this.getAllListItems();
+    this.getVersionsManagementList();
     // if(localStorage.getItem('update') !== null){
     //   this.rowsFromServerByUser = JSON.parse(localStorage.getItem('update'));
     // }
     // this.getItemById();
+  }
+
+  getVersionsManagementList() {
+    this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
+      if (res !== null && res !== undefined) {
+        this.salesVersionRow = res.find((row) => row.TheReleventList === 'Sales');
+      }
+    })
   }
 
 
@@ -206,7 +217,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   public getUser() {
     this.testListService.getUser().then(user => {
-      console.log('User', user);
       this.currentUser = user;
     });
   }
@@ -222,9 +232,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
       row.checked = this.rowsFromServerByUser[index].checked = event.target.checked;
 
-      // if (row.checked) {
-      //   this.rowChecked = this.rowsFromServerByUser[this.selectedRowIndex].checked = row.checked;
-      // }
       this.setLocalStorage(this.rowsFromServerByUser);
 
       this.selectedRows.push(row);
@@ -263,7 +270,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.addDisabledForDecember(index);
 
     }
-    console.log('Selected rows', this.selectedRows);
 
   }
 
@@ -497,13 +503,17 @@ export class HellopnpjsWebPartComponent implements OnInit {
       comment
 
     };
-    this.selectedRows.forEach(row => {
+    this.selectedRows.forEach((row) => {
       row.RowUuID = this.uuidValue;
+      row.MasterDataID = row.ID;
+      row.Version = this.salesVersionRow.Title;
       row.SubmittedbyUserId = this.currentUser.Id;
+      // row.Status = this.salesVersionRow.FormStatus;
     });
 
 
 // ----------------Todo: uncomment this------------
+    console.log('selected row', this.selectedRows);
     this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
       this.isDisableSaveBtn = true;
       this.selectedRows = [];
@@ -546,6 +556,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           background: '#306B34',
           message: 'Data successfully saved!'
         };
+
         setTimeout(() => {
           this.showNotification = false;
           this.selectedRows = [];
@@ -563,7 +574,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           this.selectedRows = [];
         }, 5000);
       }
-
+      this.comment = '';
     });
     // ----------------Todo: uncomment this------------
 

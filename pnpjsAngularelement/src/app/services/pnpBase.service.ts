@@ -31,6 +31,18 @@ export class PnPBaseService {
     });
   }
 
+  public getVersionsManagementList(listName: string) {
+    console.log('Versions list name', listName);
+    return new Promise((resolve, reject) => {
+      if (sp !== null && sp !== undefined) {
+        const items = this.web.lists.getByTitle(listName).items.getAll();
+        resolve(items);
+      } else {
+        reject('Failed getting list data...');
+      }
+    });
+  }
+
   public getCurrentUser() {
     return new Promise((resolve, reject) => {
       if (sp !== null && sp !== undefined) {
@@ -109,12 +121,13 @@ export class PnPBaseService {
             AnnualSales: row.Annual_x0020_Sales,
             AnnualQTY: row.Annual_x0020_QTY,
             Comments: moreInfo.comment,
-            Version: moreInfo.version,
+            Version: row.Version,
             VersionStatus: moreInfo.status,
             Submittedby: moreInfo.submittedBy,
             Updatedate: moreInfo.updateDate,
             RowUuID: row.RowUuID,
-            SubmittedbyUserId: row.SubmittedbyUserId
+            SubmittedbyUserId: row.SubmittedbyUserId,
+            MasterDataID: row.MasterDataID
             // Users: row.Users
 
             // mz7b: row.Customer_x0020_Code_x0020_SAP,

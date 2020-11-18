@@ -351,14 +351,47 @@ table.table {
   }
 
 }
+.notification-alert{
+  width: 100%;
+  background: #dd3545;
+
+  .notification-card{
+    max-width: 350px;
+    width: 100%;
+      padding: 16px;
+    border-radius: 0.25rem;
+
+    .card-title{
+      padding: .25rem .75rem;
+      color: #6c757d;
+      background-color: #fff;
+      background-clip: padding-box;
+      border-bottom: 1px solid rgba(0,0,0,.05);
+      border-top-left-radius: calc(.25rem - 1px);
+      border-top-right-radius: calc(.25rem - 1px);
+      border-bottom: 1px solid #ccc;
+    }
+    .card-body{
+      padding: 12px;
+      background: #fbe2e4;
+      box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.1);
+      border-radius: 0 0 0.25rem .25rem;
+      background-clip: padding-box;
+
+    }
+  }
+}
+div[title='Sales Form']{
+  position: relative;
+}
 .notification{
   padding: 10px 20px;
   text-align: center;
   color: #fff;
   font-size: 20px;
-  position: fixed;
-  top: 90px;
-  right: 52px;
+  position: absolute;
+  top: 39%;
+  left: 17.8%;
   border-radius: 13px;
   box-shadow: 0 0 3px rgba(0,0,0,0.5);
 }

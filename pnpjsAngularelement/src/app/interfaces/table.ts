@@ -25,8 +25,8 @@ export interface IRow {
   GM_x0020__x0025_: string;
   GUID: string;
   HQ_x0020_STD_x0020_Cost: string;
-  ID: string;
-  Id: string;
+  ID: number;
+  Id: number;
   Item_x0020_Code_x0020_SAP: string;
   Item_x0020_Name: string;
   Jan_x002d_20_x0020_Qty: number;
@@ -65,5 +65,6 @@ export interface IRow {
   UsersId: Array<number>;
   RowUuID: string;
   SubmittedbyUserId: any;
+  MasterDataID: number;
 
 }

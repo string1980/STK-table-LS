@@ -10,6 +10,7 @@ import {IMoreInfo} from '../interfaces/more-info';
 
 export class TestListService {
   public listName = 'MasterDataList';
+  public versionsManagementList = 'Versions Management';
 
   constructor(public pnpBaseService: PnPBaseService) {
   }
@@ -18,6 +19,13 @@ export class TestListService {
     return this.pnpBaseService.getMasterDataList(this.listName).then((result: IRow[]) => {
       console.log('Items', result);
       return result;
+    });
+  }
+
+  public getVersionsManagementItems() {
+    return this.pnpBaseService.getVersionsManagementList(this.versionsManagementList).then((res) => {
+      // console.log('Versions list', res);
+      return res;
     });
   }
 

@@ -1,10 +1,10 @@
-<div class="form_container" *ngIf="rowsFromServer.length > 0;else showSpinner">
+<div class="form_container" *ngIf="rowsFromServer.length > 0 ;else showSpinner">
   <form class="form_info" #moreInfoForm="ngForm">
 
 
     <div class="form-group version">
       <label for="version">Version</label>
-      <input type="text" class="form-control" [(ngModel)]="rowsFromServer[0].Version" name="Version"  id="version" aria-describedby="emailHelp" disabled>
+      <input type="text" class="form-control" [(ngModel)]="salesVersionRow.Title" name="Version"  id="version" aria-describedby="emailHelp" disabled>
     </div>
 
     <div class="form-group submitted">
@@ -15,7 +15,7 @@
 
     <div class="form-group">
       <label for="version_status">Version Status</label>
-      <input type="text" class="form-control" [(ngModel)]="rowsFromServer[0].Status" id="version_status"  name="Status "aria-describedby="emailHelp" disabled>
+      <input type="text" class="form-control" [(ngModel)]="salesVersionRow.FormStatus" id="version_status"  name="Status "aria-describedby="emailHelp" disabled>
     </div>
 
     <div class="form-group status">
@@ -69,7 +69,7 @@
 <!--  Table-->
 
   <form #tableForm="ngForm"
-       class="form_table" style="height: 400px"  *ngIf="rowsFromServer.length > 0;else showSpinner">
+       class="form_table" style="height: 400px"  *ngIf="salesVersionRow.FormStatus === 'Available';else showNotificationContainer">
     <table class="table">
       <thead>
       <tr>
@@ -254,6 +254,15 @@
     </div>
 
   </form>
+
+  <ng-template #showNotificationContainer>
+    <div class="notification-alert">
+      <div class="notification-card">
+        <div class="card-title">Attention!</div>
+        <div class="card-body">Saving new forms is not possible right now, thank you</div>
+      </div>
+    </div>
+  </ng-template>
 </div>
 
 
