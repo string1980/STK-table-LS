@@ -19,19 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="add new property in table">
-      <change afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/interfaces/version-management.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement-spfx/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement-spfx/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement-spfx/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement-spfx/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/interfaces/table.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/interfaces/table.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/pnpBase.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/pnpBase.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/testList.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/testList.service.ts" afterDir="false" />
-    </list>
+    <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -155,7 +143,7 @@
       <workItem from="1605534126625" duration="1259000" />
       <workItem from="1605535446651" duration="1186000" />
       <workItem from="1605536687169" duration="2810000" />
-      <workItem from="1605598673005" duration="377000" />
+      <workItem from="1605598673005" duration="750000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -311,7 +299,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604233221490</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="changing position of success notification">
+      <created>1605709453135</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1605709453135</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,20 +345,22 @@
     <MESSAGE value="fixing bugs" />
     <MESSAGE value="fixing bug on select country (LocalStorage)" />
     <MESSAGE value="add new property in table" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new property in table" />
+    <MESSAGE value="changing position of success notification" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing position of success notification" />
   </component>
   <component name="WindowStateProjectService">
     <state x="408" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1602660443974">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="408" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.823@0.23.1440.823" timestamp="1602660443974" />
-    <state x="191" y="23" key="CommitChangelistDialog2" timestamp="1604560558791">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state x="191" y="25" key="CommitChangelistDialog2" timestamp="1605709452705">
+      <screen x="0" y="25" width="1440" height="818" />
     </state>
     <state x="585" y="85" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600956895869" />
     <state x="191" y="23" key="CommitChangelistDialog2/0.23.1440.823@0.23.1440.823" timestamp="1604560558791" />
     <state x="439" y="23" key="CommitChangelistDialog2/0.23.1440.824@0.23.1440.824" timestamp="1601557500294" />
     <state x="423" y="23" key="CommitChangelistDialog2/0.23.1440.825@0.23.1440.825" timestamp="1602412941114" />
+    <state x="191" y="25" key="CommitChangelistDialog2/0.25.1440.818@0.25.1440.818" timestamp="1605709452705" />
     <state x="100" y="124" width="1240" height="623" key="DiffContextDialog" timestamp="1605598780644">
       <screen x="0" y="25" width="1440" height="818" />
     </state>
@@ -430,13 +427,14 @@
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="625" height="500" key="SwitcherDM/0.23.1440.823@0.23.1440.823" timestamp="1604562140313" />
-    <state x="414" y="200" key="Vcs.Push.Dialog.v2" timestamp="1604560543504">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state x="414" y="201" key="Vcs.Push.Dialog.v2" timestamp="1605709688300">
+      <screen x="0" y="25" width="1440" height="818" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1600959897131" />
     <state x="414" y="200" key="Vcs.Push.Dialog.v2/0.23.1440.823@0.23.1440.823" timestamp="1604560543504" />
     <state x="414" y="223" key="Vcs.Push.Dialog.v2/0.23.1440.824@0.23.1440.824" timestamp="1601557504183" />
     <state x="414" y="223" key="Vcs.Push.Dialog.v2/0.23.1440.825@0.23.1440.825" timestamp="1602412946008" />
+    <state x="414" y="201" key="Vcs.Push.Dialog.v2/0.25.1440.818@0.25.1440.818" timestamp="1605709688300" />
     <state x="551" y="356" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1601324645782">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
