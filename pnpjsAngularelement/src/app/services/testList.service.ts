@@ -17,21 +17,18 @@ export class TestListService {
 
   public getAllItems() {
     return this.pnpBaseService.getMasterDataList(this.listName).then((result: IRow[]) => {
-      console.log('Items', result);
       return result;
     });
   }
 
   public getVersionsManagementItems() {
     return this.pnpBaseService.getVersionsManagementList(this.versionsManagementList).then((res) => {
-      // console.log('Versions list', res);
       return res;
     });
   }
 
   public getUser() {
     return this.pnpBaseService.getCurrentUser().then((user: CurrentUserModel) => {
-      console.log('User', user);
       return user;
     });
   }

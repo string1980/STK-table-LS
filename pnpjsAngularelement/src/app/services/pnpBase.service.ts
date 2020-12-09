@@ -32,7 +32,6 @@ export class PnPBaseService {
   }
 
   public getVersionsManagementList(listName: string) {
-    console.log('Versions list name', listName);
     return new Promise((resolve, reject) => {
       if (sp !== null && sp !== undefined) {
         const items = this.web.lists.getByTitle(listName).items.getAll();
@@ -63,7 +62,6 @@ export class PnPBaseService {
         // const item = this.web.lists.getByTitle(listName).items.getById(itemId).update({
         //   Comments: comment
         // });
-        console.log('item', items);
         resolve(items);
       } else {
         reject('Failed getting list data...');
@@ -74,9 +72,7 @@ export class PnPBaseService {
   public addColumnsToSalesDataList(selectedRows: IRow[], moreInfo: IMoreInfo) {
     return new Promise((resolve, reject) => {
       if (sp !== null && sp !== undefined) {
-        console.log('Selected rows to add', selectedRows);
         selectedRows.forEach((row) => {
-          console.log('Country', row.Country);
           this.web.lists.getByTitle(this.title).items.add({
             Title: row.Title,
             Country: row.Country,

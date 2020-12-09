@@ -5,18 +5,18 @@
     <div class="form-group version">
       <label for="version">Version</label>
       <input type="text" class="form-control"
-             [(ngModel)]="versionsList[0].Title" *ngIf="!selectedVersion;else showSelectedVersion" name="Version"
+             [(ngModel)]="defaultVersion" *ngIf="!selectedVersion && versionsList.length> 0;else showSelectedVersion" name="Version"
              (click)="this.isShowDropDownForVersions = true"
              id="version" aria-describedby="emailHelp" >
 
       <ng-template #showSelectedVersion>
         <input type="text" class="form-control"
-               [(ngModel)]="selectedVersion.Title" name="Version"
+               [(ngModel)]="selectedVersionTitle" name="Version"
                (click)="this.isShowDropDownForVersions = true"
                 aria-describedby="emailHelp" >
       </ng-template>
 
-      <div class="dropdown"  #dropdown *ngIf="versionsList.length> 1 && isShowDropDownForVersions">
+      <div class="dropdown"  #dropdown *ngIf="versionsList.length> 0 && isShowDropDownForVersions">
         <ul>
           <li *ngFor="let version of versionsList;let i=index" (click)="onSelectVersion(version)">
             <span >{{version.Title}}</span>
@@ -41,7 +41,7 @@
       <label >Version Status</label>
 <!--      <input type="text" class="form-control" [(ngModel)]="salesVersions" id="version_status" name="Status " aria-describedby="emailHelp" disabled>-->
       <input type="text" class="form-control"
-             [(ngModel)]="versionsList[0].FormStatus"
+             [(ngModel)]="defaultFormStatus"
              *ngIf="!selectedVersion;else showSelectedVersionStatus"
              id="version_status"
              name="Status "
@@ -108,7 +108,7 @@
 
 
   <form #tableForm="ngForm"
-       class="form_table" style="height: 400px"  >
+       class="form_table" style="height: 400px"  *ngIf="!showNotificationContainer">
 <!--       class="form_table" style="height: 400px"  *ngIf="salesVersions.FormStatus === 'Available';else showNotificationContainer">-->
     <table class="table">
       <thead>
@@ -295,14 +295,14 @@
 
   </form>
 
-  <ng-template #showNotificationContainer>
+  <div *ngIf="showNotificationContainer">
     <div class="notification-alert">
       <div class="notification-card">
         <div class="card-title">Attention!</div>
         <div class="card-body">Saving new forms is not possible right now, thank you</div>
       </div>
     </div>
-  </ng-template>
+  </div>
 </div>
 
 
