@@ -4,7 +4,19 @@
 
     <div class="form-group version">
       <label for="version">Version</label>
-      <input type="text" class="form-control" [(ngModel)]="salesVersionRow.Title" name="Version"  id="version" aria-describedby="emailHelp" disabled>
+      <input type="text" class="form-control"
+             [(ngModel)]="versionsList[0].Title" name="Version"
+             id="version" aria-describedby="emailHelp" disabled>
+
+
+
+      <div class="dropdown"  #dropdown *ngIf="versionsList.length> 1">
+        <ul>
+          <li *ngFor="let version of versionsList;let i=index" >
+            <span >{{version.Title}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="form-group submitted">
@@ -14,8 +26,8 @@
 
 
     <div class="form-group">
-      <label for="version_status">Version Status</label>
-      <input type="text" class="form-control" [(ngModel)]="salesVersionRow.FormStatus" id="version_status"  name="Status "aria-describedby="emailHelp" disabled>
+<!--      <label for="version_status">Version Status</label>-->
+<!--      <input type="text" class="form-control" [(ngModel)]="salesVersions" id="version_status" name="Status " aria-describedby="emailHelp" disabled>-->
     </div>
 
     <div class="form-group status">
@@ -67,9 +79,12 @@
   </form>
 
 <!--  Table-->
+<!-- TODO: check if version satatus is Available-->
+
 
   <form #tableForm="ngForm"
-       class="form_table" style="height: 400px"  *ngIf="salesVersionRow.FormStatus === 'Available';else showNotificationContainer">
+       class="form_table" style="height: 400px"  >
+<!--       class="form_table" style="height: 400px"  *ngIf="salesVersions.FormStatus === 'Available';else showNotificationContainer">-->
     <table class="table">
       <thead>
       <tr>

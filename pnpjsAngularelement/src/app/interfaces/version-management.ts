@@ -1,7 +1,7 @@
 export interface IVersionManagement {
   Attachments: boolean;
   AuthorId: number;
-  ComplianceAssetId: any;
+  ComplianceAssetId: string;
   ContentTypeId: string;
   Created: string;
   EditorId: number;
@@ -12,8 +12,9 @@ export interface IVersionManagement {
   Id: number;
   Modified: string;
   OData__UIVersionString: string;
-  ServerRedirectedEmbedUri: any;
+  ServerRedirectedEmbedUri: string;
   ServerRedirectedEmbedUrl: string;
   TheReleventList: string;
   Title: string;
+  VersionType: string;
 }

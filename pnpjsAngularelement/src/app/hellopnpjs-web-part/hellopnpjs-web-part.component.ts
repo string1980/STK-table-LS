@@ -92,7 +92,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
   isDisableSaveBtn: boolean = true;
   rowsByCountry: IRow[] = [];
   uuidValue: string = '';
-  salesVersionRow: IVersionManagement;
+  // salesVersions: IVersionManagement[] = [];
+  versionsList: IVersionManagement[] = [];
 
   constructor(private testListService: TestListService, private pnpService: PnPBaseService, private render: Renderer2) {
   }
@@ -102,18 +103,16 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.getUser();
     this.getAllListItems();
     this.getVersionsManagementList();
-    // if(localStorage.getItem('update') !== null){
-    //   this.rowsFromServerByUser = JSON.parse(localStorage.getItem('update'));
-    // }
-    // this.getItemById();
+
   }
 
   getVersionsManagementList() {
     this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
       if (res !== null && res !== undefined) {
-        this.salesVersionRow = res.find((row) => row.TheReleventList === 'Sales');
+        console.log('Versions list', res);
+        this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
       }
-    })
+    });
   }
 
 
@@ -161,7 +160,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
         );
 
         this.displayedColumns = this.displayedColumns.map(column => {
-          column = column.replace(/[^a-zA-Z ]/g, "");
+          column = column.replace(/[^a-zA-Z ]/g, '');
           return column;
         });
         console.log('displayedColumns', this.displayedColumns);
@@ -506,7 +505,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.selectedRows.forEach((row) => {
       row.RowUuID = this.uuidValue;
       row.MasterDataID = row.ID;
-      row.Version = this.salesVersionRow.Title;
+      // Todo: Save selected version
+
+       // row.Version = this.salesVersions.Title;
       row.SubmittedbyUserId = this.currentUser.Id;
       // row.Status = this.salesVersionRow.FormStatus;
     });
@@ -549,7 +550,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
       }));
       this.selectedRows.forEach((row) => {
         row.checked = false;
-      })
+      });
       if (res) {
         this.showNotification = true;
         this.notification = {
