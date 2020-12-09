@@ -5,18 +5,29 @@
     <div class="form-group version">
       <label for="version">Version</label>
       <input type="text" class="form-control"
-             [(ngModel)]="versionsList[0].Title" name="Version"
-             id="version" aria-describedby="emailHelp" disabled>
+             [(ngModel)]="versionsList[0].Title" *ngIf="!selectedVersion;else showSelectedVersion" name="Version"
+             (click)="this.isShowDropDownForVersions = true"
+             id="version" aria-describedby="emailHelp" >
 
+      <ng-template #showSelectedVersion>
+        <input type="text" class="form-control"
+               [(ngModel)]="selectedVersion.Title" name="Version"
+               (click)="this.isShowDropDownForVersions = true"
+                aria-describedby="emailHelp" >
+      </ng-template>
 
-
-      <div class="dropdown"  #dropdown *ngIf="versionsList.length> 1">
+      <div class="dropdown"  #dropdown *ngIf="versionsList.length> 1 && isShowDropDownForVersions">
         <ul>
-          <li *ngFor="let version of versionsList;let i=index" >
+          <li *ngFor="let version of versionsList;let i=index" (click)="onSelectVersion(version)">
             <span >{{version.Title}}</span>
           </li>
         </ul>
       </div>
+
+      <button class="clear" (click)="onClearDropdownSelectionForVersion()" *ngIf="selectedVersion?.VersionType !== ''">
+        <!--        <span>X</span>-->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
     </div>
 
     <div class="form-group submitted">
@@ -27,7 +38,21 @@
 
     <div class="form-group">
 <!--      <label for="version_status">Version Status</label>-->
+      <label >Version Status</label>
 <!--      <input type="text" class="form-control" [(ngModel)]="salesVersions" id="version_status" name="Status " aria-describedby="emailHelp" disabled>-->
+      <input type="text" class="form-control"
+             [(ngModel)]="versionsList[0].FormStatus"
+             *ngIf="!selectedVersion;else showSelectedVersionStatus"
+             id="version_status"
+             name="Status "
+             aria-describedby="emailHelp" disabled>
+
+      <ng-template #showSelectedVersionStatus>
+        <input type="text" class="form-control"
+               [(ngModel)]="selectedVersion.FormStatus"
+               name="Status "
+               aria-describedby="emailHelp" disabled>
+      </ng-template>
     </div>
 
     <div class="form-group status">
@@ -101,7 +126,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry;let i=index;trackBy: customTrackBy"
+      <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry |byVersionType: selectedVersion?.VersionType;let i=index;trackBy: customTrackBy"
           [ngClass]="{'selected': checkboxRef.checked === true} " class="row-1">
 
         <td>

@@ -60,6 +60,7 @@ export interface IRow {
   Transfer_x0020_Price: string;
   Update_x0020_date: string;
   Version: string;
+  VersionType: string;
   checked: boolean;
   UserTest: string;
   UsersId: Array<number>;

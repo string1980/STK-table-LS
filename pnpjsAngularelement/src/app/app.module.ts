@@ -12,13 +12,15 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ByCountryPipe } from './pipes/by-country.pipe';
+import { ByVersionTypePipe } from './pipes/by-version-type.pipe';
 
 
 @NgModule({
   declarations: [
     HellopnpjsWebPartComponent,
     YesNoComponent,
-    ByCountryPipe
+    ByCountryPipe,
+    ByVersionTypePipe
   ],
   imports: [
     BrowserModule,

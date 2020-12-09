@@ -19,7 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="" />
+    <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/interfaces/table.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/interfaces/table.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/pnpBase.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/pnpBase.service.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,8 +114,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.bundle" />
         <item itemvalue="npm.serve" />
+        <item itemvalue="npm.bundle" />
         <item itemvalue="npm.gulp" />
       </list>
     </recent_temporary>
@@ -144,7 +152,8 @@
       <workItem from="1605535446651" duration="1186000" />
       <workItem from="1605536687169" duration="2810000" />
       <workItem from="1605598673005" duration="4347000" />
-      <workItem from="1607503137979" duration="3970000" />
+      <workItem from="1607503137979" duration="4216000" />
+      <workItem from="1607507923445" duration="8942000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -328,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607507488333</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="fix version management">
+      <created>1607507638762</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1607507638762</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -122,6 +122,7 @@ export class PnPBaseService {
             AnnualQTY: row.Annual_x0020_QTY,
             Comments: moreInfo.comment,
             Version: row.Version,
+            VersionType: row.VersionType,
             VersionStatus: moreInfo.status,
             Submittedby: moreInfo.submittedBy,
             Updatedate: moreInfo.updateDate,

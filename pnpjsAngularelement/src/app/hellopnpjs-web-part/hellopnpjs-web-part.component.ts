@@ -94,6 +94,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
   uuidValue: string = '';
   // salesVersions: IVersionManagement[] = [];
   versionsList: IVersionManagement[] = [];
+  isShowDropDownForVersions: boolean = false;
+  selectedVersion: IVersionManagement;
 
   constructor(private testListService: TestListService, private pnpService: PnPBaseService, private render: Renderer2) {
   }
@@ -109,8 +111,11 @@ export class HellopnpjsWebPartComponent implements OnInit {
   getVersionsManagementList() {
     this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
       if (res !== null && res !== undefined) {
-        console.log('Versions list', res);
-        this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
+        this.versionsList = res.filter((row) => row.TheReleventList === 'Sales');
+        console.log('version list', this.versionsList);
+        let rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.versionsList[0].VersionType);
+        this.setLocalStorage(rowsByVersionType);
+        this.rowsFromServerByUser = this.getLocalStorage();
       }
     });
   }
@@ -507,7 +512,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
       row.MasterDataID = row.ID;
       // Todo: Save selected version
 
-       // row.Version = this.salesVersions.Title;
+      // row.Version = this.salesVersions.Title;
       row.SubmittedbyUserId = this.currentUser.Id;
       // row.Status = this.salesVersionRow.FormStatus;
     });
@@ -627,6 +632,18 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   }
 
+  onSelectVersion(version: IVersionManagement) {
+    if (version) {
+      this.selectedVersion = version;
+    }
+    console.log('Selected version', version);
+    this.isShowDropDownForVersions = false;
+    let rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === version.VersionType);
+    console.log('rows by version', rowsByVersionType);
+    this.setLocalStorage(rowsByVersionType);
+
+  }
+
   onCountryInput() {
     this.isShowDropDown = true;
   }
@@ -635,6 +652,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.selectedCountry = '';
     this.isShowDropDown = true;
     console.log('rowsFromServerByUser-2', this.rowsFromServerByUser);
+    this.setLocalStorage(this.rowsFromServerByUser);
+    this.rowsFromServerByUser = this.getLocalStorage();
+  }
+
+  onClearDropdownSelectionForVersion() {
+    this.selectedVersion.Title = '';
+    this.isShowDropDownForVersions = true;
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
   }
@@ -967,6 +991,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
     // }
 
   }
+
+
 }
 
 interface INotification {
