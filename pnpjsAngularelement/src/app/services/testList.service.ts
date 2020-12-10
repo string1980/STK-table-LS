@@ -1,8 +1,6 @@
-import {Injectable, Optional} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {PnPBaseService} from './pnpBase.service';
-import {IListItem} from '../interfaces/testlist.interface';
 import {IRow} from '../interfaces/table';
-import {skip} from 'rxjs/operators';
 import {CurrentUserModel} from '../interfaces/current-user.model';
 import {IMoreInfo} from '../interfaces/more-info';
 
@@ -42,7 +40,6 @@ export class TestListService {
 
   public getById(listName: string, id) {
     return this.pnpBaseService.getItemById(listName, id).then((result: IRow) => {
-      console.log('result get by id', result);
       return result;
     });
   }

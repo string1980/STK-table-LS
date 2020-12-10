@@ -1,11 +1,12 @@
 import {
   Component,
   ElementRef,
-  HostListener,
   Input,
-  OnInit, QueryList,
+  OnInit,
+  QueryList,
   Renderer2,
-  ViewChild, ViewChildren,
+  ViewChild,
+  ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import {TestListService} from '../services/testList.service';
@@ -14,7 +15,6 @@ import {CurrentUserModel} from '../interfaces/current-user.model';
 import {PnPBaseService} from '../services/pnpBase.service';
 import {IMoreInfo} from '../interfaces/more-info';
 import {UUID} from 'angular2-uuid';
-import {yearsPerPage} from '@angular/material/datepicker';
 import {IVersionManagement} from '../interfaces/version-management';
 
 @Component({

@@ -20,11 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement-spfx/tslint.json" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement-spfx/tslint.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/pnpBase.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/pnpBase.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/testList.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/services/testList.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/tslint.json" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/tslint.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +67,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/pnpjsAngularelement/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -153,7 +154,7 @@
       <workItem from="1607503137979" duration="4216000" />
       <workItem from="1607507923445" duration="9971000" />
       <workItem from="1607521079743" duration="27000" />
-      <workItem from="1607521580483" duration="6144000" />
+      <workItem from="1607521580483" duration="7170000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -351,7 +352,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607520211679</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="work on version management-2&#10;cleaning console.log">
+      <created>1607528148804</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1607528148805</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,6 +401,7 @@
     <MESSAGE value="changing position of success notification" />
     <MESSAGE value="fix version management" />
     <MESSAGE value="work on version management" />
-    <option name="LAST_COMMIT_MESSAGE" value="work on version management" />
+    <MESSAGE value="work on version management-2&#10;cleaning console.log" />
+    <option name="LAST_COMMIT_MESSAGE" value="work on version management-2&#10;cleaning console.log" />
   </component>
 </project>
