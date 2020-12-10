@@ -33,7 +33,6 @@ export class TestListService {
 
   public addColumns(row: IRow[], moreInfo: IMoreInfo) {
     return this.pnpBaseService.addColumnsToSalesDataList(row, moreInfo).then((result) => {
-
       return result;
     });
   }
@@ -44,21 +43,4 @@ export class TestListService {
     });
   }
 
-  // public addItem(item: IListItem) {
-  //   return this.pnpBaseService.add(this.listName, item).then((result: IListItem) => {
-  //     return result;
-  //   });
-  // }
-
-  // public updateItem(item: IListItem) {
-  //   return this.pnpBaseService.update(this.listName, item.Id, item).then((result: IListItem) => {
-  //     return result;
-  //   });
-  // }
-
-  // public deleteItem(item: IListItem) {
-  //   return this.pnpBaseService.delete(this.listName, item.Id).then((result: IListItem) => {
-  //     return result;
-  //   });
-  // }
 }

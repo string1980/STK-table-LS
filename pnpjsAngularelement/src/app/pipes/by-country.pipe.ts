@@ -5,7 +5,11 @@ import {IRow} from '../interfaces/table';
   name: 'byCountry'
 })
 export class ByCountryPipe implements PipeTransform {
-
+  /**
+   * Filter table by country
+   * @param rows: IRow[]
+   * @param searchTerm: any
+   */
   transform(rows: IRow[], searchTerm: any): any {
     if (!rows || !searchTerm) {
       return rows;

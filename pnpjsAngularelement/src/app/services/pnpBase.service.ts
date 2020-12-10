@@ -3,7 +3,6 @@ import {IWeb, sp, SPRest} from '@pnp/sp/presets/all';
 import {Web} from '@pnp/sp/webs';
 import '@pnp/sp/webs';
 import {IRow} from '../interfaces/table';
-import {stringIsNullOrEmpty} from '@pnp/common';
 import '@pnp/sp/fields';
 import {IMoreInfo} from '../interfaces/more-info';
 
@@ -58,10 +57,6 @@ export class PnPBaseService {
     return new Promise((resolve, reject) => {
       if (sp !== null && sp !== undefined) {
         const items = this.web.lists.getByTitle(listName).items.getById(110);
-
-        // const item = this.web.lists.getByTitle(listName).items.getById(itemId).update({
-        //   Comments: comment
-        // });
         resolve(items);
       } else {
         reject('Failed getting list data...');
@@ -125,23 +120,10 @@ export class PnPBaseService {
             RowUuID: row.RowUuID,
             SubmittedbyUserId: row.SubmittedbyUserId,
             MasterDataID: row.MasterDataID
-            // Users: row.Users
-
-            // mz7b: row.Customer_x0020_Code_x0020_SAP,
-            // mc4l: row.Customer_x0020_Name,
-            // EC_x0020_Sales_x0020_Price: row.EC_x0020_Sales_x0020_Price,
-            // d4yd: row.HQ_x0020_STD_x0020_Cost,
-            // Transfer_x0020_Price: row.Transfer_x0020_Price,
-            // Localization_x0020_Cost: row.Localization_x0020_Cost,
-            // Local_x0020_Cost: row.Local_x0020_Cost,
-            // fg8r: row.GM_x0020__x0025_,
-
-            // Item_x0020_Code_x0020_SAP: row.Item_x0020_Code_x0020_SAP,
-            // Item_x0020_Name: row.Item_x0020_Name
           }).then((result: any) => {
             resolve(result);
           });
-        })
+        });
 
 
       } else {

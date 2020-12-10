@@ -5,7 +5,11 @@ import {IRow} from '../interfaces/table';
   name: 'byVersionType'
 })
 export class ByVersionTypePipe implements PipeTransform {
-
+  /**
+   * Filter table by version type
+   * @param rows: IRow[]
+   * @param searchTerm: any
+   */
   transform(rows: IRow[], searchTerm: any): any {
     if (!rows || !searchTerm) {
       return rows;

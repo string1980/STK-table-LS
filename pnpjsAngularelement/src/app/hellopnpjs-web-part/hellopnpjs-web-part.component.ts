@@ -113,6 +113,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   }
 
+  /**
+   * Get versions  from Sharepoint list 'Versions Management'
+   */
+
   getVersionsManagementList() {
     this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
       if (res !== null && res !== undefined) {
@@ -120,7 +124,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
         if (this.versionsList.length > 0) {
           this.defaultVersion = this.versionsList[0].Title;
           this.defaultFormStatus = this.versionsList[0].FormStatus;
-          if(this.defaultVersion){
+          if (this.defaultVersion) {
             this.showClearButton = true;
           }
 
@@ -135,7 +139,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Get all items from 'Master Data List'
+   */
   public getAllListItems() {
     this.rowsFromServer = [];
     this.testListService.getAllItems().then((result: IRow[]) => {
@@ -210,10 +216,14 @@ export class HellopnpjsWebPartComponent implements OnInit {
     });
 
 
-
   }
 
-  showDataByUser(rowsFromServer) {
+  /**
+   * Show table by User
+   * @param rowsFromServer: IRow[]
+   */
+
+  showDataByUser(rowsFromServer: IRow[]) {
     rowsFromServer.forEach(row => {
       row.UsersId.forEach(id => {
         if (id === this.currentUser.Id) {
@@ -232,13 +242,21 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   }
 
+  /**
+   * Get user from Sharepoint
+   */
   public getUser() {
     this.testListService.getUser().then(user => {
       this.currentUser = user;
     });
   }
 
-
+  /**
+   * On check row in table (click on checkbox)
+   * @param row: IRow
+   * @param event: any
+   * @param index: number
+   */
   onCheck(row: IRow, event, index: number) {
     this.isDisableSaveBtn = false;
     this.rowsFromServerByUser = this.getLocalStorage();
@@ -290,6 +308,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   }
 
+  // ------------------------------------------- Disable inputs in table --------------------------------------------
   addDisabledForJan(index) {
     this.janQtyRef.forEach((el, i) => {
       if (index === i) {
@@ -386,7 +405,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     });
   }
 
+// ---------------------------------------------------------------------------------------------------------------
 
+// ------------------------------------------------- Enable tables input -----------------------------------------
   removeDisabledForJan(index) {
     this.janQtyRef.forEach((el, i) => {
       if (index === i) {
@@ -483,8 +504,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
     });
   }
 
-
-  onSubmitTemplateBased(tableForm, version, status, submittedBy, comment) {
+  /**
+   * Click on Save in table
+   * @param tableForm: any
+   * @param version: string
+   * @param status: string
+   * @param submittedBy: string
+   * @param comment: string
+   */
+  onSubmitTemplateBased(tableForm: any, version: string, status: string, submittedBy: string, comment: string) {
 
     const allTable: IRow[] = this.getLocalStorage();
     this.selectedRows = allTable.filter(a => a.checked);
@@ -600,6 +628,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   }
 
+  /**
+   * Click on 'Cancel' button
+   */
   openYesNoDialog() {
     this.showYesNoDialog = true;
     // const dialogRef = this.dialog.open(YesNoComponent);
@@ -611,29 +642,55 @@ export class HellopnpjsWebPartComponent implements OnInit {
     // this.cdr.detectChanges();
   }
 
-  setLocalStorage(rowsFromServerByUser) {
+  /**
+   * Write table data to LocalStorage
+   * @param rowsFromServerByUser: IRow[]
+   */
+
+  setLocalStorage(rowsFromServerByUser: IRow[]) {
     localStorage.setItem('update', JSON.stringify(rowsFromServerByUser));
   }
 
+  /**
+   * Get table data from LocalStorage
+   */
   getLocalStorage() {
     return JSON.parse(localStorage.getItem('update'));
   }
 
+  /**
+   * Click on 'Yes' button in dialog and redirect to 'Home' page
+   * @param event: boolean
+   */
   onYesButton(event: boolean) {
     this.showYesNoDialog = event;
     //  TODO: redirect to Home page
     window.location.href = 'https://stocktonag.sharepoint.com/sites/Budget';
   }
 
+  /**
+   * Click on 'No' button to close the dialog
+   * @param event: any
+   */
   onNoButton(event: boolean) {
     this.showYesNoDialog = event;
 
   }
 
+  /**
+   * TrackBy function for *ngFor in table
+   * @param index: number
+   * @param obj: any
+   */
   customTrackBy(index: number, obj: any): any {
     return index;
   }
 
+  /**
+   * Choose country from the dropdown
+   * @param country: string
+   * @param rows: IRow[]
+   */
   onSelectCountry(country: string, rows: IRow[]) {
     this.selectedCountry = country;
     this.isShowDropDown = false;
@@ -644,6 +701,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   }
 
+  /**
+   * Choose version from the dropdown
+   * @param version: IVersionManagement
+   */
   onSelectVersion(version: IVersionManagement) {
     if (version) {
       this.selectedVersion = version;
@@ -656,10 +717,16 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
   }
 
+  /**
+   * Click on 'Country' input to show dropdown
+   */
   onCountryInput() {
     this.isShowDropDown = true;
   }
 
+  /**
+   * Click on 'Clear' button to clear selected country
+   */
   onClearDropdownSelection() {
     this.selectedCountry = '';
     this.isShowDropDown = true;
@@ -667,6 +734,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.rowsFromServerByUser = this.getLocalStorage();
   }
 
+  /**
+   * Click on 'Clear' button to clear selected version
+   */
   onClearDropdownSelectionForVersion() {
     this.selectedVersionTitle = '';
 
@@ -676,6 +746,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.rowsFromServerByUser = this.getLocalStorage();
   }
 
+// ------------------------ Calculations per table's input -------------------------------------------------
   onCalculateJan_USD(row: IRow, input: number, index, event) {
     this.rowsFromServerByUser = this.getLocalStorage();
 
@@ -987,6 +1058,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.setLocalStorage(this.rowsFromServerByUser);
   }
 
+// ----------------------------------------------------------------------------------------------------------------
   onSortBy(column: string, i: number) {
 
   }
