@@ -98,9 +98,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
   isShowDropDownForVersions: boolean = false;
   selectedVersion: IVersionManagement;
   defaultVersion: string = '';
-  defaultFormStatus: string = '';
+  defaultVersionType: string = '';
   showNotificationContainer: boolean = false;
   selectedVersionTitle: string = '';
+  selectedVersionType: string = '';
 
   constructor(private testListService: TestListService, private pnpService: PnPBaseService, private render: Renderer2) {
   }
@@ -123,7 +124,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
         this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
         if (this.versionsList.length > 0) {
           this.defaultVersion = this.versionsList[0].Title;
-          this.defaultFormStatus = this.versionsList[0].FormStatus;
+          this.defaultVersionType = this.versionsList[0].VersionType;
+
+          // console.log(this.defaultVersionType);
+          // this.rowsFromServerByUser = this.getLocalStorage();
+          // console.log(this.rowsFromServerByUser);
+          // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
+          // console.log(rowsByVersionType);
+          // this.setLocalStorage(rowsByVersionType);
+          // console.log('from ls', this.getLocalStorage());
           if (this.defaultVersion) {
             this.showClearButton = true;
           }
@@ -132,12 +141,12 @@ export class HellopnpjsWebPartComponent implements OnInit {
           this.showNotificationContainer = true;
           this.showClearButton = false;
         }
-        const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.versionsList[0].VersionType);
-        this.setLocalStorage(rowsByVersionType);
-        this.rowsFromServerByUser = this.getLocalStorage();
+
+        // this.rowsFromServerByUser = this.getLocalStorage();
       }
     });
   }
+
 
   /**
    * Get all items from 'Master Data List'
@@ -231,7 +240,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
           this.rowsFromServerByUser.forEach((item) => {
             item.checked = false;
-            this.setLocalStorage(this.rowsFromServerByUser);
+
+
             this.countries.push(item.Country);
           });
           this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
@@ -239,6 +249,14 @@ export class HellopnpjsWebPartComponent implements OnInit {
       });
 
     });
+    if (this.getLocalStorage() === null) {
+      this.setLocalStorage(this.rowsFromServerByUser);
+
+    } else {
+      const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(el => el.VersionType === this.defaultVersionType);
+      console.log('on init', rowsFilteredByVersionType);
+      this.setLocalStorage(rowsFilteredByVersionType);
+    }
 
   }
 
@@ -553,7 +571,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
       row.MasterDataID = row.ID;
       // row.Title = this.defaultVersion || this.selectedVersionTitle;
       row.Version = this.defaultVersion || this.selectedVersionTitle;
-      row.VersionType = this.defaultFormStatus || this.selectedVersion.VersionType;
+      row.VersionType = this.defaultVersionType || this.selectedVersion.VersionType;
       row.SubmittedbyUserId = this.currentUser.Id;
     });
 
@@ -562,7 +580,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.testListService.addColumns(this.selectedRows, moreInfo).then(res => {
       this.isDisableSaveBtn = true;
       this.selectedRows = [];
-      this.rowsFromServerByUser = this.getLocalStorage();
+      // this.rowsFromServerByUser = this.getLocalStorage();
       this.rowsFromServerByUser.forEach((item => {
         item.Jan_x002d_20_x0020_Qty = null;
         item.Jan_x002d_20_x0020_USD = null;
@@ -619,14 +637,85 @@ export class HellopnpjsWebPartComponent implements OnInit {
           this.selectedRows = [];
         }, 5000);
       }
-      this.comment = '';
-      this.defaultVersion = '';
-      this.selectedVersionTitle = '';
-      this.selectedCountry = '';
+      this.resetFields();
+      const newRowsFromServer: IRow[] = [];
+      console.log('rows from server', this.rowsFromServer);
+      this.rowsFromServer.forEach(row => {
+        row.UsersId.forEach(id => {
+          if (id === this.currentUser.Id) {
+            newRowsFromServer.push(row);
+            newRowsFromServer.forEach(el => el.checked = false);
+            console.log('rows by user', newRowsFromServer);
+          }
+        });
+
+      });
+      // this.rowsFromServerByUser.forEach(item => item.checked === false);
+      this.setLocalStorage(newRowsFromServer);
+      this.rowsFromServerByUser = this.getLocalStorage();
+      // this.getAllDataFromServer(this.rowsFromServer);
+
+      // Todo: get all items from server by user
     });
     // ----------------Todo: uncomment this------------
 
   }
+
+  resetFields() {
+    this.comment = '';
+    this.defaultVersion = '';
+    this.selectedVersionTitle = '';
+    this.selectedCountry = '';
+    this.showClearButton = false;
+    this.defaultVersionType = '';
+    this.isShowDropDown = false;
+    this.isShowDropDownForVersions = false;
+    this.selectedVersionType = '';
+    this.submittedBy = '';
+    this.updateDate = '';
+  }
+
+  // getAllDataFromServer(rowsFromServer) {
+  //   console.log(rowsFromServer);
+  //   this.rowsFromServerByUser = [...rowsFromServer];
+  //
+  //   // this.rowsFromServerByUser.forEach(row => {
+  //   //   row.UsersId.forEach(id => {
+  //   //     if (id === this.currentUser.Id) {
+  //   //       this.rowsFromServerByUser.forEach((item) => {
+  //   //         item.checked = false;
+  //   //
+  //   //
+  //   //         this.countries.push(item.Country);
+  //   //       });
+  //   //       this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
+  //   //     }
+  //   //   });
+  //   // });
+  //   // rowsFromServer.forEach(row => {
+  //   //   row.UsersId.forEach(id => {
+  //   //     if (id === this.currentUser.Id) {
+  //   //       // this.rowsFromServerByUser.push(row);
+  //   //
+  //   //       this.rowsFromServerByUser.forEach((item) => {
+  //   //         item.checked = false;
+  //   //
+  //   //
+  //   //         this.countries.push(item.Country);
+  //   //       });
+  //   //       this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
+  //   //     }
+  //   //   });
+  //   //
+  //   // });
+  //   console.log('ccc', this.rowsFromServerByUser);
+  //   if (this.getLocalStorage() !== null) {
+  //     // localStorage.removeItem('update');
+  //     // this.setLocalStorage(this.rowsFromServerByUser);
+  //     // this.rowsFromServerByUser = this.getLocalStorage();
+  //   }
+  //
+  // }
 
   /**
    * Click on 'Cancel' button
@@ -710,11 +799,18 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.selectedVersion = version;
       this.showClearButton = true;
       this.selectedVersionTitle = this.selectedVersion.Title;
+      this.selectedVersionType = this.selectedVersion.VersionType;
+      this.defaultVersionType = this.selectedVersionType;
     }
     this.isShowDropDownForVersions = false;
-    const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === version.VersionType);
-    this.setLocalStorage(rowsByVersionType);
+    const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
+    console.log('aaa', rowsFilteredByVersionType);
+    if (this.getLocalStorage() !== null) {
+      localStorage.removeItem('update');
+      this.setLocalStorage(rowsFilteredByVersionType);
 
+    }
+    // this.rowsFromServerByUser = this.getLocalStorage();
   }
 
   /**
@@ -739,6 +835,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
    */
   onClearDropdownSelectionForVersion() {
     this.selectedVersionTitle = '';
+    this.selectedVersionType = '';
 
     this.isShowDropDownForVersions = true;
 

@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {IRow} from '../interfaces/table';
 
 @Pipe({
@@ -11,6 +11,7 @@ export class ByVersionTypePipe implements PipeTransform {
    * @param searchTerm: any
    */
   transform(rows: IRow[], searchTerm: any): any {
+
     if (!rows || !searchTerm) {
       return rows;
     }

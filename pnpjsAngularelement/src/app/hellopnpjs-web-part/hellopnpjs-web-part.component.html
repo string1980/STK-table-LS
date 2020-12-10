@@ -41,7 +41,7 @@
       <label >Version Status</label>
 <!--      <input type="text" class="form-control" [(ngModel)]="salesVersions" id="version_status" name="Status " aria-describedby="emailHelp" disabled>-->
       <input type="text" class="form-control"
-             [(ngModel)]="defaultFormStatus"
+             [(ngModel)]="defaultVersionType"
              *ngIf="!selectedVersion;else showSelectedVersionStatus"
              id="version_status"
              name="Status "
@@ -49,7 +49,7 @@
 
       <ng-template #showSelectedVersionStatus>
         <input type="text" class="form-control"
-               [(ngModel)]="selectedVersion.FormStatus"
+               [(ngModel)]="selectedVersionType"
                name="Status "
                aria-describedby="emailHelp" disabled>
       </ng-template>
@@ -126,7 +126,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry |byVersionType: selectedVersion?.VersionType;let i=index;trackBy: customTrackBy"
+      <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry |byVersionType: defaultVersionType;let i=index;trackBy: customTrackBy"
           [ngClass]="{'selected': checkboxRef.checked === true} " class="row-1">
 
         <td>
