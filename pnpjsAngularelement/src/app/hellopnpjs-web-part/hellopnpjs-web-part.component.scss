@@ -9,6 +9,8 @@
     .form-group {
       margin-bottom: 10px;
 
+
+
       &.countries,&.version{
         position: relative;
         button.clear{
@@ -58,6 +60,11 @@
               }
             }
           }
+        }
+      }
+      &.version{
+        .dropdown{
+          z-index: 100 !important;
         }
       }
 

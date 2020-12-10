@@ -121,8 +121,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
           this.defaultVersion = this.versionsList[0].Title;
           this.defaultFormStatus = this.versionsList[0].FormStatus;
           if(this.defaultVersion){
-            this.showClearButton = false;
+            this.showClearButton = true;
           }
+
         } else {
           this.showNotificationContainer = true;
           this.showClearButton = false;
@@ -522,11 +523,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.selectedRows.forEach((row) => {
       row.RowUuID = this.uuidValue;
       row.MasterDataID = row.ID;
-      // Todo: Save selected version
-
-      // row.Version = this.salesVersions.Title;
+      // row.Title = this.defaultVersion || this.selectedVersionTitle;
+      row.Version = this.defaultVersion || this.selectedVersionTitle;
+      row.VersionType = this.defaultFormStatus || this.selectedVersion.VersionType;
       row.SubmittedbyUserId = this.currentUser.Id;
-      // row.Status = this.salesVersionRow.FormStatus;
     });
 
 
@@ -592,6 +592,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
         }, 5000);
       }
       this.comment = '';
+      this.defaultVersion = '';
+      this.selectedVersionTitle = '';
+      this.selectedCountry = '';
     });
     // ----------------Todo: uncomment this------------
 
