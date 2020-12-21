@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="vesrions_management_05.11.2020" />
+        <entry key="$PROJECT_DIR$" value="versions_management_09.12.2020" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -122,8 +121,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.serve" />
         <item itemvalue="npm.bundle" />
+        <item itemvalue="npm.serve" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.gulp" />
       </list>
@@ -167,7 +166,7 @@
       <workItem from="1607521580483" duration="12054000" />
       <workItem from="1607591982785" duration="17137000" />
       <workItem from="1607851298524" duration="7585000" />
-      <workItem from="1608553043563" duration="1308000" />
+      <workItem from="1608553043563" duration="3164000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -400,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607612498734</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="fixing bugs">
+      <created>1608555233398</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1608555233398</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -433,7 +439,6 @@
     <MESSAGE value="fix all bugs" />
     <MESSAGE value="fix all bugs sum of qty + sum of usd" />
     <MESSAGE value="fixed bugs (click on 0 and localStorage)" />
-    <MESSAGE value="fixing bugs" />
     <MESSAGE value="fixing bug on select country (LocalStorage)" />
     <MESSAGE value="add new property in table" />
     <MESSAGE value="changing position of success notification" />
@@ -444,6 +449,7 @@
     <MESSAGE value="work on version management-4" />
     <MESSAGE value="add comments  + cleaning" />
     <MESSAGE value="fixing by Version" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing by Version" />
+    <MESSAGE value="fixing bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing bugs" />
   </component>
 </project>

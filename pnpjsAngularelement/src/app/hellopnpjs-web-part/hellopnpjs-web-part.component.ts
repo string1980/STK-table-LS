@@ -194,7 +194,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
           column !== 'Comments' &&
           column !== 'Status' &&
           column !== 'UsersId' &&
-          column !== 'UsersStringId'
+          column !== 'UsersStringId' &&
+          column !== 'Version Type'
         );
 
         this.displayedColumns = this.displayedColumns.map(column => {
@@ -258,7 +259,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
       } else {
         const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(el => el.VersionType === this.defaultVersionType);
-        console.log('on init', rowsFilteredByVersionType);
         this.setLocalStorage(rowsFilteredByVersionType);
       }
     }
@@ -582,8 +582,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
       row.SubmittedbyUserId = this.currentUser.Id;
     });
 
-    // console.log('on save selected rows', this.selectedRows);
-    console.log('on save more info', moreInfo);
+    console.log('on save selected rows', this.selectedRows);
 
 
 // ----------------Todo: uncomment this------------
@@ -650,13 +649,11 @@ export class HellopnpjsWebPartComponent implements OnInit {
       }
       this.resetFields();
       const newRowsFromServer: IRow[] = [];
-      console.log('rows from server', this.rowsFromServer);
       this.rowsFromServer.forEach(row => {
         row.UsersId.forEach(id => {
           if (id === this.currentUser.Id) {
             newRowsFromServer.push(row);
             newRowsFromServer.forEach(el => el.checked = false);
-            console.log('rows by user', newRowsFromServer);
           }
         });
 
@@ -843,7 +840,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onClearDropdownSelection() {
     this.selectedCountry = '';
     this.isShowDropDown = true;
-    console.log(this.rowsFromServerByUser);
     this.rowsFromServerByUser.forEach(item => {
       item.checked = false;
     });
