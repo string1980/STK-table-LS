@@ -23,7 +23,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/pipes/by-version-type.pipe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/pipes/by-version-type.pipe.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,10 +110,21 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/pnpjsAngularelement/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="npm.serve" />
         <item itemvalue="npm.bundle" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.gulp" />
       </list>
     </recent_temporary>
@@ -155,7 +165,9 @@
       <workItem from="1607507923445" duration="9971000" />
       <workItem from="1607521079743" duration="27000" />
       <workItem from="1607521580483" duration="12054000" />
-      <workItem from="1607591982785" duration="14466000" />
+      <workItem from="1607591982785" duration="17137000" />
+      <workItem from="1607851298524" duration="7585000" />
+      <workItem from="1608553043563" duration="1308000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -381,7 +393,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607588485631</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="fixing by Version">
+      <created>1607612498734</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1607612498734</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,7 +419,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="work on table calc" />
     <MESSAGE value="adding filters by countries" />
     <MESSAGE value="start calculations" />
     <MESSAGE value="add result to local storage" />
@@ -425,6 +443,7 @@
     <MESSAGE value="work on version management-3" />
     <MESSAGE value="work on version management-4" />
     <MESSAGE value="add comments  + cleaning" />
-    <option name="LAST_COMMIT_MESSAGE" value="add comments  + cleaning" />
+    <MESSAGE value="fixing by Version" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing by Version" />
   </component>
 </project>

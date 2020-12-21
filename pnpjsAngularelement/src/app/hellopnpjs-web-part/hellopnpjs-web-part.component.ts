@@ -102,6 +102,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   showNotificationContainer: boolean = false;
   selectedVersionTitle: string = '';
   selectedVersionType: string = '';
+  showMessageNoData: boolean = false;
 
   constructor(private testListService: TestListService, private pnpService: PnPBaseService, private render: Renderer2) {
   }
@@ -156,9 +157,11 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.testListService.getAllItems().then((result: IRow[]) => {
       if (result !== null && result !== undefined && result.length > 0) {
         this.rowsFromServer = result;
-        this.rowsFromServer.forEach((x, index) => {
-          this.displayedColumns.push(Object.keys(x)[index]);
-        });
+        if (this.rowsFromServer.length > 0) {
+          this.rowsFromServer.forEach((x, index) => {
+            this.displayedColumns.push(Object.keys(x)[index]);
+          });
+        }
 
 
         this.displayedColumns = this.displayedColumns.filter(col => col === '' || col && !col.startsWith('odata'));
@@ -233,30 +236,33 @@ export class HellopnpjsWebPartComponent implements OnInit {
    */
 
   showDataByUser(rowsFromServer: IRow[]) {
-    rowsFromServer.forEach(row => {
-      row.UsersId.forEach(id => {
-        if (id === this.currentUser.Id) {
-          this.rowsFromServerByUser.push(row);
+    if (rowsFromServer.length > 0) {
+      rowsFromServer.forEach(row => {
+        row.UsersId.forEach(id => {
+          if (id === this.currentUser.Id) {
+            this.rowsFromServerByUser.push(row);
 
-          this.rowsFromServerByUser.forEach((item) => {
-            item.checked = false;
+            this.rowsFromServerByUser.forEach((item) => {
+              item.checked = false;
 
 
-            this.countries.push(item.Country);
-          });
-          this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
-        }
+              this.countries.push(item.Country);
+            });
+            this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
+          }
+        });
+
       });
+      if (this.getLocalStorage() === null) {
+        this.setLocalStorage(this.rowsFromServerByUser);
 
-    });
-    if (this.getLocalStorage() === null) {
-      this.setLocalStorage(this.rowsFromServerByUser);
-
-    } else {
-      const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(el => el.VersionType === this.defaultVersionType);
-      console.log('on init', rowsFilteredByVersionType);
-      this.setLocalStorage(rowsFilteredByVersionType);
+      } else {
+        const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(el => el.VersionType === this.defaultVersionType);
+        console.log('on init', rowsFilteredByVersionType);
+        this.setLocalStorage(rowsFilteredByVersionType);
+      }
     }
+
 
   }
 
@@ -559,7 +565,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.updateDate = updateDate;
 
     const moreInfo: IMoreInfo = {
-      version,
+      version: this.defaultVersion || this.selectedVersionTitle,
       status,
       updateDate,
       submittedBy: this.submittedBy,
@@ -569,11 +575,15 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.selectedRows.forEach((row) => {
       row.RowUuID = this.uuidValue;
       row.MasterDataID = row.ID;
+
       // row.Title = this.defaultVersion || this.selectedVersionTitle;
       row.Version = this.defaultVersion || this.selectedVersionTitle;
       row.VersionType = this.defaultVersionType || this.selectedVersion.VersionType;
       row.SubmittedbyUserId = this.currentUser.Id;
     });
+
+    // console.log('on save selected rows', this.selectedRows);
+    console.log('on save more info', moreInfo);
 
 
 // ----------------Todo: uncomment this------------
@@ -609,6 +619,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
         item.Annual_x0020_QTY = null;
         item.Annual_x0020_Sales = null;
         item.checked = false;
+
       }));
       this.selectedRows.forEach((row) => {
         row.checked = false;
@@ -673,6 +684,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.selectedVersionType = '';
     this.submittedBy = '';
     this.updateDate = '';
+    this.rowsFromServerByUser.forEach(item => {
+      item.checked = false;
+    });
   }
 
   // getAllDataFromServer(rowsFromServer) {
@@ -785,6 +799,9 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.isShowDropDown = false;
 
     this.rowsByCountry = this.rowsFromServerByUser.filter(row => row.Country === country);
+    if (this.rowsByCountry.length === 0) {
+      this.showMessageNoData = true;
+    }
     this.setLocalStorage(this.rowsByCountry);
 
 
@@ -800,11 +817,11 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.showClearButton = true;
       this.selectedVersionTitle = this.selectedVersion.Title;
       this.selectedVersionType = this.selectedVersion.VersionType;
+      this.defaultVersion = this.selectedVersionTitle;
       this.defaultVersionType = this.selectedVersionType;
     }
     this.isShowDropDownForVersions = false;
     const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
-    console.log('aaa', rowsFilteredByVersionType);
     if (this.getLocalStorage() !== null) {
       localStorage.removeItem('update');
       this.setLocalStorage(rowsFilteredByVersionType);
@@ -826,6 +843,10 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onClearDropdownSelection() {
     this.selectedCountry = '';
     this.isShowDropDown = true;
+    console.log(this.rowsFromServerByUser);
+    this.rowsFromServerByUser.forEach(item => {
+      item.checked = false;
+    });
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
   }
@@ -836,22 +857,20 @@ export class HellopnpjsWebPartComponent implements OnInit {
   onClearDropdownSelectionForVersion() {
     this.selectedVersionTitle = '';
     this.selectedVersionType = '';
-
     this.isShowDropDownForVersions = true;
-
     this.setLocalStorage(this.rowsFromServerByUser);
     this.rowsFromServerByUser = this.getLocalStorage();
   }
 
 // ------------------------ Calculations per table's input -------------------------------------------------
   onCalculateJan_USD(row: IRow, input: number, index, event) {
-    this.rowsFromServerByUser = this.getLocalStorage();
+    // this.rowsFromServerByUser = this.getLocalStorage();
 
     const rowIndex = this.selectedRowIndex = this.rowsFromServerByUser.indexOf(row);
     this.JanQty = input;
-    this.JanUSD = input * this.rowsFromServerByUser[index].EC_x0020_Sales_x0020_Price;
-    this.rowsFromServerByUser[index].Jan_x002d_20_x0020_USD = Number(this.JanUSD.toFixed(3));
-    this.rowsFromServerByUser[index].Jan_x002d_20_x0020_Qty = Number(this.JanQty.toFixed(3));
+    this.JanUSD = input * this.rowsFromServerByUser[rowIndex].EC_x0020_Sales_x0020_Price;
+    this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = Number(this.JanUSD.toFixed(3));
+    this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = Number(this.JanQty.toFixed(3));
     // if (this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty === 0) {
     //   this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = null;
     //   this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = null;
@@ -861,8 +880,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
     // this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_USD = null;
     // this.rowsFromServerByUser[rowIndex].Jan_x002d_20_x0020_Qty = null;
 
-    this.calculateAnnualQtyOnInput(index);
-    this.calculateAnnualUSDOnInput(index);
+    this.calculateAnnualQtyOnInput(rowIndex);
+    this.calculateAnnualUSDOnInput(rowIndex);
     this.setLocalStorage(this.rowsFromServerByUser);
 
 
