@@ -108,9 +108,9 @@
 
 
   <form #tableForm="ngForm"
-       class="form_table" style="height: 400px"  *ngIf="!showNotificationContainer">
+       class="form_table" style="height: 400px"  *ngIf="!showNotificationContainer;">
 <!--       class="form_table" style="height: 400px"  *ngIf="salesVersions.FormStatus === 'Available';else showNotificationContainer">-->
-    <table class="table">
+    <table class="table" >
       <thead>
       <tr>
         <th>
@@ -125,7 +125,7 @@
         </th>
       </tr>
       </thead>
-      <tbody>
+      <tbody >
       <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry |byVersionType: defaultVersionType ;let i=index;trackBy: customTrackBy"
           [ngClass]="{'selected': checkboxRef.checked === true} " class="row-1">
 
@@ -327,6 +327,8 @@
   </div>
 
 </ng-template>
+
+
 
 
 

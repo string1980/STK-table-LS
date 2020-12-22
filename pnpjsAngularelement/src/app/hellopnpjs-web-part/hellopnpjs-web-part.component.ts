@@ -103,6 +103,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
   selectedVersionTitle: string = '';
   selectedVersionType: string = '';
   showMessageNoData: boolean = false;
+  @ViewChild('tableForm', {static: false}) tableForm: ElementRef;
 
   constructor(private testListService: TestListService, private pnpService: PnPBaseService, private render: Renderer2) {
   }
@@ -709,6 +710,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
       });
 
       this.resetFields();
+      tableForm.reset();
+
       // Todo: reset the rows by version type
 
 
@@ -748,6 +751,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.rowsFromServerByUser.forEach(item => {
       item.checked = false;
     });
+    this.selectedRows = [];
+
   }
 
   // getAllDataFromServer(rowsFromServer) {
@@ -881,12 +886,13 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.selectedVersionType = this.selectedVersion.VersionType;
       this.defaultVersion = this.selectedVersionTitle;
       this.defaultVersionType = this.selectedVersionType;
-
+      this.rowsFromServerByUser = [];
       this.testListService.getAllItems().then(res => {
         if (res.length > 0) {
           res.forEach(row => {
             row.UsersId.forEach(id => {
               if (id === this.currentUser.Id) {
+
                 this.rowsFromServerByUser.push(row);
 
                 this.rowsFromServerByUser.forEach((item) => {
