@@ -121,8 +121,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.bundle" />
         <item itemvalue="npm.serve" />
+        <item itemvalue="npm.bundle" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.gulp" />
       </list>
@@ -166,7 +166,7 @@
       <workItem from="1607521580483" duration="12054000" />
       <workItem from="1607591982785" duration="17137000" />
       <workItem from="1607851298524" duration="7585000" />
-      <workItem from="1608553043563" duration="3164000" />
+      <workItem from="1608553043563" duration="14688000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -406,7 +406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608555233398</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="fixing bugs-2">
+      <created>1608558875106</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1608558875106</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +432,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding filters by countries" />
     <MESSAGE value="start calculations" />
     <MESSAGE value="add result to local storage" />
     <MESSAGE value="add project" />
@@ -450,6 +456,7 @@
     <MESSAGE value="add comments  + cleaning" />
     <MESSAGE value="fixing by Version" />
     <MESSAGE value="fixing bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing bugs" />
+    <MESSAGE value="fixing bugs-2" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing bugs-2" />
   </component>
 </project>

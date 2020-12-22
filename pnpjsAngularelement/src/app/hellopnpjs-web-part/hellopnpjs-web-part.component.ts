@@ -111,7 +111,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.uuidValue = UUID.UUID();
     this.getUser();
     this.getAllListItems();
-    this.getVersionsManagementList();
 
   }
 
@@ -119,33 +118,34 @@ export class HellopnpjsWebPartComponent implements OnInit {
    * Get versions  from Sharepoint list 'Versions Management'
    */
 
-  getVersionsManagementList() {
-    this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
-      if (res !== null && res !== undefined) {
-        this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
-        if (this.versionsList.length > 0) {
-          this.defaultVersion = this.versionsList[0].Title;
-          this.defaultVersionType = this.versionsList[0].VersionType;
-
-          // console.log(this.defaultVersionType);
-          // this.rowsFromServerByUser = this.getLocalStorage();
-          // console.log(this.rowsFromServerByUser);
-          // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
-          // console.log(rowsByVersionType);
-          // this.setLocalStorage(rowsByVersionType);
-          // console.log('from ls', this.getLocalStorage());
-          if (this.defaultVersion) {
-            this.showClearButton = true;
-          }
-
-        } else {
-          this.showNotificationContainer = true;
-          this.showClearButton = false;
-        }
-
-        // this.rowsFromServerByUser = this.getLocalStorage();
-      }
-    });
+  getVersionsManagementList(rowsFromServerByUser) {
+    console.log(rowsFromServerByUser);
+    // this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
+    //   if (res !== null && res !== undefined) {
+    //     this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
+    //     if (this.versionsList.length > 0) {
+    //       this.defaultVersion = this.versionsList[0].Title;
+    //       this.defaultVersionType = this.versionsList[0].VersionType;
+    //       const rowsFilteredByVersionType = this.rowsFromServerByUser.filter((el) => el.VersionType === this.defaultVersionType);
+    //       // this.rowsFromServerByUser = this.getLocalStorage();
+    //
+    //       console.log('---', rowsFilteredByVersionType);
+    //       // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
+    //       // console.log(rowsByVersionType);
+    //       // this.setLocalStorage(rowsByVersionType);
+    //       // console.log('from ls', this.getLocalStorage());
+    //       if (this.defaultVersion) {
+    //         this.showClearButton = true;
+    //       }
+    //
+    //     } else {
+    //       this.showNotificationContainer = true;
+    //       this.showClearButton = false;
+    //     }
+    //
+    //     // this.rowsFromServerByUser = this.getLocalStorage();
+    //   }
+    // });
   }
 
 
@@ -245,8 +245,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
 
             this.rowsFromServerByUser.forEach((item) => {
               item.checked = false;
-
-
               this.countries.push(item.Country);
             });
             this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
@@ -254,13 +252,42 @@ export class HellopnpjsWebPartComponent implements OnInit {
         });
 
       });
-      if (this.getLocalStorage() === null) {
-        this.setLocalStorage(this.rowsFromServerByUser);
+      // this.getVersionsManagementList(this.rowsFromServerByUser);
 
-      } else {
-        const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(el => el.VersionType === this.defaultVersionType);
-        this.setLocalStorage(rowsFilteredByVersionType);
-      }
+      // if (this.getLocalStorage() === null) {
+      //   this.setLocalStorage(this.rowsFromServerByUser);
+      //
+      // } else {
+      //   const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(el => el.VersionType === this.defaultVersionType);
+      //   this.setLocalStorage(rowsFilteredByVersionType);
+      // }
+      this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
+        if (res !== null && res !== undefined) {
+          this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
+          if (this.versionsList.length > 0) {
+            this.defaultVersion = this.versionsList[0].Title;
+            this.defaultVersionType = this.versionsList[0].VersionType;
+            this.rowsFromServerByUser = this.rowsFromServerByUser.filter((el) => el.VersionType === this.defaultVersionType);
+            this.setLocalStorage(this.rowsFromServerByUser);
+
+            console.log('---', this.rowsFromServerByUser);
+            // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
+            // console.log(rowsByVersionType);
+            // this.setLocalStorage(rowsByVersionType);
+            // console.log('from ls', this.getLocalStorage());
+            if (this.defaultVersion) {
+              this.showClearButton = true;
+            }
+
+          } else {
+            this.showNotificationContainer = true;
+            this.showClearButton = false;
+          }
+
+          // this.rowsFromServerByUser = this.getLocalStorage();
+        }
+      });
+
     }
 
 
@@ -748,14 +775,14 @@ export class HellopnpjsWebPartComponent implements OnInit {
    */
 
   setLocalStorage(rowsFromServerByUser: IRow[]) {
-    localStorage.setItem('update', JSON.stringify(rowsFromServerByUser));
+    localStorage.setItem('user__rows__by__version', JSON.stringify(rowsFromServerByUser));
   }
 
   /**
    * Get table data from LocalStorage
    */
   getLocalStorage() {
-    return JSON.parse(localStorage.getItem('update'));
+    return JSON.parse(localStorage.getItem('user__rows__by__version'));
   }
 
   /**
@@ -820,7 +847,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
     this.isShowDropDownForVersions = false;
     const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
     if (this.getLocalStorage() !== null) {
-      localStorage.removeItem('update');
+      localStorage.removeItem('user__rows__by__version');
       this.setLocalStorage(rowsFilteredByVersionType);
 
     }
