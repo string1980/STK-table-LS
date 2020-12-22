@@ -122,8 +122,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.serve" />
         <item itemvalue="npm.bundle" />
+        <item itemvalue="npm.serve" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.gulp" />
       </list>
@@ -167,7 +167,7 @@
       <workItem from="1607521580483" duration="12054000" />
       <workItem from="1607591982785" duration="17137000" />
       <workItem from="1607851298524" duration="7585000" />
-      <workItem from="1608553043563" duration="24070000" />
+      <workItem from="1608553043563" duration="28540000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -421,7 +421,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608629595311</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="fixing filter by version-type-2">
+      <created>1608643452110</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1608643452110</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -440,7 +447,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add result to local storage" />
     <MESSAGE value="add project" />
     <MESSAGE value="add calculations" />
     <MESSAGE value="write moreInfo to the table" />
@@ -465,6 +471,7 @@
     <MESSAGE value="fixing bugs" />
     <MESSAGE value="fixing bugs-2" />
     <MESSAGE value="fixing filter by version-type" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing filter by version-type" />
+    <MESSAGE value="fixing filter by version-type-2" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing filter by version-type-2" />
   </component>
 </project>

@@ -118,35 +118,35 @@ export class HellopnpjsWebPartComponent implements OnInit {
    * Get versions  from Sharepoint list 'Versions Management'
    */
 
-  getVersionsManagementList(rowsFromServerByUser) {
-    console.log(rowsFromServerByUser);
-    // this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
-    //   if (res !== null && res !== undefined) {
-    //     this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
-    //     if (this.versionsList.length > 0) {
-    //       this.defaultVersion = this.versionsList[0].Title;
-    //       this.defaultVersionType = this.versionsList[0].VersionType;
-    //       const rowsFilteredByVersionType = this.rowsFromServerByUser.filter((el) => el.VersionType === this.defaultVersionType);
-    //       // this.rowsFromServerByUser = this.getLocalStorage();
-    //
-    //       console.log('---', rowsFilteredByVersionType);
-    //       // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
-    //       // console.log(rowsByVersionType);
-    //       // this.setLocalStorage(rowsByVersionType);
-    //       // console.log('from ls', this.getLocalStorage());
-    //       if (this.defaultVersion) {
-    //         this.showClearButton = true;
-    //       }
-    //
-    //     } else {
-    //       this.showNotificationContainer = true;
-    //       this.showClearButton = false;
-    //     }
-    //
-    //     // this.rowsFromServerByUser = this.getLocalStorage();
-    //   }
-    // });
-  }
+  // getVersionsManagementList(rowsFromServerByUser) {
+  //   console.log(rowsFromServerByUser);
+  //   // this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
+  //   //   if (res !== null && res !== undefined) {
+  //   //     this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
+  //   //     if (this.versionsList.length > 0) {
+  //   //       this.defaultVersion = this.versionsList[0].Title;
+  //   //       this.defaultVersionType = this.versionsList[0].VersionType;
+  //   //       const rowsFilteredByVersionType = this.rowsFromServerByUser.filter((el) => el.VersionType === this.defaultVersionType);
+  //   //       // this.rowsFromServerByUser = this.getLocalStorage();
+  //   //
+  //   //       console.log('---', rowsFilteredByVersionType);
+  //   //       // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
+  //   //       // console.log(rowsByVersionType);
+  //   //       // this.setLocalStorage(rowsByVersionType);
+  //   //       // console.log('from ls', this.getLocalStorage());
+  //   //       if (this.defaultVersion) {
+  //   //         this.showClearButton = true;
+  //   //       }
+  //   //
+  //   //     } else {
+  //   //       this.showNotificationContainer = true;
+  //   //       this.showClearButton = false;
+  //   //     }
+  //   //
+  //   //     // this.rowsFromServerByUser = this.getLocalStorage();
+  //   //   }
+  //   // });
+  // }
 
 
   /**
@@ -263,6 +263,12 @@ export class HellopnpjsWebPartComponent implements OnInit {
       // }
 
     }
+    this.getVersionsManagementList();
+
+
+  }
+
+  getVersionsManagementList() {
     this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
       if (res !== null && res !== undefined) {
         this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
@@ -273,7 +279,6 @@ export class HellopnpjsWebPartComponent implements OnInit {
           this.rowsFromServerByUser = this.rowsFromServerByUser.filter((el) => el.VersionType === this.defaultVersionType);
           this.setLocalStorage(this.rowsFromServerByUser);
 
-          console.log('---', this.rowsFromServerByUser);
           // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
           // console.log(rowsByVersionType);
           // this.setLocalStorage(rowsByVersionType);
@@ -291,8 +296,8 @@ export class HellopnpjsWebPartComponent implements OnInit {
       }
     });
 
-
   }
+
 
   /**
    * Get user from Sharepoint
@@ -677,7 +682,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
       }
       this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
         if (res !== null && res !== undefined) {
-          console.log('versions list', res);
+          // console.log('versions list', res);
           this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
           this.defaultVersion = this.versionsList[0].Title;
           this.defaultVersionType = this.versionsList[0].VersionType;
@@ -685,7 +690,7 @@ export class HellopnpjsWebPartComponent implements OnInit {
           this.setLocalStorage(this.rowsFromServerByUser);
 
 
-          console.log('---', this.rowsFromServerByUser);
+          // console.log('---', this.rowsFromServerByUser);
           // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
           // console.log(rowsByVersionType);
           // this.setLocalStorage(rowsByVersionType);
@@ -874,48 +879,103 @@ export class HellopnpjsWebPartComponent implements OnInit {
       this.showClearButton = true;
       this.selectedVersionTitle = this.selectedVersion.Title;
       this.selectedVersionType = this.selectedVersion.VersionType;
-      console.log('on select version type', this.selectedVersionType);
-      // this.defaultVersion = this.selectedVersionTitle;
-      // this.defaultVersionType = this.selectedVersionType;
-      this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
-        if (res !== null && res !== undefined) {
-          this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available').filter(i=> i.VersionType === this.selectedVersionType);
-          console.log('versions list', this.versionsList);
-          this.rowsFromServerByUser = [];
-          // this.getAllListItems();
-          console.log('--row by user',this.rowsFromServerByUser);
+      this.defaultVersion = this.selectedVersionTitle;
+      this.defaultVersionType = this.selectedVersionType;
 
-          const rowsByVersionType = this.versionsList.filter(row => row.VersionType === this.selectedVersionType);
-          console.log('rowsByVersionType', rowsByVersionType);
-          // this.setLocalStorage(rowsByVersionType);
-          // this.defaultVersion = this.versionsList[0].Title;
-          // this.defaultVersionType = this.versionsList[0].VersionType;
-          // this.rowsFromServerByUser = this.rowsFromServerByUser.filter((el) => el.VersionType ===  this.selectedVersionType);
-          // this.setLocalStorage(this.rowsFromServerByUser);
+      this.testListService.getAllItems().then(res => {
+        if (res.length > 0) {
+          res.forEach(row => {
+            row.UsersId.forEach(id => {
+              if (id === this.currentUser.Id) {
+                this.rowsFromServerByUser.push(row);
+
+                this.rowsFromServerByUser.forEach((item) => {
+                  item.checked = false;
+                  this.countries.push(item.Country);
+                });
+                this.countries = this.countries.filter((el, index) => this.countries.indexOf(el) === index);
+              }
+            });
 
 
-          // console.log('on select version', this.rowsFromServerByUser);
-          // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
-          // console.log(rowsByVersionType);
-          // this.setLocalStorage(rowsByVersionType);
-          // console.log('from ls', this.getLocalStorage());
-          if (this.defaultVersion) {
-            this.showClearButton = true;
-          }
+          });
 
-        } else {
-          this.showNotificationContainer = true;
-          this.showClearButton = false;
+          // this.getVersionsManagementList(this.rowsFromServerByUser);
+
+          // if (this.getLocalStorage() === null) {
+          //   this.setLocalStorage(this.rowsFromServerByUser);
+          //
+          // } else {
+          //   const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(el => el.VersionType === this.defaultVersionType);
+          //   this.setLocalStorage(rowsFilteredByVersionType);
+          // }
+
         }
+        this.rowsFromServerByUser = this.rowsFromServerByUser.filter(el => el.VersionType === this.selectedVersionType);
+        this.setLocalStorage(this.rowsFromServerByUser);
 
-        // this.rowsFromServerByUser = this.getLocalStorage();
 
       });
+      this.isShowDropDownForVersions = false;
+      if (this.defaultVersion) {
+        this.showClearButton = true;
 
-      const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.selectedVersion.VersionType);
-      console.log('rowsFilteredByVersionType', rowsFilteredByVersionType);
+
+      } else {
+        this.showNotificationContainer = true;
+        this.showClearButton = false;
+      }
+      // this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
+      //   if (res !== null && res !== undefined) {
+      //     this.versionsList = res.filter((row) => row.TheReleventList === 'Sales' && row.FormStatus === 'Available');
+      //     if (this.versionsList.length > 0) {
+      //       // this.defaultVersion = this.versionsList[0].Title;
+      //       // console.log('default version', this.defaultVersion);
+      //       // this.defaultVersionType = this.versionsList[0].VersionType;
+      //       // this.rowsFromServerByUser = this.rowsFromServerByUser.filter((el) => el.VersionType === this.selectedVersionType);
+      //       // this.setLocalStorage(this.rowsFromServerByUser);
+      //
+      //       console.log('---rows', this.rowsFromServerByUser);
+      //       // const rowsByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.defaultVersionType);
+      //       // console.log(rowsByVersionType);
+      //       // this.setLocalStorage(rowsByVersionType);
+      //       // console.log('from ls', this.getLocalStorage());
+      //       if (this.defaultVersion) {
+      //         this.showClearButton = true;
+      //       }
+      //
+      //     } else {
+      //       this.showNotificationContainer = true;
+      //       this.showClearButton = false;
+      //     }
+      //
+      //     // this.rowsFromServerByUser = this.getLocalStorage();
+      //   }
+      // });
+
+      // console.log('on select version type', this.selectedVersionType);
+      // this.defaultVersion = this.selectedVersionTitle;
+      // this.defaultVersionType = this.selectedVersionType;
+      // this.testListService.getVersionsManagementItems().then((res: IVersionManagement[]) => {
+      //   if (res !== null && res !== undefined) {
+      //
+      //     if (this.defaultVersion) {
+      //       this.showClearButton = true;
+      //     }
+      //
+      //   } else {
+      //     this.showNotificationContainer = true;
+      //     this.showClearButton = false;
+      //   }
+      //
+      //   // this.rowsFromServerByUser = this.getLocalStorage();
+      //
+      // });
+
+      // const rowsFilteredByVersionType = this.rowsFromServerByUser.filter(row => row.VersionType === this.selectedVersion.VersionType);
+      // console.log('rowsFilteredByVersionType', rowsFilteredByVersionType);
     }
-    this.isShowDropDownForVersions = false;
+    // this.isShowDropDownForVersions = false;
     // TODO: filter by version type
     // if (this.getLocalStorage() !== null) {
     //   localStorage.removeItem('user__rows__by__version');

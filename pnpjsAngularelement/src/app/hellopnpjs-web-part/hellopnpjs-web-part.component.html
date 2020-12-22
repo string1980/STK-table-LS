@@ -126,7 +126,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry |byVersionType: defaultVersionType;let i=index;trackBy: customTrackBy"
+      <tr *ngFor="let row of rowsFromServerByUser | byCountry: selectedCountry |byVersionType: defaultVersionType ;let i=index;trackBy: customTrackBy"
           [ngClass]="{'selected': checkboxRef.checked === true} " class="row-1">
 
         <td>
