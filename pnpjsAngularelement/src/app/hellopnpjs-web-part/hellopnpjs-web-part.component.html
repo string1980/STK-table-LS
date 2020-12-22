@@ -5,7 +5,7 @@
     <div class="form-group version">
       <label for="version">Version</label>
       <input type="text" class="form-control"
-             [(ngModel)]="defaultVersion" *ngIf="!selectedVersion && versionsList.length> 0;else showSelectedVersion" name="Version"
+             [(ngModel)]="defaultVersion" *ngIf="defaultVersion;else showSelectedVersion" name="Version"
              (click)="this.isShowDropDownForVersions = true"
              id="version" aria-describedby="emailHelp" >
 
