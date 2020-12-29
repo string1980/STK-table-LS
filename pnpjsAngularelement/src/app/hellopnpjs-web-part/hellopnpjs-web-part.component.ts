@@ -606,10 +606,12 @@ export class HellopnpjsWebPartComponent implements OnInit {
       comment
 
     };
+    this.uuidValue = UUID.UUID();
+    //
     this.selectedRows.forEach((row) => {
       row.RowUuID = this.uuidValue;
       row.MasterDataID = row.ID;
-
+      console.log('rowUuid', row.RowUuID);
       // row.Title = this.defaultVersion || this.selectedVersionTitle;
       row.Version = this.defaultVersion || this.selectedVersionTitle;
       row.VersionType = this.defaultVersionType || this.selectedVersion.VersionType;

@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="577252ee-b6db-4fbc-9c5f-3b2ed7aaf67c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pnpjsAngularelement/src/app/hellopnpjs-web-part/hellopnpjs-web-part.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +44,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1hoZy37nFkuJZTEwD73CBQJt7lI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -167,7 +167,8 @@
       <workItem from="1607521580483" duration="12054000" />
       <workItem from="1607591982785" duration="17137000" />
       <workItem from="1607851298524" duration="7585000" />
-      <workItem from="1608553043563" duration="31227000" />
+      <workItem from="1608553043563" duration="33651000" />
+      <workItem from="1609253313484" duration="29000" />
     </task>
     <task id="LOCAL-00001" summary="adding project">
       <created>1600839466670</created>
@@ -435,7 +436,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608648485025</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="fixing filter by version-type-4">
+      <created>1608651375044</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1608651375044</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,7 +462,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add calculations" />
     <MESSAGE value="write moreInfo to the table" />
     <MESSAGE value="adding format to numbers (fixed(3)" />
     <MESSAGE value="fixing checkbox &#10;adding sorting &#10;add sort icon" />
@@ -479,6 +486,7 @@
     <MESSAGE value="fixing filter by version-type" />
     <MESSAGE value="fixing filter by version-type-2" />
     <MESSAGE value="fixing filter by version-type-3" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing filter by version-type-3" />
+    <MESSAGE value="fixing filter by version-type-4" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing filter by version-type-4" />
   </component>
 </project>
